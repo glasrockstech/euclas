@@ -70,7 +70,7 @@ This is the sole active task checklist; F02.1–6 refine the existing F02 node, 
 - [x] P2: Close normative owner mapping and official source/candidate/OS-API facts with qualification limits.
 - [x] P3: Complete minimum packet, ordered bounded increments, canonical-owner gates and full command/fault matrix; static document checks only.
 - [x] P4: Exact technical head `7217f24ab1110b48bdb56d532e2645e452487b3f` independently reviewed: security PASS and recovery PASS, zero necessary findings; [receipts](f02-evidence.md#independent-exact-source-review-receipts). Later metadata-only commits do not change that technical acceptance scope.
-- [ ] P5: Coordinator verifies actual public remote visibility, pushes only `codex/f02-plan`, creates draft PR and records exact remote head/URL/handoff; no main merge.
+- [x] P5: Coordinator verified public visibility, pushed `codex/f02-plan` and independently matched remote head `9fc2cf45b21b2b34263cc28a68b9536855741244`; [draft PR #1](https://github.com/glasrockstech/euclas/pull/1) OPEN/draft/unmerged, main unchanged at the base. Final receipt-only metadata push/latest-head check remains coordinator-owned at handoff; no implementation or main merge.
 
 Recommended first implementation request: **F02.1 native protected-key TLS qualification**, two owned native peers on a declared Mac candidate tuple, no Electron window/DB/CP5 mutating endpoint/dispatcher. Prove actual nonexportable per-component key use through pinned TLS1.3 mTLS, protected inherited bootstrap/live binary-role binding and real denial/crash/cleanup behavior. Missing entitlement/signing profile, key-to-TLS bridge or same-user isolation blocks the candidate; no PEM/fixture UUID substitute. This experiment requires separate implementation/resource authorization; the candidate APIs are not qualified.
 
@@ -78,7 +78,7 @@ Ordered later work: F02.2 native Instance lock/current peer/bootstrap/inspect �
 
 F02 base exit is native app-bounded pre-sign-in behavior; no fake Account/Actor/session/harness/provider readiness. Prepare/reattach deny unavailable human maintenance authority until F03/F04. F10 still requires actual same-controller ready-new-UI-before-old-exit continuity with real ongoing work, signed R02 components and F03/F04 authority; R10 owns broader upgrades. This avoids adding an F02→F04/F10 dependency cycle while preserving full update acceptance. Windows remains an initial-release target; the native Schannel candidate requires Windows11+ qualification, not an inferred Electron Windows10 support promise. R02 retains clean signed no-developer-tool distribution on each declared Mac/Windows tuple.
 
-Current author session continues through packet/review fixes. Recommend a fresh author context only for separately authorized F02.1, arranged by coordinator; the founder need not create reviewers or select reversible engineering details.
+F02 PLAN ONLY gates P1–P5 are complete; final receipt metadata is handed to coordinator for push/latest-head synchronization. Current planning writer stops after that handoff. Recommend a fresh author context for separately authorized F02.1 from the latest PR head on `codex/f02.1`, without merging main; the founder need not create reviewers or select reversible engineering details. See [copyable authorization proposal](prompts.md#f02-plan-only-handoff).
 
 ## Human prerequisites
 

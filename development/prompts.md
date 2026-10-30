@@ -69,7 +69,7 @@ F01b is accepted at source `ca41da8e7e0fd39ea61a74660cfeba5380c53b7f`, integrate
 
 ## F02 plan-only handoff
 
-F02 planning worktree: `/Users/ckuo/orca/workspaces/euclas/f02-plan`, branch `codex/f02-plan`, base `e8f21ab01b5f1883a7c45cbef581332b2d577cd9`. Read [packet](f02.md), [planning evidence](f02-evidence.md), [progress](progress.md) and [overview](overview.zh-TW.md) on that branch without requiring a main merge. The coordinator owns exact-head independent security/recovery review, actual remote visibility verification, authorized branch push/draft PR and final remote receipt. Review/PR approval does not grant implementation or main integration.
+F02 planning worktree: `/Users/ckuo/orca/workspaces/euclas/f02-plan`, branch `codex/f02-plan`, base `e8f21ab01b5f1883a7c45cbef581332b2d577cd9`. Read [packet](f02.md), [planning evidence](f02-evidence.md), [progress](progress.md) and [overview](overview.zh-TW.md) on that branch without requiring a main merge. Technical head `7217f24ab1110b48bdb56d532e2645e452487b3f` passed independent security/recovery review. [Draft PR #1](https://github.com/glasrockstech/euclas/pull/1) is OPEN/draft/unmerged; initial remote metadata head `9fc2cf45b21b2b34263cc28a68b9536855741244` was independently verified. Coordinator owns the subsequent final receipt-only metadata push/latest-head check. Review/PR approval does not grant implementation or main integration.
 
 Recommended next prompt (a proposal, **not current authorization**):
 
@@ -83,4 +83,4 @@ Recommended next prompt (a proposal, **not current authorization**):
 若平台在這個既定範圍內無法提供所需 entitlement／profile，先完成其餘安全可逆準備，以具體官方證據及已完成／未執行項目列出真正 blocker；只有需要創辦人處理的外部身分／付費動作才提問，不以未通過 adapter 啟動後續 consumer。完成此增量即交接，繁中回報實際來源／命令／限制、分子分母、下一步可複製 prompt 與 Session 建議。
 ```
 
-Session: **new session recommended** for implementation after its explicit authorization; use the current planning author only for this packet's exact-head review fixes. Preserve branch/source/receipts and pass the actual final reviewed SHA/draft PR URL from progress, never assume the base/checkpoint is the final review head.
+Session: **new session recommended** for implementation after the founder selects the explicit authorization proposal; current planning author stops after the receipt-only handoff and coordinator finishes final remote synchronization. Create `codex/f02.1` from the latest verified draft PR head, without merging main. Preserve branch/source/receipts and pass the actual final reviewed SHA/draft PR URL from progress, never assume the base/checkpoint is the final review head.
