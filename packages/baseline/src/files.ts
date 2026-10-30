@@ -2,7 +2,7 @@ import { lstat, realpath, readFile, readdir } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { resolve, parse, join } from 'node:path';
 import { admit } from './types.ts';
-import type { Request, Environment } from './types.ts';
+import type { Request, Environment, Authority, State } from './types.ts';
 
 export const hash = (bytes: string | Buffer) => `sha256:${createHash('sha256').update(bytes).digest('hex')}`;
 
@@ -36,7 +36,7 @@ export async function json(path: string): Promise<unknown> {
   catch { throw new Error('invalid_file'); }
 }
 
-export async function context(input: unknown, configuration: unknown) {
+export async function context(input: unknown, configuration: unknown): Promise<{ request: Request; environment: Environment; authority: Authority }> {
   const request = admit('https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_initialize_request', input);
   const environment = admit('https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_environment', configuration);
   const authority = admit('https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_authority', await json(environment.authority_path));
@@ -47,7 +47,7 @@ export async function context(input: unknown, configuration: unknown) {
   return { request, environment, authority };
 }
 
-export async function stateAt(request: Request, environment: Environment) {
+export async function stateAt(request: Request, environment: Environment): Promise<State | null> {
   const entries = await readdir(environment.root_path);
   if (entries.length === 0) return null;
   if (!entries.includes('journal.json') || entries.some(name => !['journal.json', 'staging', 'installation.json'].includes(name))) {
