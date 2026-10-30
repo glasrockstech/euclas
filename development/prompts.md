@@ -4,7 +4,7 @@ Open `/Volumes/data/glasrocks/products/euclas` as the project. Use the following
 
 ## Session policy
 
-Communicate in Traditional Chinese. At each milestone/handoff explicitly report `Session: continue | new session recommended | new session required`, with a reason and a handoff link. The founder should not have to infer when context should be reset.
+Communicate in Traditional Chinese. At each milestone/handoff explicitly report `Session: continue | new session recommended | new session required`, with a reason and a handoff link. The founder should not have to infer when context should be reset. Always end milestone/advisory replies with one recommended, copyable next prompt and a session recommendation. Clearly distinguish a proposed future prompt from currently granted authority; never execute the proposed next scope until the founder selects it.
 
 Continue the same implementer session for fixes within one slice. Recommend a new implementer session when starting a new slice or moving from broad preparation into implementation. Require a handoff before a different writer/worktree takes ownership or when the current session cannot reliably preserve the exact source, authority and acceptance context. A new session never grants new authority. Independent review uses a fresh context arranged by the coordinator; the founder need not manually create every reviewer session.
 
