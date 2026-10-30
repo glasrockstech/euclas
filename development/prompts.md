@@ -50,7 +50,7 @@ F01b is accepted at source `ca41da8e7e0fd39ea61a74660cfeba5380c53b7f`, integrate
 
 保留第一個完整切片：桌面登入→持續性助理接任務→實際合格執行→產生持久文件→正式驗證／真人確認→重開讀回同一版本。完整首版的 Windows、真人、原生手機、Plugin、聊天、雙 harness／本地雲端資格及長工作更新都保留。
 
-先核對本機現況與 progress 授權，按 plan.md 接續下一個 dependency-ready 切片；F01 已關閉；F02 只是 dependency-ready，尚未開始或取得實作授權。先核對本輪是否已明確選定並授權新切片；沒有就只作必要唯讀準備並回報，不因模板存在而啟動 runtime。不要重做已接受的 F01a／F01b 或整份規劃。已有授權不重問；先完成可逆、唯讀的版本／資源／介面／驗收準備，實際操作遵守 progress 的適用範圍，只有確實需要使用者介入才提出一個具體問題。
+先核對本機現況與 progress 授權，按 plan.md 接續下一個 dependency-ready 切片；F01 已關閉；F02 目前僅 PLAN ONLY 規劃獲授權；請讀 development/f02.md、f02-evidence.md 與 progress 的規劃分支關卡，尚未取得實作授權。先核對本輪是否已明確選定並授權新切片；沒有就只作必要唯讀準備並回報，不因模板存在而啟動 runtime。不要重做已接受的 F01a／F01b 或整份規劃。已有授權不重問；先完成可逆、唯讀的版本／資源／介面／驗收準備，實際操作遵守 progress 的適用範圍，只有確實需要使用者介入才提出一個具體問題。
 
 一個共享區域一個 writer。遵守安全、恢復、allowed/denied/stale/duplicate/crash 驗收；不降低測試、不捏造完成。既有本機環境與 Git 權限依 progress 延用；DB／Electron／供應商實驗、對外帳號動作與發布各依實際 scope，不因模板存在而開始。額外支出0，不讀憑證。更新 progress 與 overview 的實際比例，並用繁中說明成果／限制及 Session：繼續、建議新開或必須新開，附交接理由與路徑。
 ```
@@ -66,3 +66,21 @@ F01b is accepted at source `ca41da8e7e0fd39ea61a74660cfeba5380c53b7f`, integrate
 ```text
 唯讀審查指定切片／差異及其真實需求、契約、相關程式與檢查證據。找安全、恢復、權限、版本／副作用、需求遺漏與不實完成宣稱。報告可重現問題及精確位置；不修改、不降低驗收、不擴大實作或自行整合。靜態檢查不是產品 runtime 驗收。
 ```
+
+## F02 plan-only handoff
+
+F02 planning worktree: `/Users/ckuo/orca/workspaces/euclas/f02-plan`, branch `codex/f02-plan`, base `e8f21ab01b5f1883a7c45cbef581332b2d577cd9`. Read [packet](f02.md), [planning evidence](f02-evidence.md), [progress](progress.md) and [overview](overview.zh-TW.md) on that branch without requiring a main merge. Technical head `7217f24ab1110b48bdb56d532e2645e452487b3f` passed independent security/recovery review. [Draft PR #1](https://github.com/glasrockstech/euclas/pull/1) is OPEN/draft/unmerged; initial remote metadata head `9fc2cf45b21b2b34263cc28a68b9536855741244` was independently verified. Coordinator owns the subsequent final receipt-only metadata push/latest-head check. Review/PR approval does not grant implementation or main integration.
+
+Recommended next prompt (a proposal, **not current authorization**):
+
+```text
+請開始 Euclas F02.1 原生 protected-key TLS 最小資格增量。以這份 F02 規劃 draft PR 的最終 head（由 development/progress.md 與遠端 PR 收據核對）建立新的 codex/f02.1 分支／Orca 工作樹，不 merge main。先讀 README.md、AGENTS.md、design/README.md、CONTEXT.md、development/progress.md、plan.md、f02.md、f02-evidence.md 及其 owners；沿用已接受 F01a／F01b，由協調者安排新的唯一作者及精確來源獨立安全／復原審查。
+
+我授權本增量內的唯讀版本／官方來源資格查核、精確版本／來源／授權／artifact／腳本／資源完成資格查核後的專案內必要最小安裝與 native 編譯／測試、兩個 exact-owned 原生 probe、全新專用 synthetic key namespace 的建立／使用／精確清理、真實 pinned TLS1.3 mTLS／拒絕／重播／crash 測試、必要的既有 canonical owner 前置更新及生成等價檢查、Orca 唯一作者／獨立審查與本機 Git。沿用 f02.md 的私有資源／時間／磁碟／記憶體／清理上限，額外支出0。一般可逆範圍內細節自行解決，不重複確認。
+
+不讀取／重用／刪除既有 keychain items、身分或 DB；不操作 Apple／GitHub／其他帳號，不改全域 security 設定或 signing 身分；不啟動 Electron 產品、DB、provider、dispatcher 或下一切片，不遠端 push／merge。不因這個增量而取得 Account／Actor／session／maintenance 權限。實際 native key-to-TLS／元件隔離／inherited bootstrap 與 live binary-role 證據缺一不可，不降級成 PEM、fixture UUID 或同 UID 驗證。
+
+若平台在這個既定範圍內無法提供所需 entitlement／profile，先完成其餘安全可逆準備，以具體官方證據及已完成／未執行項目列出真正 blocker；只有需要創辦人處理的外部身分／付費動作才提問，不以未通過 adapter 啟動後續 consumer。完成此增量即交接，繁中回報實際來源／命令／限制、分子分母、下一步可複製 prompt 與 Session 建議。
+```
+
+Session: **new session recommended** for implementation after the founder selects the explicit authorization proposal; current planning author stops after the receipt-only handoff and coordinator finishes final remote synchronization. Create `codex/f02.1` from the latest verified draft PR head, without merging main. Preserve branch/source/receipts and pass the actual final reviewed SHA/draft PR URL from progress, never assume the base/checkpoint is the final review head.
