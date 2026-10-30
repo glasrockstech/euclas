@@ -1,0 +1,206 @@
+{
+  "schema_version": 1,
+  "work": {
+    "initial": "draft",
+    "terminal": [
+      "accepted",
+      "failed",
+      "cancelled"
+    ],
+    "edges": {
+      "draft": [
+        "clarifying",
+        "ready",
+        "cancelled"
+      ],
+      "clarifying": [
+        "ready",
+        "cancelled"
+      ],
+      "ready": [
+        "executing",
+        "clarifying",
+        "cancelled"
+      ],
+      "executing": [
+        "verifying",
+        "ready",
+        "clarifying",
+        "failed",
+        "cancelled"
+      ],
+      "verifying": [
+        "awaiting_acceptance",
+        "ready",
+        "clarifying",
+        "failed",
+        "cancelled"
+      ],
+      "awaiting_acceptance": [
+        "accepted",
+        "ready",
+        "clarifying",
+        "cancelled"
+      ],
+      "accepted": [
+        "ready",
+        "clarifying"
+      ],
+      "failed": [
+        "ready",
+        "clarifying",
+        "cancelled"
+      ],
+      "cancelled": [
+        "ready",
+        "clarifying"
+      ]
+    },
+    "notes": "accepted/failed/cancelled are terminal for their current work revision, reopen creates a new revision. Scope revision may reset active work only after fencing. Blockers are orthogonal."
+  },
+  "run": {
+    "initial": "queued",
+    "terminal": [
+      "succeeded",
+      "failed",
+      "cancelled"
+    ],
+    "edges": {
+      "queued": [
+        "running",
+        "cancelled"
+      ],
+      "running": [
+        "waiting",
+        "recovering",
+        "cancelling",
+        "succeeded",
+        "failed"
+      ],
+      "waiting": [
+        "running",
+        "recovering",
+        "cancelling",
+        "failed"
+      ],
+      "recovering": [
+        "running",
+        "waiting",
+        "cancelling",
+        "failed"
+      ],
+      "cancelling": [
+        "cancelled",
+        "failed"
+      ],
+      "succeeded": [],
+      "failed": [],
+      "cancelled": []
+    }
+  },
+  "guards": {
+    "start": [
+      "committed",
+      "dependencies_accepted",
+      "authorized",
+      "budget_reserved",
+      "executor_capable"
+    ],
+    "submit": [
+      "result_immutable",
+      "no_live_run",
+      "required_evidence_present"
+    ],
+    "accept": [
+      "authorized_acceptor",
+      "result_matches",
+      "criteria_match",
+      "evidence_passes"
+    ],
+    "dispatch": [
+      "lease_current",
+      "authorized",
+      "budget_reserved",
+      "target_matches"
+    ],
+    "resume": [
+      "lease_current",
+      "authorized",
+      "reconciled"
+    ],
+    "reopen": [
+      "authorized",
+      "new_work_revision"
+    ],
+    "record_evidence": [
+      "authorized_verifier",
+      "result_immutable",
+      "result_matches",
+      "criteria_match",
+      "no_live_run",
+      "state_executing_or_verifying"
+    ],
+    "verify": [
+      "state_verifying",
+      "authorized_verifier",
+      "result_matches",
+      "criteria_match",
+      "required_evidence_present"
+    ]
+  },
+  "goal": {
+    "initial": "draft",
+    "terminal": [
+      "achieved",
+      "abandoned"
+    ],
+    "edges": {
+      "draft": [
+        "active",
+        "abandoned"
+      ],
+      "active": [
+        "achieved",
+        "abandoned"
+      ],
+      "achieved": [],
+      "abandoned": []
+    }
+  },
+  "project": {
+    "initial": "planned",
+    "terminal": [
+      "completed",
+      "cancelled"
+    ],
+    "edges": {
+      "planned": [
+        "active",
+        "cancelled"
+      ],
+      "active": [
+        "completed",
+        "cancelled"
+      ],
+      "completed": [],
+      "cancelled": []
+    }
+  },
+  "responsibility": {
+    "initial": "active",
+    "terminal": [
+      "retired"
+    ],
+    "edges": {
+      "active": [
+        "paused",
+        "retired"
+      ],
+      "paused": [
+        "active",
+        "retired"
+      ],
+      "retired": []
+    }
+  }
+}

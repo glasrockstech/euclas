@@ -1,0 +1,722 @@
+[
+  {
+    "id": "GR-API-001",
+    "title": "Transport and concurrency",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-API-002",
+    "title": "Command catalog",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-API-003",
+    "title": "Queries, streams, and errors",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-ARCH-001",
+    "title": "Ownership",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-ARCH-002",
+    "title": "Repository and client contract",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-ARCH-003",
+    "title": "Data and integration paths",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-ARCH-004",
+    "title": "Desktop-first product and reusable engineering profiles",
+    "owner": "requirements.md",
+    "status": "user_confirmed"
+  },
+  {
+    "id": "GR-CASE-000",
+    "title": "Promise and availability discipline",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-CASE-001",
+    "title": "UC-01: Start a project",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-CASE-002",
+    "title": "UC-02: First content outcome",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-CASE-003",
+    "title": "UC-03: Weekly back-office review",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-CASE-004",
+    "title": "UC-04: Small studio coordination",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-CASE-005",
+    "title": "UC-05: Topic watch",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-CASE-006",
+    "title": "UC-06: Documents and deadlines",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-CASE-007",
+    "title": "UC-07: Learning continuity",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-CASE-008",
+    "title": "UC-08: Multilingual collaboration",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-CASE-009",
+    "title": "UC-09: Return to interrupted work",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-CASE-010",
+    "title": "UC-10: Weekly team briefing",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-CHAT-001",
+    "title": "Team home and visible conversation scope",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-CHAT-002",
+    "title": "Typed rich conversation content",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-CHAT-003",
+    "title": "Mobile reading and accessible data views",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-CHAT-004",
+    "title": "Expansion, focus and scoped selection",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-CHAT-005",
+    "title": "Structured outcomes and native exports",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-CHAT-006",
+    "title": "Imported files and source fidelity",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-CHAT-007",
+    "title": "Version, translation and acceptance relationships",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-CHAT-008",
+    "title": "Shared state, security and release evidence",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-DATA-001",
+    "title": "Common identity and revision rules",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-DATA-002",
+    "title": "Entities and relationships",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-DATA-003",
+    "title": "Integrity and handoff",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-DEPLOY-001",
+    "title": "Governed deployment and engineering profile readiness",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-DEPLOY-002",
+    "title": "Governed lifecycle and recovery across profiles",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-DESK-001",
+    "title": "Install without developer tooling",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-DESK-002",
+    "title": "Managed local OS, shared core",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-DESK-003",
+    "title": "Lifecycle, consent, and device availability",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-DESK-004",
+    "title": "Update, recovery, and uninstall",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-DESK-005",
+    "title": "Awake-time execution and return briefing",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-DESK-006",
+    "title": "Minimal hosted dependencies",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-DESK-007",
+    "title": "Paired mobile control of the local host",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-ENGINE-001",
+    "title": "Atomic orchestration and durable scheduling",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-ENGINE-002",
+    "title": "Checkpoint and recovery boundaries",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-ENGINE-003",
+    "title": "Approval delivery and races",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-ENGINE-004",
+    "title": "Retry, cancellation and side-effect ownership",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-ENGINE-005",
+    "title": "Workflow and application upgrades",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-ENGINE-006",
+    "title": "Backup, restore and authority transfer",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-ENGINE-007",
+    "title": "Deployment parity, visibility and G1 evidence",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-EXEC-001",
+    "title": "Run envelope and capability negotiation",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-EXEC-002",
+    "title": "Lease, fencing, and recovery",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-EXEC-003",
+    "title": "Retry and cancellation",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-EXEC-004",
+    "title": "Budget accounting",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-EXP-001",
+    "title": "EX-01: Install and know what this computer can do",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-EXP-002",
+    "title": "EX-02: Begin with an assistant and develop an organization",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-EXP-003",
+    "title": "EX-03: See and control each assistant's working space",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-EXP-004",
+    "title": "EX-04: Choose local, cloud or explicitly mixed intelligence",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-EXP-005",
+    "title": "EX-05: Build company knowledge that survives assistants",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-EXP-006",
+    "title": "EX-06: Add useful tools without becoming an integrator",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-EXP-007",
+    "title": "EX-07: Delegate a continuing business outcome",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-EXP-008",
+    "title": "EX-08: Delegate safely and take back control immediately",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-EXP-009",
+    "title": "EX-09: Know what happened, what it cost and what needs you",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-EXP-010",
+    "title": "EX-10: Keep the company when changing machines or AI",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-INT-001",
+    "title": "Adapter contracts",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-INT-002",
+    "title": "Repository work",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-INT-003",
+    "title": "Evaluation",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-KNOW-001",
+    "title": "Artifact consistency",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-KNOW-002",
+    "title": "Memory and Skills",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-KNOW-003",
+    "title": "Evidence and acceptance",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-KNOW-004",
+    "title": "Reports and attention",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-LANG-001",
+    "title": "Independent language preferences",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-LANG-002",
+    "title": "Originals, translation, and authority",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-LANG-003",
+    "title": "Interface and content rendering",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-LANG-004",
+    "title": "Search, formats, and accessibility",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-MAINT-001",
+    "title": "Signed release set and installation",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-MAINT-002",
+    "title": "Update transaction and maintenance journal",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-MAINT-003",
+    "title": "PostgreSQL/schema upgrades and rollback",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-MAINT-004",
+    "title": "Maintenance authorization and graphical recovery",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-ONB-001",
+    "title": "Start with an intention",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-ONB-002",
+    "title": "Begin with one assistant and commit scoped work",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-ONB-003",
+    "title": "Progressive access and first useful result",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-ONB-004",
+    "title": "Usability and promise release gates",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-OPS-001",
+    "title": "Desktop and optional hosted deployment",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-OPS-002",
+    "title": "Backup, restore, and portability",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-OPS-003",
+    "title": "Upgrade and migration",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-OPS-004",
+    "title": "Privacy, retention, and audit limits",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-OPS-005",
+    "title": "Operational visibility",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-PORT-001",
+    "title": "Consistent complete backup",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-PORT-002",
+    "title": "Encryption, destination and backup UX",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-PORT-003",
+    "title": "Isolated restore and verification",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-PORT-004",
+    "title": "Desktop to Server/Cloud migration",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-PORT-005",
+    "title": "One core across deployments",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-PROD-001",
+    "title": "Outcome and ownership",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-PROD-002",
+    "title": "First-release boundary",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-PROD-003",
+    "title": "Autonomy and direction",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-PROD-004",
+    "title": "Expansion boundary",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-PROD-005",
+    "title": "Outcome-led adoption",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-PROD-006",
+    "title": "Repeated user value and adoption evidence",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-PROD-007",
+    "title": "Private generated workspaces",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-RUNTIME-001",
+    "title": "PostgreSQL distribution and initialization",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-RUNTIME-002",
+    "title": "Process and privilege boundary",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-RUNTIME-003",
+    "title": "App-bounded operation and bounded restart",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-RUNTIME-004",
+    "title": "User-visible diagnostics and runtime contract",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-SEC-001",
+    "title": "Authenticate and isolate",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-SEC-002",
+    "title": "Approval and standing authority",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-SEC-003",
+    "title": "Untrusted content and sandbox",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-SEC-004",
+    "title": "Audit and recovery",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-SEC-005",
+    "title": "Desktop bootstrap and local trust",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-SEC-006",
+    "title": "Prioritized OpenShell qualification and conditional default",
+    "owner": "requirements.md",
+    "status": "user_confirmed"
+  },
+  {
+    "id": "GR-SUB-001",
+    "title": "Subscription-only mode and billing boundary",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-SUB-002",
+    "title": "Provider strategy and qualification",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-SUB-003",
+    "title": "Nonprogrammer connection and credential ownership",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-SUB-004",
+    "title": "Capability, quota and fair scheduling",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-SUB-005",
+    "title": "Exhaustion, recovery and explicit mode change",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-SUB-006",
+    "title": "G4 subscription outcome and deployment scope",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-SUB-007",
+    "title": "Early-access fallback",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-UX-001",
+    "title": "Navigation and scope",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-UX-002",
+    "title": "Work and decision clarity",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-UX-003",
+    "title": "Rich presentation and accessibility",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-UX-004",
+    "title": "Nontechnical entry and first result",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-WORK-001",
+    "title": "Commit a request",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-WORK-002",
+    "title": "Lifecycle and acceptance",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-WORK-003",
+    "title": "Scope and dependency changes",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  },
+  {
+    "id": "GR-WORK-004",
+    "title": "Continuing responsibility",
+    "owner": "requirements.md",
+    "status": "proposed_normative"
+  }
+]

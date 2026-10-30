@@ -1,0 +1,1243 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.euclas.invalid/contracts/runtime.schema.json",
+  "title": "Minimum-profile CP5 native runtime protocol v1",
+  "$comment": "mTLS peer authentication is outside JSON. Overlap-first update preserves an authenticated UI before old UI exit; expiry aborts preparation, not running work.",
+  "$defs": {
+    "limits": {
+      "type": "object",
+      "properties": {
+        "protocol_version": {
+          "const": 1
+        },
+        "max_frame_bytes": {
+          "const": 262144
+        },
+        "nonce_validity_seconds": {
+          "const": 60
+        },
+        "relaunch_intent_seconds": {
+          "const": 300
+        },
+        "update_mode": {
+          "const": "overlap_before_old_ui_exit"
+        },
+        "heartbeat_interval_seconds": {
+          "const": 5
+        },
+        "peer_loss_fence_seconds": {
+          "const": 15
+        }
+      },
+      "required": [
+        "protocol_version",
+        "max_frame_bytes",
+        "nonce_validity_seconds",
+        "relaunch_intent_seconds",
+        "update_mode",
+        "heartbeat_interval_seconds",
+        "peer_loss_fence_seconds"
+      ],
+      "additionalProperties": false
+    },
+    "version_set": {
+      "type": "object",
+      "properties": {
+        "ui_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "core_protocol_version": {
+          "const": 1
+        },
+        "supervisor_protocol_version": {
+          "const": 1
+        },
+        "worker_envelope_version": {
+          "const": 1
+        },
+        "checkpoint_versions": {
+          "type": "array",
+          "items": {
+            "const": 1
+          },
+          "minItems": 1,
+          "maxItems": 1,
+          "uniqueItems": true
+        },
+        "baseline_id": {
+          "const": "euclas-d92-v1"
+        },
+        "schema_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "harness_profile_hashes": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/hash"
+          },
+          "minItems": 0,
+          "maxItems": 16,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "ui_manifest_hash",
+        "core_protocol_version",
+        "supervisor_protocol_version",
+        "worker_envelope_version",
+        "checkpoint_versions",
+        "baseline_id",
+        "schema_revision",
+        "harness_profile_hashes"
+      ],
+      "additionalProperties": false
+    },
+    "runtime_status": {
+      "type": "object",
+      "properties": {
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "controller_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "ownership_epoch": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "state": {
+          "enum": [
+            "stopped",
+            "starting",
+            "ready",
+            "recovering",
+            "maintenance",
+            "needs_attention",
+            "stopping"
+          ]
+        },
+        "app_lifetime": {
+          "enum": [
+            "open",
+            "authorized_update_relaunch",
+            "closed"
+          ]
+        },
+        "stop_generation": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        },
+        "version_set": {
+          "$ref": "#/$defs/version_set"
+        },
+        "database_ready": {
+          "type": "boolean"
+        },
+        "core_ready": {
+          "type": "boolean"
+        },
+        "identity_ready": {
+          "type": "boolean"
+        },
+        "storage_ready": {
+          "type": "boolean"
+        },
+        "reconciliation_ready": {
+          "type": "boolean"
+        },
+        "worker_ready": {
+          "type": "boolean"
+        },
+        "dispatch_enabled": {
+          "type": "boolean"
+        },
+        "operation_id": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reason_codes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "live_ui_client_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/uuid"
+          },
+          "minItems": 0,
+          "maxItems": 2,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "instance_id",
+        "controller_id",
+        "ownership_epoch",
+        "revision",
+        "state",
+        "app_lifetime",
+        "stop_generation",
+        "version_set",
+        "database_ready",
+        "core_ready",
+        "identity_ready",
+        "storage_ready",
+        "reconciliation_ready",
+        "worker_ready",
+        "dispatch_enabled",
+        "operation_id",
+        "reason_codes",
+        "live_ui_client_ids"
+      ],
+      "additionalProperties": false
+    },
+    "initialization_journal": {
+      "type": "object",
+      "properties": {
+        "operation_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "controller_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "generation": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "data_location_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "data_root_identity_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "baseline_id": {
+          "const": "euclas-d92-v1"
+        },
+        "migration_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "stage": {
+          "enum": [
+            "planned",
+            "staging",
+            "database_initialized",
+            "schema_applied",
+            "marker_published",
+            "verified",
+            "failed"
+          ]
+        },
+        "installation_marker_hash": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/hash"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "last_safe_stage": {
+          "enum": [
+            "planned",
+            "staging",
+            "database_initialized",
+            "schema_applied",
+            "marker_published",
+            "verified"
+          ]
+        },
+        "receipt_id": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "updated_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        }
+      },
+      "required": [
+        "operation_id",
+        "instance_id",
+        "controller_id",
+        "generation",
+        "data_location_id",
+        "data_root_identity_hash",
+        "baseline_id",
+        "migration_manifest_hash",
+        "stage",
+        "installation_marker_hash",
+        "last_safe_stage",
+        "receipt_id",
+        "updated_at"
+      ],
+      "additionalProperties": false
+    },
+    "peer_binding": {
+      "type": "object",
+      "properties": {
+        "client_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "client_role": {
+          "enum": [
+            "desktop_main",
+            "core",
+            "worker",
+            "trusted_updater"
+          ]
+        },
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "controller_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "ownership_epoch": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "certificate_thumbprint": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "native_key_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "registered_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "revoked_at": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/instant"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "device_id": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "actor_session_id": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "client_id",
+        "client_role",
+        "instance_id",
+        "controller_id",
+        "ownership_epoch",
+        "certificate_thumbprint",
+        "native_key_ref",
+        "registered_at",
+        "revoked_at",
+        "device_id",
+        "actor_session_id"
+      ],
+      "additionalProperties": false
+    },
+    "relaunch_intent": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "controller_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "ownership_epoch": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "maintenance_operation_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "authorized_actor_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "device_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "source_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "target_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "source_protocol_version": {
+          "const": 1
+        },
+        "target_protocol_version": {
+          "const": 1
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "stop_generation": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        },
+        "reattach_challenge_verifier_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "state": {
+          "enum": [
+            "prepared",
+            "consumed",
+            "revoked",
+            "expired"
+          ]
+        },
+        "consumed_at": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/instant"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "attached_client_id": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "replacement_ui_ready_at": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/instant"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "replacement_client_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "replacement_certificate_thumbprint": {
+          "$ref": "common.schema.json#/$defs/hash"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "instance_id",
+        "controller_id",
+        "ownership_epoch",
+        "maintenance_operation_id",
+        "authorized_actor_id",
+        "device_id",
+        "source_manifest_hash",
+        "target_manifest_hash",
+        "source_protocol_version",
+        "target_protocol_version",
+        "created_at",
+        "expires_at",
+        "stop_generation",
+        "reattach_challenge_verifier_ref",
+        "state",
+        "consumed_at",
+        "attached_client_id",
+        "replacement_ui_ready_at",
+        "replacement_client_id",
+        "replacement_certificate_thumbprint"
+      ],
+      "additionalProperties": false
+    },
+    "request": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "protocol_version": {
+              "const": 1
+            },
+            "request_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "instance_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "controller_id": {
+              "oneOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "ownership_epoch": {
+              "$ref": "common.schema.json#/$defs/epoch"
+            },
+            "expected_revision": {
+              "$ref": "common.schema.json#/$defs/epoch"
+            },
+            "idempotency_key": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "nonce": {
+              "$ref": "common.schema.json#/$defs/opaque_secret"
+            },
+            "command": {
+              "const": "inspect"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {},
+              "required": [],
+              "additionalProperties": false
+            },
+            "authorization_permit": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "protocol_version",
+            "request_id",
+            "instance_id",
+            "controller_id",
+            "ownership_epoch",
+            "expected_revision",
+            "idempotency_key",
+            "nonce",
+            "command",
+            "payload",
+            "authorization_permit"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "protocol_version": {
+              "const": 1
+            },
+            "request_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "instance_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "controller_id": {
+              "oneOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "ownership_epoch": {
+              "$ref": "common.schema.json#/$defs/epoch"
+            },
+            "expected_revision": {
+              "$ref": "common.schema.json#/$defs/epoch"
+            },
+            "idempotency_key": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "nonce": {
+              "$ref": "common.schema.json#/$defs/opaque_secret"
+            },
+            "command": {
+              "const": "initialize"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "operation_id": {
+                  "$ref": "common.schema.json#/$defs/uuid"
+                },
+                "instance_id": {
+                  "$ref": "common.schema.json#/$defs/uuid"
+                },
+                "data_location_id": {
+                  "$ref": "common.schema.json#/$defs/uuid"
+                },
+                "baseline_id": {
+                  "const": "euclas-d92-v1"
+                },
+                "migration_manifest_hash": {
+                  "$ref": "common.schema.json#/$defs/hash"
+                }
+              },
+              "required": [
+                "operation_id",
+                "instance_id",
+                "data_location_id",
+                "baseline_id",
+                "migration_manifest_hash"
+              ],
+              "additionalProperties": false
+            },
+            "authorization_permit": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "protocol_version",
+            "request_id",
+            "instance_id",
+            "controller_id",
+            "ownership_epoch",
+            "expected_revision",
+            "idempotency_key",
+            "nonce",
+            "command",
+            "payload",
+            "authorization_permit"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "protocol_version": {
+              "const": 1
+            },
+            "request_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "instance_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "controller_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "ownership_epoch": {
+              "$ref": "common.schema.json#/$defs/revision"
+            },
+            "expected_revision": {
+              "$ref": "common.schema.json#/$defs/epoch"
+            },
+            "idempotency_key": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "nonce": {
+              "$ref": "common.schema.json#/$defs/opaque_secret"
+            },
+            "command": {
+              "const": "start"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "operation_id": {
+                  "$ref": "common.schema.json#/$defs/uuid"
+                },
+                "version_set": {
+                  "$ref": "#/$defs/version_set"
+                }
+              },
+              "required": [
+                "operation_id",
+                "version_set"
+              ],
+              "additionalProperties": false
+            },
+            "authorization_permit": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "protocol_version",
+            "request_id",
+            "instance_id",
+            "controller_id",
+            "ownership_epoch",
+            "expected_revision",
+            "idempotency_key",
+            "nonce",
+            "command",
+            "payload",
+            "authorization_permit"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "protocol_version": {
+              "const": 1
+            },
+            "request_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "instance_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "controller_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "ownership_epoch": {
+              "$ref": "common.schema.json#/$defs/revision"
+            },
+            "expected_revision": {
+              "const": 0
+            },
+            "idempotency_key": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "nonce": {
+              "$ref": "common.schema.json#/$defs/opaque_secret"
+            },
+            "command": {
+              "const": "stop"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "operation_id": {
+                  "$ref": "common.schema.json#/$defs/uuid"
+                },
+                "reason": {
+                  "enum": [
+                    "manual_quit",
+                    "manual_stop",
+                    "peer_loss",
+                    "host_unavailable"
+                  ]
+                }
+              },
+              "required": [
+                "operation_id",
+                "reason"
+              ],
+              "additionalProperties": false
+            },
+            "authorization_permit": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "protocol_version",
+            "request_id",
+            "instance_id",
+            "controller_id",
+            "ownership_epoch",
+            "expected_revision",
+            "idempotency_key",
+            "nonce",
+            "command",
+            "payload",
+            "authorization_permit"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "protocol_version": {
+              "const": 1
+            },
+            "request_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "instance_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "controller_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "ownership_epoch": {
+              "$ref": "common.schema.json#/$defs/revision"
+            },
+            "expected_revision": {
+              "$ref": "common.schema.json#/$defs/epoch"
+            },
+            "idempotency_key": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "nonce": {
+              "$ref": "common.schema.json#/$defs/opaque_secret"
+            },
+            "command": {
+              "const": "prepare_update_relaunch"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "maintenance_operation_id": {
+                  "$ref": "common.schema.json#/$defs/uuid"
+                },
+                "source_manifest_hash": {
+                  "$ref": "common.schema.json#/$defs/hash"
+                },
+                "target_manifest_hash": {
+                  "$ref": "common.schema.json#/$defs/hash"
+                },
+                "actor_session_id": {
+                  "$ref": "common.schema.json#/$defs/uuid"
+                },
+                "replacement_client_id": {
+                  "$ref": "common.schema.json#/$defs/uuid"
+                },
+                "replacement_certificate_thumbprint": {
+                  "$ref": "common.schema.json#/$defs/hash"
+                }
+              },
+              "required": [
+                "maintenance_operation_id",
+                "source_manifest_hash",
+                "target_manifest_hash",
+                "actor_session_id",
+                "replacement_client_id",
+                "replacement_certificate_thumbprint"
+              ],
+              "additionalProperties": false
+            },
+            "authorization_permit": {
+              "$ref": "common.schema.json#/$defs/compact_jws"
+            }
+          },
+          "required": [
+            "protocol_version",
+            "request_id",
+            "instance_id",
+            "controller_id",
+            "ownership_epoch",
+            "expected_revision",
+            "idempotency_key",
+            "nonce",
+            "command",
+            "payload",
+            "authorization_permit"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "protocol_version": {
+              "const": 1
+            },
+            "request_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "instance_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "controller_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "ownership_epoch": {
+              "$ref": "common.schema.json#/$defs/revision"
+            },
+            "expected_revision": {
+              "$ref": "common.schema.json#/$defs/epoch"
+            },
+            "idempotency_key": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "nonce": {
+              "$ref": "common.schema.json#/$defs/opaque_secret"
+            },
+            "command": {
+              "const": "reattach"
+            },
+            "payload": {
+              "type": "object",
+              "properties": {
+                "intent_id": {
+                  "$ref": "common.schema.json#/$defs/uuid"
+                },
+                "replacement_client_id": {
+                  "$ref": "common.schema.json#/$defs/uuid"
+                },
+                "target_manifest_hash": {
+                  "$ref": "common.schema.json#/$defs/hash"
+                },
+                "challenge_response": {
+                  "$ref": "common.schema.json#/$defs/compact_jws"
+                },
+                "actor_session_id": {
+                  "$ref": "common.schema.json#/$defs/uuid"
+                }
+              },
+              "required": [
+                "intent_id",
+                "replacement_client_id",
+                "target_manifest_hash",
+                "challenge_response",
+                "actor_session_id"
+              ],
+              "additionalProperties": false
+            },
+            "authorization_permit": {
+              "$ref": "common.schema.json#/$defs/compact_jws"
+            }
+          },
+          "required": [
+            "protocol_version",
+            "request_id",
+            "instance_id",
+            "controller_id",
+            "ownership_epoch",
+            "expected_revision",
+            "idempotency_key",
+            "nonce",
+            "command",
+            "payload",
+            "authorization_permit"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "response": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "protocol_version": {
+              "const": 1
+            },
+            "request_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "kind": {
+              "const": "success"
+            },
+            "receipt": {
+              "oneOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/command_response"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "status": {
+              "$ref": "#/$defs/runtime_status"
+            },
+            "stop_state": {
+              "enum": [
+                "not_requested",
+                "stop_requested",
+                "stopped"
+              ]
+            },
+            "intent_id": {
+              "oneOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "reattach_challenge": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/reattach_challenge"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "protocol_version",
+            "request_id",
+            "kind",
+            "receipt",
+            "status",
+            "stop_state",
+            "intent_id",
+            "reattach_challenge"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "protocol_version": {
+              "const": 1
+            },
+            "request_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "kind": {
+              "const": "error"
+            },
+            "error": {
+              "$ref": "common.schema.json#/$defs/error"
+            }
+          },
+          "required": [
+            "protocol_version",
+            "request_id",
+            "kind",
+            "error"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "reattach_challenge": {
+      "type": "object",
+      "properties": {
+        "intent_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "controller_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "ownership_epoch": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "nonce": {
+          "$ref": "common.schema.json#/$defs/opaque_secret"
+        },
+        "target_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "stop_generation": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        }
+      },
+      "required": [
+        "intent_id",
+        "controller_id",
+        "ownership_epoch",
+        "nonce",
+        "target_manifest_hash",
+        "stop_generation",
+        "expires_at"
+      ],
+      "additionalProperties": false
+    },
+    "reattach_claims": {
+      "type": "object",
+      "properties": {
+        "intent_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "request_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "replacement_client_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "controller_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "ownership_epoch": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "nonce": {
+          "$ref": "common.schema.json#/$defs/opaque_secret"
+        },
+        "target_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "stop_generation": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        },
+        "issued_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        }
+      },
+      "required": [
+        "intent_id",
+        "request_id",
+        "replacement_client_id",
+        "controller_id",
+        "ownership_epoch",
+        "nonce",
+        "target_manifest_hash",
+        "stop_generation",
+        "issued_at"
+      ],
+      "additionalProperties": false
+    },
+    "reattach_header": {
+      "type": "object",
+      "properties": {
+        "typ": {
+          "const": "euclas-reattach+jwt"
+        },
+        "alg": {
+          "const": "ES256"
+        },
+        "kid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        }
+      },
+      "required": [
+        "typ",
+        "alg",
+        "kid"
+      ],
+      "additionalProperties": false
+    },
+    "maintenance_permit_header": {
+      "type": "object",
+      "properties": {
+        "typ": {
+          "const": "euclas-maintenance-permit+jwt"
+        },
+        "alg": {
+          "const": "ES256"
+        },
+        "kid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        }
+      },
+      "required": [
+        "typ",
+        "alg",
+        "kid"
+      ],
+      "additionalProperties": false
+    },
+    "maintenance_permit_claims": {
+      "type": "object",
+      "properties": {
+        "iss": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "aud": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "sub": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "jti": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "iat": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "exp": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "device_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "actor_session_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "maintenance_operation_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "ownership_epoch": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "stop_generation": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        },
+        "source_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "target_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "replacement_client_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "replacement_certificate_thumbprint": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "action_digest": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "purpose": {
+          "enum": [
+            "prepare_update_relaunch",
+            "reattach"
+          ]
+        }
+      },
+      "required": [
+        "iss",
+        "aud",
+        "sub",
+        "jti",
+        "iat",
+        "exp",
+        "instance_id",
+        "device_id",
+        "actor_session_id",
+        "maintenance_operation_id",
+        "ownership_epoch",
+        "stop_generation",
+        "source_manifest_hash",
+        "target_manifest_hash",
+        "replacement_client_id",
+        "replacement_certificate_thumbprint",
+        "action_digest",
+        "purpose"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

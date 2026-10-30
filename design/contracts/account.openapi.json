@@ -1,0 +1,1744 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Euclas official Account First-slice boundary",
+    "version": "1.0.0",
+    "description": "Minimum-profile contract, not implemented. Example issuer is not a selected deployment. OAuth endpoints use standard OAuth errors; application endpoints share Euclas Error. Never store raw codes/tokens in logs."
+  },
+  "servers": [
+    {
+      "url": "https://accounts.example.test",
+      "description": "Reserved documentation example only; actual trusted issuer must be explicitly configured."
+    }
+  ],
+  "paths": {
+    "/.well-known/openid-configuration": {
+      "get": {
+        "operationId": "accountMetadata",
+        "x-required-action": "public.identity_metadata",
+        "parameters": [],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "identity.schema.json#/$defs/issuer_metadata"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/v1/jwks": {
+      "get": {
+        "operationId": "accountKeys",
+        "x-required-action": "public.identity_keys",
+        "parameters": [],
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "identity.schema.json#/$defs/jwks"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/v1/authorize": {
+      "get": {
+        "operationId": "accountAuthorize",
+        "x-required-action": "account.authorize",
+        "parameters": [
+          {
+            "name": "client_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "enum": [
+                "euclas.desktop",
+                "euclas.mobile"
+              ]
+            }
+          },
+          {
+            "name": "response_type",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "const": "code"
+            }
+          },
+          {
+            "name": "redirect_uri",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uri",
+              "maxLength": 2048
+            }
+          },
+          {
+            "name": "scope",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "const": "openid euclas.identity"
+            }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "common.schema.json#/$defs/opaque_secret"
+            }
+          },
+          {
+            "name": "nonce",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "common.schema.json#/$defs/opaque_secret"
+            }
+          },
+          {
+            "name": "code_challenge",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{43}$"
+            }
+          },
+          {
+            "name": "code_challenge_method",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "const": "S256"
+            }
+          },
+          {
+            "name": "dpop_jkt",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "common.schema.json#/$defs/jwk_thumbprint"
+            }
+          }
+        ],
+        "security": [],
+        "responses": {
+          "302": {
+            "description": "External-browser authorization code redirect only; exact registered redirect, state, PKCE and DPoP binding. No access/refresh token or OTP in URL.",
+            "headers": {
+              "Location": {
+                "schema": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "First-party Account sign-in/Email-code UI in the external browser; sets bounded pre-auth transaction cookie and CSRF.",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string",
+                  "maxLength": 262144
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/v1/email-challenges": {
+      "post": {
+        "operationId": "accountEmailChallenge",
+        "x-required-action": "account.email_challenge",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "common.schema.json#/$defs/opaque_secret"
+            }
+          }
+        ],
+        "security": [
+          {
+            "AccountBrowser": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "identity.schema.json#/$defs/email_challenge_view"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "identity.schema.json#/$defs/email_challenge_issue"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/v1/email-challenges/verify": {
+      "post": {
+        "operationId": "accountEmailVerify",
+        "x-required-action": "account.email_verify",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "common.schema.json#/$defs/opaque_secret"
+            }
+          }
+        ],
+        "security": [
+          {
+            "AccountBrowser": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "identity.schema.json#/$defs/verification_view"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "identity.schema.json#/$defs/email_challenge_verify"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/v1/token": {
+      "post": {
+        "operationId": "accountToken",
+        "x-required-action": "account.token_exchange",
+        "parameters": [
+          {
+            "name": "DPoP",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "common.schema.json#/$defs/compact_jws"
+            }
+          }
+        ],
+        "security": [
+          {
+            "OAuthClientProof": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "identity.schema.json#/$defs/token_response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "enum": [
+                        "invalid_request",
+                        "invalid_grant",
+                        "invalid_client",
+                        "invalid_scope",
+                        "unsupported_grant_type",
+                        "use_dpop_nonce",
+                        "temporarily_unavailable"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "enum": [
+                        "invalid_request",
+                        "invalid_grant",
+                        "invalid_client",
+                        "invalid_scope",
+                        "unsupported_grant_type",
+                        "use_dpop_nonce",
+                        "temporarily_unavailable"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "enum": [
+                        "invalid_request",
+                        "invalid_grant",
+                        "invalid_client",
+                        "invalid_scope",
+                        "unsupported_grant_type",
+                        "use_dpop_nonce",
+                        "temporarily_unavailable"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "enum": [
+                        "invalid_request",
+                        "invalid_grant",
+                        "invalid_client",
+                        "invalid_scope",
+                        "unsupported_grant_type",
+                        "use_dpop_nonce",
+                        "temporarily_unavailable"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "error"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "identity.schema.json#/$defs/authorization_code_exchange"
+                  },
+                  {
+                    "$ref": "identity.schema.json#/$defs/refresh_exchange"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/v1/identity-proofs": {
+      "post": {
+        "operationId": "accountInstanceProof",
+        "x-required-action": "account.instance_proof",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            }
+          },
+          {
+            "name": "DPoP",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "common.schema.json#/$defs/compact_jws"
+            }
+          }
+        ],
+        "security": [
+          {
+            "AccountDPoP": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "identity.schema.json#/$defs/proof_response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "identity.schema.json#/$defs/proof_request"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/v1/session": {
+      "get": {
+        "operationId": "accountSession",
+        "x-required-action": "account.session_read",
+        "parameters": [
+          {
+            "name": "DPoP",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "common.schema.json#/$defs/compact_jws"
+            }
+          }
+        ],
+        "security": [
+          {
+            "AccountDPoP": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "identity.schema.json#/$defs/account_session_view"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/v1/session/logout": {
+      "post": {
+        "operationId": "accountLogout",
+        "x-required-action": "account.session_revoke",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            }
+          },
+          {
+            "name": "DPoP",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "common.schema.json#/$defs/compact_jws"
+            }
+          }
+        ],
+        "security": [
+          {
+            "AccountDPoP": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/command_response"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "identity.schema.json#/$defs/revoke_request"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/v1/recovery-codes": {
+      "post": {
+        "operationId": "accountRecoveryCodes",
+        "x-required-action": "account.recovery_issue",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            }
+          },
+          {
+            "name": "DPoP",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "common.schema.json#/$defs/compact_jws"
+            }
+          }
+        ],
+        "security": [
+          {
+            "AccountDPoP": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "identity.schema.json#/$defs/recovery_codes_view"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "identity.schema.json#/$defs/recovery_codes_issue"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/v1/recovery-transactions": {
+      "post": {
+        "operationId": "accountRecoveryBegin",
+        "x-required-action": "account.recovery_begin",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            }
+          },
+          {
+            "name": "DPoP",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "common.schema.json#/$defs/compact_jws"
+            }
+          }
+        ],
+        "security": [
+          {
+            "OAuthClientProof": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "identity.schema.json#/$defs/recovery_begin_view"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "identity.schema.json#/$defs/recovery_begin"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/v1/recovery-transactions/complete": {
+      "post": {
+        "operationId": "accountRecoveryComplete",
+        "x-required-action": "account.recovery_complete",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            }
+          },
+          {
+            "name": "DPoP",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "common.schema.json#/$defs/compact_jws"
+            }
+          }
+        ],
+        "security": [
+          {
+            "OAuthClientProof": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "identity.schema.json#/$defs/recovery_result"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "identity.schema.json#/$defs/recovery_complete"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account/v1/recovery-code-confirmations": {
+      "post": {
+        "operationId": "accountRecoveryCodeConfirmation",
+        "x-required-action": "account.recovery_confirm",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            }
+          },
+          {
+            "name": "DPoP",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "$ref": "common.schema.json#/$defs/compact_jws"
+            }
+          }
+        ],
+        "security": [
+          {
+            "AccountDPoP": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "identity.schema.json#/$defs/recovery_confirmation_view"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Typed response; no authority is conferred by shape validation.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "common.schema.json#/$defs/error"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "identity.schema.json#/$defs/recovery_confirmation_request"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "AccountBrowser": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "__Host-euclas_account"
+      },
+      "AccountDPoP": {
+        "type": "http",
+        "scheme": "DPoP"
+      },
+      "OAuthClientProof": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "DPoP"
+      }
+    }
+  }
+}

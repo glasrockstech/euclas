@@ -1,0 +1,3041 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Euclas committed work foundation",
+    "version": "0.1.0",
+    "description": "Current scoped Work/Goal/Project/Responsibility commands, queries and history. This document specifies behavior, not an existing implementation. Current local authentication and errors are shared with the identity/profile contracts."
+  },
+  "servers": [
+    {
+      "url": "/api/v1"
+    }
+  ],
+  "paths": {
+    "/goals": {
+      "post": {
+        "operationId": "goal_create",
+        "x-command": "goal.create",
+        "x-required-action": "goal.manage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "shared-command.openapi.json#/components/schemas/GoalsCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "/goals/{id}": {
+      "get": {
+        "description": "Current scoped resource.read required; history is descending entity revision and accepts before_revision.",
+        "responses": {
+          "200": {
+            "description": "Scoped persisted projection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkDetail"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ]
+      }
+    },
+    "/goals/{id}/history": {
+      "get": {
+        "description": "Current scoped resource.read required; history is descending entity revision and accepts before_revision.",
+        "responses": {
+          "200": {
+            "description": "Scoped persisted projection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkHistory"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "before_revision",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ]
+      }
+    },
+    "/goals/{id}/revise": {
+      "post": {
+        "operationId": "goal_revise",
+        "x-command": "goal.revise",
+        "x-required-action": "goal.manage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "shared-command.openapi.json#/components/schemas/GoalsCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "/goals/{id}/transition": {
+      "post": {
+        "operationId": "goal_transition",
+        "x-command": "goal.transition",
+        "x-required-action": "goal.manage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GoalTransitionCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "/projects": {
+      "post": {
+        "operationId": "project_create",
+        "x-command": "project.create",
+        "x-required-action": "project.manage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "shared-command.openapi.json#/components/schemas/ProjectsCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "/projects/{id}": {
+      "get": {
+        "description": "Current scoped resource.read required; history is descending entity revision and accepts before_revision.",
+        "responses": {
+          "200": {
+            "description": "Scoped persisted projection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkDetail"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ]
+      }
+    },
+    "/projects/{id}/history": {
+      "get": {
+        "description": "Current scoped resource.read required; history is descending entity revision and accepts before_revision.",
+        "responses": {
+          "200": {
+            "description": "Scoped persisted projection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkHistory"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "before_revision",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ]
+      }
+    },
+    "/projects/{id}/revise": {
+      "post": {
+        "operationId": "project_revise",
+        "x-command": "project.revise",
+        "x-required-action": "project.manage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "shared-command.openapi.json#/components/schemas/ProjectsCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "/projects/{id}/transition": {
+      "post": {
+        "operationId": "project_transition",
+        "x-command": "project.transition",
+        "x-required-action": "project.manage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectTransitionCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "/responsibilities": {
+      "post": {
+        "operationId": "responsibility_create",
+        "x-command": "responsibility.create",
+        "x-required-action": "responsibility.manage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "shared-command.openapi.json#/components/schemas/ResponsibilitiesCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "/responsibilities/{id}": {
+      "get": {
+        "description": "Current scoped resource.read required; history is descending entity revision and accepts before_revision.",
+        "responses": {
+          "200": {
+            "description": "Scoped persisted projection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkDetail"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ]
+      }
+    },
+    "/responsibilities/{id}/history": {
+      "get": {
+        "description": "Current scoped resource.read required; history is descending entity revision and accepts before_revision.",
+        "responses": {
+          "200": {
+            "description": "Scoped persisted projection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkHistory"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "before_revision",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ]
+      }
+    },
+    "/responsibilities/{id}/revise": {
+      "post": {
+        "operationId": "responsibility_revise",
+        "x-command": "responsibility.revise",
+        "x-required-action": "responsibility.manage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "shared-command.openapi.json#/components/schemas/ResponsibilitiesCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "/responsibilities/{id}/transition": {
+      "post": {
+        "operationId": "responsibility_transition",
+        "x-command": "responsibility.transition",
+        "x-required-action": "responsibility.manage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResponsibilityTransitionCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "/work-items": {
+      "post": {
+        "operationId": "work_create",
+        "x-command": "work.create",
+        "x-required-action": "work.commit",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "shared-command.openapi.json#/components/schemas/WorkItemsCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "/work-items/{id}": {
+      "get": {
+        "description": "Current scoped resource.read required; history is descending entity revision and accepts before_revision.",
+        "responses": {
+          "200": {
+            "description": "Scoped persisted projection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkDetail"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ]
+      }
+    },
+    "/work-items/{id}/history": {
+      "get": {
+        "description": "Current scoped resource.read required; history is descending entity revision and accepts before_revision.",
+        "responses": {
+          "200": {
+            "description": "Scoped persisted projection",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WorkHistory"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "before_revision",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        ]
+      }
+    },
+    "/work-items/proposals": {
+      "post": {
+        "operationId": "work_propose",
+        "x-command": "work.propose",
+        "x-required-action": "work.propose",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkProposalCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "/work-items/{id}/commit": {
+      "post": {
+        "operationId": "work_commit",
+        "x-command": "work.commit",
+        "x-required-action": "work.commit",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkCommitCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "/work-items/{id}/revise": {
+      "post": {
+        "operationId": "work_revise",
+        "x-command": "work.revise",
+        "x-required-action": "work.manage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "shared-command.openapi.json#/components/schemas/WorkItemsByidReviseCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "/work-items/{id}/start": {
+      "post": {
+        "operationId": "work_start",
+        "x-command": "work.start",
+        "x-required-action": "work.execute",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "shared-command.openapi.json#/components/schemas/WorkItemsByidStartCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "/work-items/{id}/submit": {
+      "post": {
+        "operationId": "work_submit",
+        "x-command": "work.submit",
+        "x-required-action": "work.submit",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "shared-command.openapi.json#/components/schemas/WorkItemsByidSubmitCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "/work-items/{id}/verify": {
+      "post": {
+        "operationId": "work_verify",
+        "x-command": "work.verify",
+        "x-required-action": "work.verify",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "shared-command.openapi.json#/components/schemas/WorkItemsByidVerifyCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/EvidenceCommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "description": "Only in verifying. May record additional trusted evidence by the same recording rules; evaluate all required criteria from current registered evidence. Empty evidence array selects already recorded evidence. Pass advances only when every required criterion passes; fail returns to ready with findings. Recording before submit uses /evidence."
+      }
+    },
+    "/work-items/{id}/accept": {
+      "post": {
+        "operationId": "work_accept",
+        "x-command": "work.accept",
+        "x-required-action": "work.accept",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "shared-command.openapi.json#/components/schemas/WorkItemsByidAcceptCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "/work-items/{id}/reject": {
+      "post": {
+        "operationId": "work_reject",
+        "x-command": "work.reject",
+        "x-required-action": "work.accept",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "shared-command.openapi.json#/components/schemas/WorkItemsByidRejectCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "/work-items/{id}/reopen": {
+      "post": {
+        "operationId": "work_reopen",
+        "x-command": "work.reopen",
+        "x-required-action": "work.manage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "shared-command.openapi.json#/components/schemas/WorkItemsByidReopenCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "/work-items/{id}/cancel": {
+      "post": {
+        "operationId": "work_cancel",
+        "x-command": "work.cancel",
+        "x-required-action": "work.cancel",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "shared-command.openapi.json#/components/schemas/WorkItemsByidCancelCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "/work-items/{id}/dependencies": {
+      "post": {
+        "operationId": "work_dependencies",
+        "x-command": "work.dependencies",
+        "x-required-action": "work.manage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "shared-command.openapi.json#/components/schemas/WorkItemsByidDependenciesCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "/responsibilities/{id}/pause": {
+      "post": {
+        "operationId": "responsibility_pause",
+        "x-command": "responsibility.pause",
+        "x-required-action": "responsibility.manage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "shared-command.openapi.json#/components/schemas/ResponsibilitiesByidPauseCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "/responsibilities/{id}/resume": {
+      "post": {
+        "operationId": "responsibility_resume",
+        "x-command": "responsibility.resume",
+        "x-required-action": "responsibility.manage",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "shared-command.openapi.json#/components/schemas/ResponsibilitiesByidResumeCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ]
+      }
+    },
+    "/responsibilities/{id}/review": {
+      "post": {
+        "operationId": "responsibility_review",
+        "x-required-action": "responsibility.review",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "shared-command.openapi.json#/components/schemas/ResponsibilitiesByidReviewCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command result, including replay of same idempotency key",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "See api.md stable errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "See api.md stable errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "See api.md stable errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "See api.md stable errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "See api.md stable errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "See api.md stable errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "See api.md stable errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "See api.md stable errors",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        },
+        "x-command": "responsibility.review"
+      }
+    },
+    "/work-items/{id}/evidence": {
+      "post": {
+        "operationId": "work_record_evidence",
+        "x-command": "work.evidence.record",
+        "x-required-action": "work.verify",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "shared-command.openapi.json#/components/schemas/WorkEvidenceCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Atomic command receipt",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "shared-command.openapi.json#/components/schemas/EvidenceCommandResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Current authority denied"
+          },
+          "404": {
+            "description": "Unknown or invisible scope/reference"
+          },
+          "409": {
+            "description": "Stale revision, changed key or illegal transition"
+          },
+          "422": {
+            "description": "Invalid input or unavailable runner/results/scheduler capability"
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-Root-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "X-Unit-ID",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        ],
+        "description": "Requires a frozen current Result and no live Run. Record evidence in executing or verifying without advancing state; increment aggregate revision and atomically commit evidence/report, receipt, audit and outbox. Denied/stale/conflicting retries cannot create evidence. Human evidence requires the actual human session; qualified observations are required for other verifier kinds."
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "WorkProposalCommand": {
+        "type": "object",
+        "properties": {
+          "work": {
+            "$ref": "shared-command.openapi.json#/components/schemas/WorkItemsCommand"
+          },
+          "status": {
+            "enum": [
+              "draft",
+              "clarifying"
+            ]
+          }
+        },
+        "required": [
+          "work",
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "WorkCommitCommand": {
+        "type": "object",
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "work_revision": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "expected_revision",
+          "work_revision"
+        ],
+        "additionalProperties": false
+      },
+      "GoalTransitionCommand": {
+        "type": "object",
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "to": {
+            "enum": [
+              "active",
+              "achieved",
+              "abandoned"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "impact_digest": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "acknowledge_unresolved": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "expected_revision",
+          "to",
+          "reason",
+          "impact_digest",
+          "acknowledge_unresolved"
+        ],
+        "additionalProperties": false
+      },
+      "ProjectTransitionCommand": {
+        "type": "object",
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "to": {
+            "enum": [
+              "active",
+              "completed",
+              "cancelled"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "impact_digest": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "acknowledge_unresolved": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "expected_revision",
+          "to",
+          "reason",
+          "impact_digest",
+          "acknowledge_unresolved"
+        ],
+        "additionalProperties": false
+      },
+      "ResponsibilityTransitionCommand": {
+        "type": "object",
+        "properties": {
+          "expected_revision": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "to": {
+            "enum": [
+              "paused",
+              "active",
+              "retired"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "impact_digest": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "acknowledge_unresolved": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "expected_revision",
+          "to",
+          "reason",
+          "impact_digest",
+          "acknowledge_unresolved"
+        ],
+        "additionalProperties": false
+      },
+      "WorkEvent": {
+        "type": "object",
+        "properties": {
+          "record_type": {
+            "enum": [
+              "work",
+              "goal",
+              "project",
+              "responsibility"
+            ]
+          },
+          "work_revision": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "criteria_revision": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "execution_epoch": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          },
+          "correlation_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "record_type",
+          "work_revision",
+          "criteria_revision",
+          "execution_epoch",
+          "correlation_id"
+        ],
+        "additionalProperties": false
+      },
+      "WorkDetail": {
+        "type": "object",
+        "properties": {
+          "record": {
+            "oneOf": [
+              {
+                "$ref": "records.schema.json#/$defs/committed_work"
+              },
+              {
+                "$ref": "records.schema.json#/$defs/goal"
+              },
+              {
+                "$ref": "records.schema.json#/$defs/project"
+              },
+              {
+                "$ref": "records.schema.json#/$defs/responsibility"
+              }
+            ]
+          },
+          "allowed_actions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "related_links": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "impact_digest": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "record",
+          "allowed_actions",
+          "related_links",
+          "impact_digest"
+        ],
+        "additionalProperties": false
+      },
+      "WorkHistory": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "maxItems": 100,
+            "items": {
+              "type": "object",
+              "properties": {
+                "revision": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "snapshot": {
+                  "oneOf": [
+                    {
+                      "$ref": "records.schema.json#/$defs/committed_work"
+                    },
+                    {
+                      "$ref": "records.schema.json#/$defs/goal"
+                    },
+                    {
+                      "$ref": "records.schema.json#/$defs/project"
+                    },
+                    {
+                      "$ref": "records.schema.json#/$defs/responsibility"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "revision",
+                "snapshot"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "next_cursor": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          }
+        },
+        "required": [
+          "items",
+          "next_cursor"
+        ],
+        "additionalProperties": false
+      },
+      "ReviewResponse": {
+        "type": "object",
+        "properties": {
+          "command_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "resource_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "status": {
+            "type": "string",
+            "minLength": 1
+          },
+          "event_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          "request_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "review_admission": {
+            "$ref": "#/components/schemas/ReviewAdmission"
+          }
+        },
+        "required": [
+          "command_id",
+          "resource_id",
+          "revision",
+          "status",
+          "event_ids",
+          "request_id",
+          "review_admission"
+        ],
+        "additionalProperties": false
+      },
+      "ReviewAdmission": {
+        "type": "object",
+        "properties": {
+          "occurrence_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "const": "pending"
+          },
+          "scheduled_instant": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "missed_cycles": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "occurrence_id",
+          "status",
+          "scheduled_instant",
+          "missed_cycles"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "LocalCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "__Host-euclas_session"
+      }
+    }
+  },
+  "security": [
+    {
+      "LocalCookie": []
+    }
+  ]
+}

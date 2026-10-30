@@ -1,0 +1,1762 @@
+[
+  {
+    "id": "T-DATA",
+    "requirements": [
+      "GR-ARCH-001",
+      "GR-ARCH-002",
+      "GR-ARCH-003",
+      "GR-DATA-001",
+      "GR-DATA-002",
+      "GR-DATA-003"
+    ],
+    "given": "Three roots, nested Units, ad hoc work and an initialized Instance with owner and invited independently authenticated human members",
+    "when": "Create cycles/cross-root references/same-name Unicode objects/stale revisions; race bootstrap, invitation acceptance/replay and identity binding; try uninvited human creation and owner disable; use one person on multiple devices and separate humans with identical names",
+    "then": "Reject cycles/cross-root/stale writes atomically; preserve stable IDs and optional links. Bootstrap cannot replay; invited humans have distinct verified bindings and scoped memberships; device/name changes cannot create a privileged duplicate. Uninvited creation, self-grants and owner-disable without validated continuity fail closed. A fresh multi-human baseline requires no prior test-data import. Future supported product upgrades preserve IDs, attribution, scoped authority and verified recovery without assuming a pre-existing application baseline.",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-HANDOFF",
+    "requirements": [
+      "GR-DATA-001",
+      "GR-DATA-002",
+      "GR-DATA-003"
+    ],
+    "given": "Position has unfinished work and active Run assigned to Actor A",
+    "when": "Hand off to B and try action dispatch using A session/lease",
+    "then": "History and owner Position remain; old Run fenced, old credentials denied, B receives new scoped authority only",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-ISOLATION",
+    "requirements": [
+      "GR-PROD-001",
+      "GR-PROD-002",
+      "GR-PROD-003",
+      "GR-PROD-004",
+      "GR-SEC-001",
+      "GR-SEC-002",
+      "GR-SEC-003",
+      "GR-SEC-004"
+    ],
+    "given": "Two independent roots, user belongs only to A; actual restricted DB role",
+    "when": "Read B by UUID, list/search/stream/download/report/cache and raw scoped SQL",
+    "then": "No protected bytes or existence leak; API scoped 404; RLS blocks rows; report projection cannot leak cached text",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-AUTH",
+    "requirements": [
+      "GR-SEC-001",
+      "GR-SEC-002",
+      "GR-SEC-003",
+      "GR-SEC-004"
+    ],
+    "given": "Grant permits scoped edits, approval targets commit X, provider token audience limited",
+    "when": "Revoke grants, change action target, replay approval and try worker token as human; try global Actor disable using Unit-only authority or digital self-elevation, disable designated owner without validated continuity, enroll uninvited/unverified members or impersonate owner through pairing, then accept a valid bounded invitation with independent identity; sign in to the unified Euclas Account on Desktop/mobile, invite by Email and accept with verified intended account, change Email and attempt forwarded/wrong-account invitation acceptance; lose network/account service on previously verified device, use existing local permissions within finite validity, revoke local rights, expire validity/change clock, reconnect after global disable, and attempt offline first-login/invitation/account change or validity renewal; request/verify Email sign-in code, replay/expire/wrong-account/wrong-purpose/concurrently redeem it, flood requests/guesses, interrupt delivery and attempt account linking or invitation acceptance from code request alone; save/regenerate personal recovery codes, lose mailbox, recover online with unused proof and verified replacement Email, replay/race recovery and reuse old sessions while host is offline/reconnecting",
+    "then": "Dispatch denied after revocation; stale approval invalid; no self-elevation; sessions/recovery audited; exact authorized unchanged action dispatches once logically; Unit-only escalation denied without scope leakage; owner continuity protected; qualified invited humans sign in as distinct Actors with only current scoped membership/grants; non-owner disable revokes their sessions and authority with reconciliation, not other people; no shared-owner credentials, provider-seat pooling or hierarchy/device-based grants; stable account identity maps to local Actors independently of Email or device, verified invitation commits only currently authorized scope, forwarded/wrong-account links and display-name/Email-only linking cannot grant access; the account service receives only disclosed minimal identity/invitation routing metadata, not private work content/model credentials; local host authorization remains authoritative and account outage never implies Cloud execution; current approved policy offline continuity is at most86400 seconds from original Account verified_at, with no replay/reopen extension; the minimum profile minimum profile requires protected same-boot continuous elapsed time including suspend, otherwise wake/reboot requires online verification; actual validity/revalidation enforcement remains qualification work; within validated finite validity only existing current-authority local capabilities continue, local revocation/expiry blocks immediately, global disable is revalidated on reconnect and not claimed instantaneous offline; new login/invites/account changes/offline renewal/self-grants rejected, clock rollback cannot extend validity; expired/revoked admission fences new protected work with preserved data/checkpoints and in-flight reconciliation; no network/model/remote access is fabricated; current policy no-password Email-code login completes only after qualified intended challenge verification; code request alone grants no identity/membership/link and responses do not enumerate accounts; single-use expiry/attempt/rate controls reject misuse with no raw code/session leakage or private work email payload; delivery outage preserves only already valid current policy local continuity, no fabricated login; Google/Apple unavailable initially, current policy recovery requires qualified personal proof and Email code is not labeled MFA/phishing-resistant; current policy recovery retains stable account/local Actor/history, single-use proof and reissued sets consume/rotate atomically with idempotent retry, old sessions/challenges revoked subject to explicit current policy offline delay; no raw proof in logs/model/context or general work storage, organization authority cannot reset another global account; no membership/owner/secret-key privilege transfer, lost local encryption keys are not recovered by account proof",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-COMMIT",
+    "requirements": [
+      "GR-PROD-001",
+      "GR-PROD-002",
+      "GR-PROD-003",
+      "GR-PROD-004",
+      "GR-WORK-001",
+      "GR-WORK-002",
+      "GR-WORK-003",
+      "GR-WORK-004"
+    ],
+    "given": "Conversation includes brainstorming and an explicit do-this instruction",
+    "when": "Send both under absent and sufficient standing authority",
+    "then": "Discussion creates no executable work; concrete scoped proposal commits only when authorized; no redundant confirmation if covered",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-LIFECYCLE",
+    "requirements": [
+      "GR-PROD-001",
+      "GR-PROD-002",
+      "GR-PROD-003",
+      "GR-PROD-004",
+      "GR-WORK-001",
+      "GR-WORK-002",
+      "GR-WORK-003",
+      "GR-WORK-004"
+    ],
+    "given": "Committed work and result evidence at revision 1",
+    "when": "Exercise valid trace and try direct ready→accepted, self-acceptance without policy; supervise child outputs using an authorized digital reviewer, request changes/accept/reject, escalate unresolved findings, race revocation/stale versions and test cyclic/repeated escalation",
+    "then": "Valid transitions persist; invalid edges/guards rejected; Run success alone leaves work unaccepted; awaiting_acceptance need not wait for a human, exact-version digital decisions are audited and current-authority checked; routine non-security review resolves in the assistant hierarchy without duplicate human requests; finite escalation cannot bypass human_judgment/security/external-action/self-acceptance policy, deadlock surfaces one actionable issue, no assumed approval. Result freezes before criterion Evidence. Record deterministic and actual-human Evidence through /evidence while executing with no live Run, retaining Work state and returning a new aggregate revision; submit with complete evidence, verify existing evidence with an empty array, then accept. Deny forged human context, missing evidence, stale targets and conflicting keys; identical authorized retry creates no duplicate Evidence. Failed judgment cannot pass verification.",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-REVISION",
+    "requirements": [
+      "GR-API-001",
+      "GR-API-002",
+      "GR-API-003",
+      "GR-WORK-001",
+      "GR-WORK-002",
+      "GR-WORK-003",
+      "GR-WORK-004"
+    ],
+    "given": "Active Run and pending approval/result for work revision 1",
+    "when": "Revise criteria to revision 2 while old worker submits result",
+    "then": "Fence worker; stale write fails; pending approval/evidence cannot accept revision 2; old history retained",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-SCHEDULE",
+    "requirements": [
+      "GR-WORK-001",
+      "GR-WORK-002",
+      "GR-WORK-003",
+      "GR-WORK-004"
+    ],
+    "given": "Weekly Responsibility in Europe/Berlin, worker offline over several due instants",
+    "when": "Restore around DST gap/fold and deliver duplicate schedule messages",
+    "then": "One trigger per scheduled instant; first fold occurrence; gap moves forward; configured catch-up; no duplicate equivalent proposal; health shows missed reviews Initial Desktop accepts only coalesce and rejects every_cycle, including restored configurations; a week of missed daily reviews yields at most one currently authorized catch-up, preserving DST gap/fold and duplicate occurrence rules.",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-API",
+    "requirements": [
+      "GR-API-001",
+      "GR-API-002",
+      "GR-API-003"
+    ],
+    "given": "Authenticated client, stable collection, retained and expired event cursor",
+    "when": "Duplicate command with same/different body, stale update, replay events, page with altered filters",
+    "then": "Stable response for identical key; 409 on reuse/stale; no lost outbox; cursor rules enforced; expired SSE returns 410 and refreshes",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-RECOVERY",
+    "requirements": [
+      "GR-ARCH-001",
+      "GR-ARCH-002",
+      "GR-ARCH-003",
+      "GR-EXEC-001",
+      "GR-EXEC-002",
+      "GR-EXEC-003",
+      "GR-EXEC-004"
+    ],
+    "given": "Run with lease epoch 1, checkpoints and persisted action IDs",
+    "when": "Kill worker before/after dispatch then acquire epoch 2 and receive late epoch-1 result",
+    "then": "No lost committed work; stale mutation/dispatch denied; recovery reconciles before new effects; no assumed prompt resume",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-EFFECT",
+    "requirements": [
+      "GR-EXEC-001",
+      "GR-EXEC-002",
+      "GR-EXEC-003",
+      "GR-EXEC-004",
+      "GR-SEC-001",
+      "GR-SEC-002",
+      "GR-SEC-003",
+      "GR-SEC-004"
+    ],
+    "given": "Remote provider accepted non-idempotent operation but response was lost",
+    "when": "Restart, resend callback and attempt retry with expired approval",
+    "then": "Ledger remains unknown until provider reconciliation; no blind resend; fresh authority checked; duplicate callback does not duplicate domain effect",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-CANCEL",
+    "requirements": [
+      "GR-EXEC-001",
+      "GR-EXEC-002",
+      "GR-EXEC-003",
+      "GR-EXEC-004"
+    ],
+    "given": "Run executing with child processes and possible in-flight remote call",
+    "when": "Cancel twice, expire lease, receive late completion",
+    "then": "New actions fenced immediately; stop/reconcile state truthful; prior effects remain visible; old completion cannot overwrite cancelled current revision",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-BUDGET",
+    "requirements": [
+      "GR-EXEC-001",
+      "GR-EXEC-002",
+      "GR-EXEC-003",
+      "GR-EXEC-004"
+    ],
+    "given": "Unit hard envelope has 100 units remaining; two workers each request 80",
+    "when": "Race reservations, cancel one, settle late provider usage; set overall host-resource/cost/concurrency ceilings, prioritize many queued assistant work items, recursively delegate and retry across route alternatives, lower limits or revoke authority during queued/in-flight work",
+    "then": "At most one reservation succeeds; unused reservation releases only on reconciliation; estimated currency cap labeled; actual cost preserved; current policy supervisors schedule within aggregate owner ceilings without per-member manual allocation; excess work remains queued with truthful reason and bounded fair/dependency-aware admission, no active model required for idle identity; current limits/grants rechecked at admission, no child/retry/alternative-route oversubscription or automatic purchase/overage/ceiling increase; lowered limits fence new dispatch while existing uncertain usage is retained and reconciled, unknown provider usage is not zero or a guaranteed financial cap; no unmeasured thousand-concurrency claim",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-ADAPTER",
+    "requirements": [
+      "GR-EXEC-001",
+      "GR-EXEC-002",
+      "GR-EXEC-003",
+      "GR-EXEC-004",
+      "GR-INT-001",
+      "GR-INT-002",
+      "GR-INT-003",
+      "GR-SEC-001",
+      "GR-SEC-002",
+      "GR-SEC-003",
+      "GR-SEC-004"
+    ],
+    "given": "Executor lacks tool interception or safe network control; candidate engine/provider upgrade",
+    "when": "Request mediated secret-bearing work, run path escape/exfiltration/descendant tests and conformance suite; attempt gateway bypass and revoked access over existing connections/children; exercise bounded loops/context, restart handover and changed model/Executor/Skill/tool/sandbox profiles; include implicit workdir/writable-ancestor source mutation and missing/changed required path bindings",
+    "then": "Unsupported work rejected before dispatch; attacks fail for claimed profile; upgrade results documented; no unauthorized provider fallback; restrictions enforced or workload fenced/stopped/reconciled before narrower recreation; versioned regression results distinguish real-provider quality from fixtures; durable OS state survives Executor replacement; declared read-only snapshots stay immutable under effective permissions and missing/changed/unknown required bindings reject dispatch before workload launch",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-STORAGE",
+    "requirements": [
+      "GR-KNOW-001",
+      "GR-KNOW-002",
+      "GR-KNOW-003",
+      "GR-KNOW-004",
+      "GR-SEC-001",
+      "GR-SEC-002"
+    ],
+    "given": "Staged blob publication and metadata in separate stores; explicitly encoded governed JSONB, uploaded UTF-8 Markdown and generated office bytes",
+    "when": "Crash at each staging/metadata/publish boundary; corrupt hash; restore manifest; authorized/denied/stale/duplicate metadata, byte transfer and completion commands; revoke between stages, concurrent artifact revisions, response loss and every publish-intent/file-I/O crash boundary; explicitly choose or omit finite initial human access on a newly created Artifact; retry or append, change Assignment and revoke/expire permissions",
+    "then": "Only verified available bytes readable; orphan cleanup safe; immutable version references and hashes preserved; unauthorized downloads fail; exact bytes/hash/size and uploaded provenance are immutable, only available versions read under current authority, no private paths or cross-scope existence leak, same request returns original IDs, orphan/publish recovery preserves referenced bytes and historical JSONB hashes; malformed/partial bytes never publish, no Run/Evidence/Acceptance or work state is fabricated; default no-grant never implies readable access, explicit initial access creates exactly one same-scope finite Grant atomically with only the new Artifact, both subject/issuer Assignment bindings and Unit ceilings apply, retries never renew or resurrect access, existing resources and ordinary self-grant rules are unchanged",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-EVIDENCE",
+    "requirements": [
+      "GR-KNOW-001",
+      "GR-KNOW-002",
+      "GR-KNOW-003",
+      "GR-KNOW-004",
+      "GR-WORK-001",
+      "GR-WORK-002",
+      "GR-WORK-003",
+      "GR-WORK-004"
+    ],
+    "given": "Criteria C1 deterministic and C2 human judgment tied to commit X",
+    "when": "Submit missing/stale evidence, use test success as C2, then review exact result",
+    "then": "Incomplete submission blocked; not_run visible; proper verifier required; acceptance bound to exact criteria/result and authorized acceptor. Result freezes before criterion Evidence. Record deterministic and actual-human Evidence through /evidence while executing with no live Run, retaining Work state and returning a new aggregate revision; submit with complete evidence, verify existing evidence with an empty array, then accept. Deny forged human context, missing evidence, stale targets and conflicting keys; identical authorized retry creates no duplicate Evidence. Failed judgment cannot pass verification. Evidence/verify receipts return exact Result revision, aggregate revision and cumulative Evidence IDs. Lose the response and replay the same authorized key: return identical IDs/revision without duplicate Evidence/report. Submit and accept consume the returned refs; wrong Result, stale set/revision and cumulative evidence count above1000 fail.",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-KNOWLEDGE",
+    "requirements": [
+      "GR-INT-001",
+      "GR-INT-002",
+      "GR-INT-003",
+      "GR-KNOW-001",
+      "GR-KNOW-002",
+      "GR-KNOW-003",
+      "GR-KNOW-004"
+    ],
+    "given": "Two conflicting sourced memory claims and Skill version 1",
+    "when": "Ingest new claim; update Skill to version 2 during a Run; malicious Skill requests extra tools; assemble stale/conflicting capability sources with context truncation and revoked/cross-root sources; let authorized family manager/dog-care specialist retrieve common care records, attempt private-conversation and company-scope access, then revoke/correct a shared source; automatically organize ordinary authorized preferences/facts/history; route conflicting/inferred or important changes to an authorized supervisor, resolve some, escalate others through multiple reviewers and interrupt/revoke/repeat the decision",
+    "then": "Claims disputed with sources retained; no inference becomes verified automatically; Run keeps v1; permission intersection prevents elevation; exact source versions and confirmed/proposed/accepted distinctions retained; omissions and uncertainty visible; unauthorized bytes excluded from model context; fixed retrieval/source-fidelity regression evidence recorded; shared knowledge is reused under current responsibility/grants with exact sources, not blanket transcript copies; manager hierarchy/pins/direct messaging confer no extra read rights; private and company data remain isolated including summaries, promoted notes need applicable authority/provenance, and revoked/corrected sources are excluded/superseded in future context/caches without rewriting past accepted evidence; no per-memory human confirmation queue, sources/user assertions/inferences stay distinct; digital reviewer may confirm/reject/return within mandate using permitted context and exact versions; unclear matters escalate with concise evidence to next authorized level, only unresolved/reserved issues reach human; no auto-verified inference, grant expansion, cross-scope summary leak, fabricated human review or auto-approval on timeout",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-REPORT",
+    "requirements": [
+      "GR-KNOW-001",
+      "GR-KNOW-002",
+      "GR-KNOW-003",
+      "GR-KNOW-004",
+      "GR-PROD-001",
+      "GR-PROD-002",
+      "GR-PROD-003",
+      "GR-PROD-004"
+    ],
+    "given": "Report with evidence cutoff and recipient-specific read grants",
+    "when": "Complete minor tasks, raise decision, regenerate report after source access revocation; generate many routine supervisor reviews and one unresolved escalated issue reported by multiple assistants; enable/deny/mute mobile push, retry delivery, resolve/revise/revoke target and open a late notification",
+    "then": "Routine work stays quiet; attention deduplicated and resolves; concise localized result drills into authorized evidence; stale cached content redacted; one logical human attention/push per issue/revision, routine updates remain quiet and summarized, per-org/assistant mute respected; in-app queue remains source of truth, push-delivered is not seen/resolved/approved, denial/outage leaves recoverable in-app state; private content/keys not required in routing/lock-screen payloads, late taps reauthorize exact current target and cannot approve resolved/stale/revoked state",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-LANGUAGE",
+    "requirements": [
+      "GR-LANG-001",
+      "GR-LANG-002",
+      "GR-LANG-003",
+      "GR-LANG-004",
+      "GR-UX-001",
+      "GR-UX-002",
+      "GR-UX-003"
+    ],
+    "given": "Chinese user, English Unit/repository, German recipient; mixed Unicode and RTL fixture",
+    "when": "Generate English artifact, Chinese/German reports; edit original; expand UI text and query CJK/German",
+    "then": "Language precedence correct; originals immutable; translations stale; approval digest unchanged; catalogs complete; no clipping/unsafe markup; search scoped; timezone explicit",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-UX",
+    "requirements": [
+      "GR-UX-001",
+      "GR-UX-002",
+      "GR-UX-003"
+    ],
+    "given": "Deep Unit URL, live work, stale decision and unknown message type",
+    "when": "Navigate ancestors, inspect work/run state, use keyboard/zoom and offline approve; directly contact root/Unit/specialist assistants, give duplicate display names, pin/unpin contacts, rename a pinned assistant and revoke its scope; on Desktop and actual native mobile use the initial 2D graph, drag/zoom/expand teams, filter organizations/status, open member work/chat and switch to formal chart/list; inject stale work data and hidden-scope members, aggregate many assistants",
+    "then": "Scope clear; status distinct; stale action cannot execute; safe fallback readable; offline not committed; accessible reflow and focus; every permitted assistant is directly reachable without central/manager relay; scoped work ownership/history stays intact, no duplicate work or whole-chat forwarding by default; names and pins resolve stable identity with safe role disambiguation, never confer authority, and revoked pins reveal no protected content; cross-organization coordinator is optional and needs actual grants; complete authorized 2D interaction, touch/keyboard/readable alternatives and non-color-only truthful work state; stable identity and permitted context across views, no hidden member/edge/count leaks; dragging layout never changes responsibility/hierarchy/rights; collapse/filter/pagination retain discoverability with measured limits, no claim of simultaneous thousand-node/Run support; 3D is not required for initial acceptance",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-OPS",
+    "requirements": [
+      "GR-ARCH-001",
+      "GR-ARCH-002",
+      "GR-ARCH-003",
+      "GR-OPS-001",
+      "GR-OPS-002",
+      "GR-OPS-003",
+      "GR-OPS-004",
+      "GR-OPS-005"
+    ],
+    "given": "Running Instance with blobs, Secrets references, in-flight remote actions and known backup",
+    "when": "Install, force restart, restore isolated target, corrupt backup, fail migration, attempt rollback",
+    "then": "Integrity checked; outbound disabled until takeover/reconciliation; corrupt backup rejected; compatible rollback only; maintenance on failure; credentials needing reauth listed",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-PRIVACY",
+    "requirements": [
+      "GR-OPS-001",
+      "GR-OPS-002",
+      "GR-OPS-003",
+      "GR-OPS-004",
+      "GR-OPS-005",
+      "GR-SEC-001",
+      "GR-SEC-002",
+      "GR-SEC-003",
+      "GR-SEC-004"
+    ],
+    "given": "Personal data in originals, derived translations/search/report cache and backup",
+    "when": "Request authorized erasure then revoke membership and inspect telemetry/export",
+    "then": "Live derived copies removed; content-free tombstone only; backup expiry/holds disclosed; shared history access revoked; no raw Secrets in telemetry/export by default",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-LOAD",
+    "requirements": [
+      "GR-OPS-001",
+      "GR-OPS-002",
+      "GR-OPS-003",
+      "GR-OPS-004",
+      "GR-OPS-005"
+    ],
+    "given": "3 roots, 5 Unit levels, 100 concurrent queries, 10 fake Runs",
+    "when": "Measure latency/queue age/resource use and inject provider/outbox outage",
+    "then": "Record hardware/observations; no cross-root leaks or lost work; diagnostics identify backlog/offline state; no invented SLA",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-DOGFOOD",
+    "requirements": [
+      "GR-API-001",
+      "GR-API-002",
+      "GR-API-003",
+      "GR-ARCH-001",
+      "GR-ARCH-002",
+      "GR-ARCH-003",
+      "GR-DATA-001",
+      "GR-DATA-002",
+      "GR-DATA-003",
+      "GR-EXEC-001",
+      "GR-EXEC-002",
+      "GR-EXEC-003",
+      "GR-EXEC-004",
+      "GR-LANG-001",
+      "GR-LANG-002",
+      "GR-LANG-003",
+      "GR-LANG-004",
+      "GR-INT-001",
+      "GR-INT-002",
+      "GR-INT-003",
+      "GR-KNOW-001",
+      "GR-KNOW-002",
+      "GR-KNOW-003",
+      "GR-KNOW-004",
+      "GR-OPS-001",
+      "GR-OPS-002",
+      "GR-OPS-003",
+      "GR-OPS-004",
+      "GR-OPS-005",
+      "GR-PROD-001",
+      "GR-PROD-002",
+      "GR-PROD-003",
+      "GR-PROD-004",
+      "GR-SEC-001",
+      "GR-SEC-002",
+      "GR-SEC-003",
+      "GR-SEC-004",
+      "GR-UX-001",
+      "GR-UX-002",
+      "GR-UX-003",
+      "GR-WORK-001",
+      "GR-WORK-002",
+      "GR-WORK-003",
+      "GR-WORK-004"
+    ],
+    "given": "Real Euclas repository and permitted coding executor, founder zh-Hant",
+    "when": "Delegate scoped Euclas App change in an authorized repo/work branch, let assistant branch/edit/test/commit/push/open PR; restart during wait, inspect English diff/localized report, accept then separately authorize exact merge",
+    "then": "Exact version and evidence traceable; restart survives; current authority governs merge; Responsibility stays active; honest costs/status; all runtime release gates attached; covered preparation steps do not re-prompt, but PR/accepted output never auto-authorizes merge or deployment; ungranted repositories/protected targets and stale changed-head merge decisions fail; uncertain push/PR outcomes reconcile before retry; routine delegated non-security findings may be resolved and accepted by an authorized supervising assistant while the separately reserved merge decision stays with the user",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-DESKTOP-INSTALL",
+    "requirements": [
+      "GR-DESK-001",
+      "GR-DESK-002",
+      "GR-PROD-002",
+      "GR-ARCH-002",
+      "GR-OPS-001",
+      "GR-MAINT-001"
+    ],
+    "given": "Fresh OS account on each declared macOS and Windows release/architecture target, without Docker, PostgreSQL or developer tooling",
+    "when": "Install via graphical installer, choose default/custom data location, interrupt download, restart and create first local team",
+    "then": "Verified components initialize privately; no terminal/container/API-console prerequisite; progress resumes; readiness truthful; no remote Instance required; selected-shell runtime inventory matches shipped components, Electron needs no WebView2 install, and any alternative runtime dependency has separate clean-machine G3 evidence; founder Mac workflow evidence and Windows clean-install/runtime evidence are separately recorded, no inferred support across OS versions/architectures or from build-only CI",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-DESKTOP-LIFECYCLE",
+    "requirements": [
+      "GR-DESK-002",
+      "GR-DESK-003",
+      "GR-RUNTIME-003"
+    ],
+    "given": "App-managed local core with active attempts, children and already submitted external actions",
+    "when": "Minimize, close the app, fully quit, crash UI/Supervisor, sleep/wake, reopen and attempt competing launch",
+    "then": "Only open/awake/ready app authorizes local dispatch; closure fences new actions and coordinates checkpoint/child shutdown, no continuing headless/tray worker, login-start resurrection or automatic Cloud transfer; show stopped versus unknown external effects truthfully; reopen checks ownership/current grants and reconciles before retry; bounded restart only while app remains open",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-DESKTOP-UPDATE",
+    "requirements": [
+      "GR-DESK-004"
+    ],
+    "given": "Installed Desktop with real data and encrypted credential references; long-running active agent with status, governed memory/source/prompt versions, pending approval, workspace changes and uncertain external action",
+    "when": "Apply signed/invalid update, force migration failure, repair through UI and uninstall keeping data; background-stage compatible/incompatible update, confirm exact activation, exceed update wait timeout, retain supported old runtime or qualify a safe handover, reconnect versioned UI and revoke rights while work remains active; relaunch UI under authorized update, spoof update intent, fail new UI startup, reopen compatible old UI, race manual quit/stop/revocation and reconnect with stale or duplicate handles; check official update route across users and OS profiles while some machines retain compatible live runtimes",
+    "then": "Invalid package rejected; compatibility/backup rules enforced; recoverable data and truthful status; no command-line repair requirement; data deletion separate and explicit; current policy no updater-induced cancellation/restart/context reset/prompt replay of long-running work, signed compatible activation only, affected incompatible activation waits while supported ongoing work remains; exact status/memory/prompt/source/work/approval/action/usage context preserved, no duplicate effects or dual ownership, valid old pinned runtime distinguished from stale-epoch Worker; update states honestly show retained versus updated components, old packages not deleted while used; current policy controlled relaunch requires exact supervised-intent/reattachment qualification and actual evidence, no general background-daemon or arbitrary native-resume guarantee; current policy minimum the minimum profile profile first authenticates a ready replacement UI before old UI exit, with exact short-lived human-authorized permit and persisted replacement identity; pre-handoff expiry retains old UI/work and incompatible activation defers; only qualified current policy controlled update retains same controller/Instance lock/active agents under current grants and readiness, new UI authenticates/reattaches without duplicate dispatch or prompt resend; arbitrary UI crash/spoofed intent cannot enable hidden continuation, manual quit/stop/revocation overrides update intent and executes ordinary effect-safe shutdown; relaunch failure offers qualified visible recovery/stop without updater-timeout killing work or indefinite unobservable daemon, old runtime remains truthful and exact expiry/failure protocol is unqualified until tested; current policy exposes one official public release route without stable/preview choice, keeps correct platform compatibility/signature tests and truthful installed/retained versions, never forces simultaneous activation or drops current approved policy work continuity",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-DESKTOP-AUTH",
+    "requirements": [
+      "GR-SEC-005"
+    ],
+    "given": "Fresh Desktop, official Account verification and OS-protected one-time local setup material; account identity and installation proof are distinct",
+    "when": "Bootstrap owner without manual token entry; replay secret; access from external origin/deep link or untrusted sandbox",
+    "then": "Only paired user obtains scoped owner session; replay/origin/renderer bypass fails; database private; remote exposure remains separately protected; template cannot self-grant",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-TEAM-SETUP",
+    "requirements": [
+      "GR-ONB-001",
+      "GR-ONB-002",
+      "GR-UX-004",
+      "GR-PROD-005"
+    ],
+    "given": "User follows scenario link or types intent; no preconfigured org/agent settings",
+    "when": "Preview and edit plan; cancel before commit; retry commit after network loss; submit stale/malicious plan",
+    "then": "Appropriate localized entry preserves intent; atomic authorized setup reuses stable IDs; no partial/duplicate teams, self-grants or stale approval; roles optional advanced detail Before F05 code, publish and independently review the minimum bootstrap/grant packet and its allowed/denied/stale/duplicate/conflicting/crash cases; no template self-grant or uninvited human creation.",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-FIRST-USE",
+    "requirements": [
+      "GR-ONB-001",
+      "GR-ONB-003",
+      "GR-UX-004"
+    ],
+    "given": "Non-programmer with a supported AI connection and supplied/typed materials",
+    "when": "Decline folder picker/external integrations, request draft outcome, preview and accept exact artifact",
+    "then": "Text path still works; clarify only material gaps; artifact specific and source-linked; no implied publish/send; team creation, Run success and acceptance visibly distinct",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-AI-ACCESS",
+    "requirements": [
+      "GR-ONB-003",
+      "GR-DESK-001",
+      "GR-SUB-001",
+      "GR-SUB-003",
+      "GR-SUB-005",
+      "GR-SUB-006"
+    ],
+    "given": "Eligible subscriber on a supported Desktop installation or enforced permitted host bridge, no API key/additional API billing",
+    "when": "Use official login and complete real first intent/team/work/result/acceptance; inject quota/auth/network failure and an unrelated API key",
+    "then": "All supporting calls use qualified subscription route, no hidden API cost or silent fallback; retained progress and exact acceptance; real eligibility/no-overage evidence, setup assistance disclosed; local inference alone never closes cloud G4",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-USABILITY",
+    "requirements": [
+      "GR-ONB-004",
+      "GR-PROD-005"
+    ],
+    "given": "Consented non-developer users/owners on qualified Desktop installations in en/zh-Hant, verified de UI review",
+    "when": "Observe graphical no-Docker installation, official login, one-assistant start and useful outcome; record every prerequisite/help/failure and assess independent operation",
+    "then": "Record inclusive setup/provider/result timings and usefulness, retain failed trials, apply the proposed 8-of-10 criterion without excluding assisted or failed participants; disclose assistance and hidden-rescue failures; AI simulation cannot replace human observation; no unmeasured speed claim",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-PROMISE",
+    "requirements": [
+      "GR-CASE-000",
+      "GR-PROD-005",
+      "GR-UX-004"
+    ],
+    "given": "Catalog with three R1 pilots and seven roadmap workflows; localized campaign entry",
+    "when": "Open supported/unsupported scenario links and compare marketed first result with artifact evidence",
+    "then": "Only enabled capabilities advertised as available; correct localized entry; roadmap/unsupported effects disclosed; every slogan traces to outcome, stage and specific acceptance",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-CONTENT-SCOPE",
+    "requirements": [
+      "GR-DATA-001",
+      "GR-DATA-002",
+      "GR-INT-001",
+      "GR-EXEC-001",
+      "GR-SEC-005"
+    ],
+    "given": "Content work with source artifact permissions and no repository connection",
+    "when": "Validate schema/start content executor; request shell, external retrieval, publishing or cross-root source",
+    "then": "Content scope valid without repo; unknown/unauthorized actions rejected; generation/artifact calls use policy/budget/Run contract; cannot escape via setup plan",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-CASE-01",
+    "requirements": [
+      "GR-CASE-001",
+      "GR-CASE-000"
+    ],
+    "given": "UC-01 target user and bounded supplied input described in requirements.md",
+    "when": "Complete UC-01 first-use flow, revise an input and attempt one unsupported/unauthorized action; cover supplied ongoing work/progress without inventing completion and retain a new-project entry",
+    "then": "Assert every UC-01 first-result and acceptance clause in requirements.md, exact source/result versions, visible uncertainty and no implicit external effects",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-CASE-02",
+    "requirements": [
+      "GR-CASE-002",
+      "GR-CASE-000"
+    ],
+    "given": "UC-02 target user and bounded supplied input described in requirements.md",
+    "when": "Complete UC-02 first-use flow, revise an input and attempt one unsupported/unauthorized action; exercise both client-response/proposal and retained creative variants, including missing/contradictory confirmed terms",
+    "then": "Assert every UC-02 first-result and acceptance clause in requirements.md, exact source/result versions, visible uncertainty and no implicit external effects",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-CASE-03",
+    "requirements": [
+      "GR-CASE-003",
+      "GR-CASE-000"
+    ],
+    "given": "UC-03 target user and bounded supplied input described in requirements.md",
+    "when": "Complete UC-03 first-use flow, revise an input and attempt one unsupported/unauthorized action",
+    "then": "Assert every UC-03 first-result and acceptance clause in requirements.md, exact source/result versions, visible uncertainty and no implicit external effects",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-CASE-04",
+    "requirements": [
+      "GR-CASE-004",
+      "GR-CASE-000"
+    ],
+    "given": "UC-04 target user and bounded supplied input described in requirements.md",
+    "when": "Complete UC-04 first-use flow, revise an input and attempt one unsupported/unauthorized action",
+    "then": "Assert every UC-04 first-result and acceptance clause in requirements.md, exact source/result versions, visible uncertainty and no implicit external effects",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "roadmap"
+  },
+  {
+    "id": "T-CASE-05",
+    "requirements": [
+      "GR-CASE-005",
+      "GR-CASE-000"
+    ],
+    "given": "UC-05 target user and bounded supplied input described in requirements.md",
+    "when": "Complete UC-05 first-use flow, revise an input and attempt one unsupported/unauthorized action",
+    "then": "Assert every UC-05 first-result and acceptance clause in requirements.md, exact source/result versions, visible uncertainty and no implicit external effects",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "roadmap"
+  },
+  {
+    "id": "T-CASE-06",
+    "requirements": [
+      "GR-CASE-006",
+      "GR-CASE-000"
+    ],
+    "given": "UC-06 target user and bounded supplied input described in requirements.md",
+    "when": "Complete UC-06 first-use flow, revise an input and attempt one unsupported/unauthorized action",
+    "then": "Assert every UC-06 first-result and acceptance clause in requirements.md, exact source/result versions, visible uncertainty and no implicit external effects",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "roadmap"
+  },
+  {
+    "id": "T-CASE-07",
+    "requirements": [
+      "GR-CASE-007",
+      "GR-CASE-000"
+    ],
+    "given": "UC-07 target user and bounded supplied input described in requirements.md",
+    "when": "Complete UC-07 first-use flow, revise an input and attempt one unsupported/unauthorized action",
+    "then": "Assert every UC-07 first-result and acceptance clause in requirements.md, exact source/result versions, visible uncertainty and no implicit external effects",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "roadmap"
+  },
+  {
+    "id": "T-CASE-08",
+    "requirements": [
+      "GR-CASE-008",
+      "GR-CASE-000"
+    ],
+    "given": "UC-08 target user and bounded supplied input described in requirements.md",
+    "when": "Complete UC-08 first-use flow, revise an input and attempt one unsupported/unauthorized action",
+    "then": "Assert every UC-08 first-result and acceptance clause in requirements.md, exact source/result versions, visible uncertainty and no implicit external effects",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "roadmap"
+  },
+  {
+    "id": "T-CASE-09",
+    "requirements": [
+      "GR-CASE-009",
+      "GR-CASE-000"
+    ],
+    "given": "UC-09 target user and bounded supplied input described in requirements.md",
+    "when": "Complete UC-09 first-use flow, revise an input and attempt one unsupported/unauthorized action",
+    "then": "Assert every UC-09 first-result and acceptance clause in requirements.md, exact source/result versions, visible uncertainty and no implicit external effects",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "roadmap"
+  },
+  {
+    "id": "T-CASE-10",
+    "requirements": [
+      "GR-CASE-010",
+      "GR-CASE-000"
+    ],
+    "given": "UC-10 target user and bounded supplied input described in requirements.md",
+    "when": "Complete UC-10 first-use flow, revise an input and attempt one unsupported/unauthorized action",
+    "then": "Assert every UC-10 first-result and acceptance clause in requirements.md, exact source/result versions, visible uncertainty and no implicit external effects",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "roadmap"
+  },
+  {
+    "id": "T-PG-NATIVE",
+    "requirements": [
+      "GR-RUNTIME-001",
+      "GR-RUNTIME-002"
+    ],
+    "given": "Fresh supported OS with unrelated installed PostgreSQL and data path with Unicode/spaces",
+    "when": "Install/initialize/start native bundled runtime; interrupt initialization and relaunch",
+    "then": "No Docker/toolchain/system DB adoption; verified own binaries and data; staged init resumes safely; private authenticated endpoint; unrelated server untouched",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-PG-PREFLIGHT",
+    "requirements": [
+      "GR-DEPLOY-001",
+      "GR-DEPLOY-002"
+    ],
+    "given": "Declared primary Desktop data/config paths, unrelated host services and existing or unknown database storage",
+    "when": "Start with fresh/existing/unknown/unwritable paths, missing storage, occupied ports and interrupted initialization",
+    "then": "Adopt only the exact owned compatible Instance; fail closed on unknown data/missing required mounts/unsafe permissions; no host-system DB mutation or silent empty replacement; localized diagnosis and safe retry",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-SUPERVISOR",
+    "requirements": [
+      "GR-DEPLOY-001",
+      "GR-DEPLOY-002"
+    ],
+    "given": "App-bound user-level Supervisor with private core/database and persisted maintenance journal",
+    "when": "Crash/restart children while app stays open; close/quit app; relaunch and race a competing Supervisor",
+    "then": "One authenticated owner/dispatcher; current authority, bounded child restarts while app open, journals/fences survive; app closure stops local dispatch and coordinates shutdown without silent resurrection; no renderer/Executor maintenance or DB-owner credentials; unknown effects reconcile before continuation Every runtime lifecycle state is expressible in runtime_status, including stopping; stop persists server stop_generation and invalidates updater permits without client generation CAS; confirmed stopped waits for descendant stop.",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-SLEEP-SHUTDOWN",
+    "requirements": [
+      "GR-DEPLOY-001",
+      "GR-DEPLOY-002",
+      "GR-DESK-003",
+      "GR-RUNTIME-003"
+    ],
+    "given": "Active local Desktop work and approval wait with paired mobile and already submitted external actions",
+    "when": "Minimize, close/quit app, crash children, sleep/reboot host and reopen with changed grants/late callbacks",
+    "then": "Minimized open app remains explicit; app closure stops local dispatch and coordinates checkpoints/fencing/child stop; host-offline mobile is truthful, no headless resurrection or Cloud fallback; reopen reacquires ownership/current grants and reconciles unknown effects without blind repeat or fabricated cancellation",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-DB-PRIVILEGES",
+    "requirements": [
+      "GR-DEPLOY-001",
+      "GR-DEPLOY-002",
+      "GR-SEC-001",
+      "GR-MAINT-004"
+    ],
+    "given": "Primary local production restricted application role, owner browser and sandboxed untrusted code",
+    "when": "Try migration/controller credentials, DB sockets, engine access, foreign origins and maintenance commands as ordinary Agent",
+    "then": "No privileged secret exposure, RLS bypass or ungranted maintenance/engine control; authenticated owner can inspect safe journal status while DB unavailable; controller/database stay private and Executor receives no socket/admin credential",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-RELEASE-TRUST",
+    "requirements": [
+      "GR-MAINT-001"
+    ],
+    "given": "Signed release set, staged downloads and pinned trust roots",
+    "when": "Corrupt payload/manifest, supply unsigned key rotation, interrupt provisioning, mix Worker/core versions",
+    "then": "Invalid trust/version set blocked; old compatible runtime preserved; verified staged retry only; no silent downgrade or platform trust bypass",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-UPDATE-CUTPOINTS",
+    "requirements": [
+      "GR-MAINT-002",
+      "GR-MAINT-003"
+    ],
+    "given": "Existing accepted work, old release/data, incoming provider callbacks and verified checkpoint",
+    "when": "Crash before/after every quiesce, snapshot, migrate, pointer-switch and verification boundary",
+    "then": "Durable selected pair and fence determine recovery; callbacks retained across rollback; no lost accepted writes or dispatch during migration; browser/authorized recovery-command repair uses safe point",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-PG-UPGRADE",
+    "requirements": [
+      "GR-MAINT-003",
+      "GR-PORT-005"
+    ],
+    "given": "Supported and unsupported PostgreSQL/schema/extension source-target combinations",
+    "when": "Perform logical new-cluster upgrade, fail import midway, request old binary rollback",
+    "then": "Only tested paths allowed; source cluster preserved; restricted roles re-created; incompatible old binary never opens upgraded data; IDs/hashes unchanged on success",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-DISK-FAILURE",
+    "requirements": [
+      "GR-RUNTIME-004",
+      "GR-MAINT-002",
+      "GR-PORT-001"
+    ],
+    "given": "Low free space or backup destination disconnect during staging/snapshot/migration",
+    "when": "Exhaust disk at each write phase and request retry",
+    "then": "No destructive cleanup of sole backup/current target; partial package not usable; durable Needs attention; retry/restore uses browser or documented authenticated owner/AI-assisted recovery after space is corrected, preserving the same journal/authority gates",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-BACKUP-CONSISTENCY",
+    "requirements": [
+      "GR-PORT-001"
+    ],
+    "given": "DB + immutable blobs + uncommitted reviewable workspace + action/outbox state",
+    "when": "Attempt concurrent writes/GC; backup then restore into empty target; choose manual protected export and user-owned destination, inspect app startup for unintended daily/cloud backup and compare authorized pre-update recovery checkpoint with routine user backup",
+    "then": "Write/publication/GC freeze enforced; referenced bytes/cutoff/workspace results included; omitted indexes listed; database snapshot alone cannot declare success; external workflow-engine state has an explicit restore/reconcile strategy and no unsupported native-resume claim; current policy no default app-managed routine schedule/cloud upload/retention deletion, user controls completed package timing/storage/retention; manual export/isolated restore remains qualified and arbitrary live-file copy is not certified; required update/migration safeguards remain, no claim same-disk checkpoint is independent disaster recovery",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-BACKUP-PROTECTION",
+    "requirements": [
+      "GR-PORT-002"
+    ],
+    "given": "Secret-free private backup and opt-in encrypted-credential backup",
+    "when": "Use wrong key, tampered manifest, traversal/symlink/expansion attack or executable restore hook",
+    "then": "Authentication/limits validated before import; attacks rejected in staging; no raw secrets/key-inside-archive; restore requires independent recovery material",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-BACKUP-RETENTION",
+    "requirements": [
+      "GR-PORT-001",
+      "GR-PORT-002"
+    ],
+    "given": "Last verified backup, scheduled backup, disconnected external destination and backup hold",
+    "when": "Miss schedule while asleep; fail replacement; prune expired files",
+    "then": "Last valid recovery point preserved; completed packages only sync; missed/failed status shown; same-disk limits/retention holds disclosed",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-RESTORE-ISOLATED",
+    "requirements": [
+      "GR-PORT-003",
+      "GR-MAINT-004"
+    ],
+    "given": "Healthy source and compatible/tampered backup selected through GUI",
+    "when": "Restore to new target, kill/restart target before activation and re-run verification",
+    "then": "Source untouched; IDs/blob refs/RLS checked; all outbound paths stay fenced; missing bytes block; re-login/checkpoint gaps listed; no false rollback of external effects",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-RESTORE-OWNER",
+    "requirements": [
+      "GR-PORT-002",
+      "GR-PORT-003",
+      "GR-DATA-002",
+      "GR-SEC-004"
+    ],
+    "given": "Backup from different machine with same display username but different identity/keychain",
+    "when": "Try automatic owner match, credential restore and session replay; restore supported new-product archives with one human and multiple humans, plus archives with conflicting identity bindings or missing administrative continuity",
+    "then": "Require trusted recovery/explicit identity mapping; rotate deployment sessions/worker keys and re-enroll devices under current proof; old local usernames/tokens confer no access; valid restore retains owner/member Actor IDs, scopes and historical audit without duplicate people; conflicting/unverified binding or missing owner continuity blocks activation without altering working Instance; number of humans alone is not rejection evidence",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-MIGRATE-SERVER",
+    "requirements": [
+      "GR-PORT-004",
+      "GR-PORT-005"
+    ],
+    "given": "Real supported Desktop source and Server target with current work and required extension/storage profiles",
+    "when": "Preflight, final freeze/export, source retirement, isolated import, activate and reconnect Desktop; later migrate back",
+    "then": "One coordinated writer authority; stable domain/Instance IDs; new deployment identity; file/credential mappings explicit; source reboot stays retired; round-trip integrity/evidence captured",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "roadmap"
+  },
+  {
+    "id": "T-MIGRATE-FAILURE",
+    "requirements": [
+      "GR-PORT-004",
+      "GR-MAINT-002"
+    ],
+    "given": "Source fenced and target staging or already activated",
+    "when": "Interrupt transfer/lose target response; attempt source restart from old snapshot",
+    "then": "Before activation resume only with target-disabled proof; unknown target blocks automatic fallback; after activation reverse transfer uses latest target data; no hidden dual dispatch",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "roadmap"
+  },
+  {
+    "id": "T-DISASTER-TAKEOVER",
+    "requirements": [
+      "GR-PORT-003",
+      "GR-PORT-004"
+    ],
+    "given": "Backup exists but old deployment cannot be reached and may return",
+    "when": "Request target activation, then attempt a stale worker action",
+    "then": "Residual split-brain limits disclosed; explicit owner acknowledgment plus feasible credential revocation; uncertain capabilities stay blocked; copied DB epoch is not presented as a global lock",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-MAINT-API",
+    "requirements": [
+      "GR-MAINT-004",
+      "GR-MAINT-002"
+    ],
+    "given": "Instance admin and unauthorized actor, duplicate request keys and stale plan hashes",
+    "when": "Call admin plan/start/verify/decide with changed target or forged success fields",
+    "then": "No Unit-scope workaround or Agent self-approval; stale/conflicting commands rejected; verification executes trusted checks; results refer to one operation with truthful phase/outcome",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-MAINT-UX",
+    "requirements": [
+      "GR-RUNTIME-004",
+      "GR-MAINT-004",
+      "GR-PORT-002"
+    ],
+    "given": "Owner using en/zh-Hant/de on Desktop with failed deployment/component/update/backup",
+    "when": "Use browser recovery and the documented authenticated owner/AI-assisted recovery path when UI is unavailable; try stale/conflicting/cancel commands",
+    "then": "Named targets/cutoffs/safe points and truthful status; commands enforce the same journal/authority and preserve work; no hidden SQL/secret copying or unqualified restore-success claim",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-TARGET-COMPATIBILITY",
+    "requirements": [
+      "GR-PORT-005",
+      "GR-PORT-004"
+    ],
+    "given": "Target profile with unsupported extension/schema/storage/quota/egress policy",
+    "when": "Plan a move to another computer, then attempt an unsupported Server or future Cloud target",
+    "then": "Fail incompatibilities and unsupported targets before source freeze/transfer; target labels truthful; portable IDs not absolute paths; source work continues when preflight fails",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-MIGRATE-CLOUD",
+    "requirements": [
+      "GR-PORT-004",
+      "GR-PORT-005"
+    ],
+    "given": "Future shipped Cloud profile with supported managed PostgreSQL, object storage, identity and quota",
+    "when": "Perform whole-Instance Desktop to Cloud migration and return under real managed-service constraints",
+    "then": "Authority, data hashes/IDs, RLS, egress, credential reauthorization and round-trip supported outcomes verified; no hidden privileged database assumptions",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "roadmap"
+  },
+  {
+    "id": "T-ENGINE-ATOMIC",
+    "requirements": [
+      "GR-ENGINE-001"
+    ],
+    "given": "Committed work with transactional outbox and duplicate consumers",
+    "when": "Crash before/after transaction commit and message acknowledgment; drop notifications; reuse an event ID with different payload",
+    "then": "No partial business/event commit or lost runnable work; polling recovers notifications; identical redelivery has one logical transition; conflicting reuse rejected",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-ENGINE-CHECKPOINT",
+    "requirements": [
+      "GR-ENGINE-002"
+    ],
+    "given": "Multi-step Run with immutable output and staged workspace bytes",
+    "when": "Crash at every output/checkpoint boundary; restart with and without native Executor resume",
+    "then": "Only verified completed outputs reused; incomplete staging never advances; unsupported native resume creates linked fresh Run after reconciliation; no fabricated acceptance",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-ENGINE-APPROVAL",
+    "requirements": [
+      "GR-ENGINE-003"
+    ],
+    "given": "Version-bound approval wait and authorized human using en/zh-Hant/de",
+    "when": "Wait 48 simulated hours with no live Executor; restart; approve before subscription; race duplicate/denied/expired decisions with cancellation and revision change",
+    "then": "Wait survives; valid current decision wakes once logically; stale/late/conflicting decisions cannot dispatch; canonical target unaffected by translation; notification failure leaves visible attention",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-ENGINE-RETRY",
+    "requirements": [
+      "GR-ENGINE-004"
+    ],
+    "given": "Persisted transient error and a bounded retry policy with provider retries accounted for",
+    "when": "Restart repeatedly before due time; exhaust attempts; simulate lost database commit response and lost remote effect response",
+    "then": "No reset of attempts/timing; budget accounts repeated calls; read durable state after uncertain commit; unknown external effects reconcile without fresh-key blind resend Canonical retry_policy admits total attempts 1,2,3 only; delays before attempts 2/3 are 1/5 seconds, persisted without jitter. Attempt4 is refused; SDK retries count toward3; restart cannot reset counters or deadlines. Unknown write effects retain the original key/reservation and reconcile before retry.",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-ENGINE-CANCEL",
+    "requirements": [
+      "GR-ENGINE-002",
+      "GR-ENGINE-004"
+    ],
+    "given": "Waiting or running Run with callbacks and an in-flight external action",
+    "when": "Cancel then deliver late callback, timer and old Worker result; fail stop acknowledgment",
+    "then": "No resurrection or new dispatch; lifecycle remains cancelling until required guards; prior effects and uncertainty remain visible; no unauthorized compensation",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-ENGINE-UPGRADE",
+    "requirements": [
+      "GR-ENGINE-005"
+    ],
+    "given": "Runs pinned to old workflow/checkpoint formats, including approval waits; long-running active agent with status, governed memory/source/prompt versions, pending approval, workspace changes and uncertain external action",
+    "when": "Stage compatible and incompatible releases; interrupt checkpoint conversion and rollback; reconnect old Worker; background-stage compatible/incompatible update, confirm exact activation, exceed update wait timeout, retain supported old runtime or qualify a safe handover, reconnect versioned UI and revoke rights while work remains active",
+    "then": "Preflight blocks unsupported work; supported old handlers/conversions preserve hashes/action IDs and approval meaning; no duplicate completed effects or stale Worker writes; current policy no updater-induced cancellation/restart/context reset/prompt replay of long-running work, signed compatible activation only, affected incompatible activation waits while supported ongoing work remains; exact status/memory/prompt/source/work/approval/action/usage context preserved, no duplicate effects or dual ownership, valid old pinned runtime distinguished from stale-epoch Worker; update states honestly show retained versus updated components, old packages not deleted while used; app-lifetime/relaunch behavior requires its separately confirmed policy and actual evidence, no general background-daemon or arbitrary native-resume guarantee",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-ENGINE-PORTABLE",
+    "requirements": [
+      "GR-ENGINE-006"
+    ],
+    "given": "Whole-Instance backup with waits, timers, retries, pending outbox and unsettled budget",
+    "when": "Restore across restart then move the Instance to a new computer and retire the source; replay post-cutoff callbacks and overdue timers",
+    "then": "Outbound stays disabled until valid activation; preserved work/receipts/action identities and conservative reservations; new leases only; recorded catch-up policy; no dual dispatch or erased accepted ingress",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-ENGINE-LEASE",
+    "requirements": [
+      "GR-ENGINE-001",
+      "GR-ENGINE-002"
+    ],
+    "given": "Two Workers and expiring lease with stale process still alive",
+    "when": "Lose database/network, expire lease, reacquire and attempt old-epoch mutation/dispatch",
+    "then": "Old epoch rejected; no transaction held over external call; database outage fails closed; new owner reconciles before effects",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-ENGINE-PROFILE",
+    "requirements": [
+      "GR-ENGINE-007"
+    ],
+    "given": "Primary app-managed Desktop profile with qualified engine, policy and persistent state",
+    "when": "Close/reopen app, terminate children, sleep/wake host and restore state",
+    "then": "Durable waits persist; no local dispatch while app closed/host asleep; current authority and effects reconcile on reopen; no automatic Cloud continuation/second store; actual packaging and backend qualify separately from container evidence",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-ENGINE-G1",
+    "requirements": [
+      "GR-ENGINE-005",
+      "GR-ENGINE-006",
+      "GR-ENGINE-007"
+    ],
+    "given": "Bounded PostgreSQL and Temporal candidates against current Desktop packaging and app-lifetime requirements",
+    "when": "Within three-working-day elimination preflight check deployability/maintenance, then run full common crash/lease/duplicate/approval/revision/cancel/upgrade/restore traces for survivors",
+    "then": "Record exact versions/dependencies/security/recovery/operator burden and failures; verify app-managed no-Docker deployability and full survivor traces; unsafe candidates fail; existing container comparisons do not certify Desktop packaging or exactly-once remote effects",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-CHAT-HOME",
+    "requirements": [
+      "GR-CHAT-001",
+      "GR-CHAT-008"
+    ],
+    "given": "Team with open attention, active work and restricted sources",
+    "when": "Open team, resolve attention, switch team with an unsent draft/quote, then open work; open default home with many routine delegated reviews and a small set of actual user decisions, directly open a pinned assistant, switch to graph and choose/resume a preferred home; revoke/alter target scope",
+    "then": "Material summary, actionable attention, work and results appear in order; empty state is truthful; composer scope is visible; draft/quote never silently migrates; no unauthorized summary leak; work/user-decision and material-progress summary plus pinned contacts appear by default, no per-memory/child-review human queue; graph and any permitted assistant are directly accessible, preferred navigation preserves valid scope without auto-resuming execution or broadening grants; stale/revoked targets clear protected content and offer a safe available home, no hidden-scope metadata",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-CHAT-RICH",
+    "requirements": [
+      "GR-CHAT-002",
+      "GR-CHAT-005"
+    ],
+    "given": "Short/long structured outcomes and an unsupported or hostile message part",
+    "when": "Read inline, expand sections, stream new content while scrolled upward and attempt approval of draft text",
+    "then": "Complete committed content is reachable without file download; no forced scrolling; safe fallback/sanitization; uncommitted content cannot be accepted; stable part/section identities",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-CHAT-MOBILE",
+    "requirements": [
+      "GR-CHAT-003",
+      "GR-CHAT-008"
+    ],
+    "given": "Canonical text, wide table, bar/line chart and critical warnings in all release locales",
+    "when": "Read at 360/390/768/1280 CSS pixels with translated expansion, zoom, keyboard, screen reader and reduced motion",
+    "then": "No document-wide horizontal overflow; complete rows/columns and critical context reachable; chart values/units/cutoff/source accessible; unknown differs from zero; no PDF/PPTX required",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-CHAT-FOCUS",
+    "requirements": [
+      "GR-CHAT-004"
+    ],
+    "given": "Expanded chat sections, draft and a selected immutable version",
+    "when": "Enter focus reader and return; load late content; announce new source version; switch viewport",
+    "then": "Reading anchor/expansion/draft/scope retained; no silent version switch; revoked content not restored; narrow view uses readable navigation",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-CHAT-SELECTION",
+    "requirements": [
+      "GR-CHAT-004",
+      "GR-CHAT-007",
+      "GR-CHAT-008"
+    ],
+    "given": "Selected text, sorted table rows and chart points with stable source IDs",
+    "when": "Reorder/filter data, translate labels, create newer artifact, revoke source and send selected context",
+    "then": "Exact old version/hash/semantic selection IDs retained or explicit reselect required; no coordinate/latest-version retarget; unauthorized content removed; editing creates new version only through authorized work",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-CHAT-VERSIONS",
+    "requirements": [
+      "GR-CHAT-005",
+      "GR-CHAT-007"
+    ],
+    "given": "Fixture with canonical N, export derived from N and canonical N+1",
+    "when": "Read old/new messages, translate view, inspect prior acceptance and attempt accepting new content with old evidence",
+    "then": "Old file and message remain N; older export labeled; viewport/locale changes do not mutate authority; content acceptance does not certify file layout; required exact export evidence enforced",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-CHAT-CAPABILITY",
+    "requirements": [
+      "GR-CHAT-005",
+      "GR-CHAT-006",
+      "GR-CHAT-008"
+    ],
+    "given": "A capability profile without qualified optional file generation, OCR, parser or3D support; required initial PDF/DOCX remains a separate release gate",
+    "when": "Request those formats/import reading and read supported structured/Markdown outcome",
+    "then": "Truthful unavailable state before unsupported execution; primary result remains readable; original authorized download retained; no fake OCR/export or added first-result promise",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-CHAT-EXPORT",
+    "requirements": [
+      "GR-CHAT-005",
+      "GR-CHAT-007"
+    ],
+    "given": "Enabled real exporter for canonical N and declared template version",
+    "when": "Start export, revise to N+1 mid-generation, interrupt publication and regenerate",
+    "then": "Available file bytes bind N/hash/template, never N+1 by race; partial files unavailable; old files retained; regenerated file has new identity and exact layout acceptance evidence",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "roadmap"
+  },
+  {
+    "id": "T-CHAT-IMPORT",
+    "requirements": [
+      "GR-CHAT-006",
+      "GR-CHAT-007"
+    ],
+    "given": "Enabled real parser with text, scanned, encrypted and diagram-heavy PDF/PPTX fixtures",
+    "when": "Build mobile reading, inspect warnings and original page/slide, quote and translate sections",
+    "then": "Original preserved; source versus summary labeled; source map exact; incomplete extraction disclosed; hostile content sandboxed; no invented fidelity or silent losses",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "roadmap"
+  },
+  {
+    "id": "T-CHAT-JOURNEY",
+    "requirements": [
+      "GR-CHAT-001",
+      "GR-CHAT-002",
+      "GR-CHAT-003",
+      "GR-CHAT-004",
+      "GR-CHAT-007",
+      "GR-CHAT-008"
+    ],
+    "given": "Glasrocks team and real enabled content Executor",
+    "when": "Complete F1/F2 at desktop and narrow viewports in en/zh-Hant/de; revoke source while result and focus reader are open",
+    "then": "Scoped request yields readable result, selection-driven new version and exact acceptance; attention deduplicated; revoked bytes removed from views/cache; no raw tool-log flood or file-reader dependency",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-SUB-POLICY",
+    "requirements": [
+      "GR-SUB-001",
+      "GR-SUB-002",
+      "GR-SUB-004"
+    ],
+    "given": "Eligible and unsupported plan/provider/runtime profiles, including one with provider extra usage enabled",
+    "when": "Select strict existing-subscription-only and inspect entitlement, features, account-wide concurrency and effective billing source",
+    "then": "Only qualified/no-overage route activates; unverified extra usage blocks the zero-additional-charge claim; unsupported features fail before dispatch; no fabricated quota; multiple roles share permitted allowance",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-SUB-LOGIN",
+    "requirements": [
+      "GR-SUB-002",
+      "GR-SUB-003",
+      "GR-SUB-006"
+    ],
+    "given": "Clean supported local Desktop installation and eligible subscriber with no API key",
+    "when": "Install permitted verified runtime through GUI, complete official login or deny/MFA/cancel, reconnect and revoke",
+    "then": "No terminal/config/token pasting or secret scraping; account/workspace verified; setup retained; no partial connection; restricted Unit access and credential ownership enforced; record real assistance",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-SUB-FIRST",
+    "requirements": [
+      "GR-SUB-001",
+      "GR-SUB-003",
+      "GR-SUB-006"
+    ],
+    "given": "Real subscription account, subscription-only policy and supplied-material pilot request",
+    "when": "Complete intention clarification, team creation, useful result, inline reading and exact-version acceptance in all release locales",
+    "then": "No API key/billing enrollment or inference purchase required; every supporting AI call uses qualified selected subscription route; record actual output and acceptance, no fake success",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-SUB-EXHAUST",
+    "requirements": [
+      "GR-SUB-001",
+      "GR-SUB-004",
+      "GR-SUB-005",
+      "GR-SUB-006"
+    ],
+    "given": "Active real-route work plus controlled quota faults, paid API key configured as trap and pending actions",
+    "when": "Exhaust quota mid-step, restart, expire auth, deliver late callback and later restore allowance",
+    "then": "Progress/checkpoints and unknown effects retained; bounded fair wait/recheck; no API/hosted/account fallback, overage activation or retry storm; resume revalidates authority and no duplicate action",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-SUB-SWITCH",
+    "requirements": [
+      "GR-SUB-001",
+      "GR-SUB-003",
+      "GR-SUB-005"
+    ],
+    "given": "Waiting subscription Run and separate paid/API or alternate account profile",
+    "when": "Race explicit billing-mode change with revocation, stale decision, queued work and uncertain remote effect",
+    "then": "Only authorized current decision can switch; display cost/egress/source and preserve original billing provenance; reconcile before linked continuation; absent permission never spends API credits",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-SUB-DEPLOY",
+    "requirements": [
+      "GR-SUB-002",
+      "GR-SUB-003",
+      "GR-SUB-006"
+    ],
+    "given": "Subscription connection, backup and local Desktop/optional hosted profile or unsupported Cloud target",
+    "when": "Close/sleep local Desktop, restore a backup on a new computer and request credential/authority migration",
+    "then": "No credential copy/personal-seat pooling; paired native mobile may securely control the same qualified online host without copying provider credentials or starting another dispatcher; unsupported target fails preflight; new computer requires fresh official login and route qualification; source/target execution guards preserved",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-DESKTOP-CATCHUP",
+    "requirements": [
+      "GR-DESK-005",
+      "GR-DEPLOY-002",
+      "GR-KNOW-004"
+    ],
+    "given": "Local Desktop Responsibilities/reviews, app closed or host asleep across two scheduled times",
+    "when": "Reopen/wake, restore runtime readiness/current leases and open organization home; inspect app-closed interval",
+    "then": "No local dispatch during app-closed/asleep interval; missed reviews coalesce once after current authority/budget/quota checks; return briefing shows results/waiting work/decisions/new schedules; no background continuation, silent power change, wake scheduling, cloud fallback or 24/7 claim",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-HOSTED-MINIMAL",
+    "requirements": [
+      "GR-DESK-006",
+      "GR-DESK-004"
+    ],
+    "given": "Installed open-source-direction local app with work and newer signed release; no Glasrocks license entitlement service",
+    "when": "Inspect outbound Glasrocks traffic; disable update/diagnostics/optional relay and cloud-hosting availability",
+    "then": "Local data and local work with available permitted providers remain usable without Glasrocks content hosting, inference or license grace period; current verified release runs; only disclosed opt-in/update traffic, no Instance content; paired remote control may be unavailable if its declared transport fails, never silently move execution to Cloud",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-SUB-FALLBACK",
+    "requirements": [
+      "GR-SUB-007",
+      "GR-SUB-005",
+      "GR-EXEC-004"
+    ],
+    "given": "No subscription route qualified at its explicit product decision gate and an invited early-access user without developer tooling",
+    "when": "Complete guided API-key setup with a provider-side spend limit, run a first outcome, exhaust the internal reservation, then switch to a newly qualified subscription route",
+    "then": "No terminal or file editing; billing source shown per Run; key stored in OS-protected storage; internal reservation stops dispatch; public copy makes no no-API-key claim; switching requires an explicit revision-checked decision and never happens automatically",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "roadmap"
+  },
+  {
+    "id": "T-DOCKER-PREVIEW",
+    "requirements": [
+      "GR-ARCH-004",
+      "GR-DEPLOY-001",
+      "GR-DEPLOY-002"
+    ],
+    "given": "A fresh declared supported Docker host/GPU/engine/backend tuple with one owner, verified pinned deployment manifest and persistent data paths",
+    "when": "Follow documented owner/AI-assisted setup; complete real content/company work; stop/recreate/restart containers; try missing mounts, unsupported provider, corrupt data and conflicting deployments; back up and restore isolated",
+    "then": "Optional engineering Docker profile uses shared core/API/schema/UI and current policy; private authenticated ingress/DB/controller; stable Instance/results, no init over data or second dispatcher, no workload Docker socket; useful exact-version acceptance/report; recoverable setup and restore; exact container G2/G3/G4 evidence, not native Desktop/mobile qualification or a public-server claim",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "roadmap"
+  },
+  {
+    "id": "T-EXP-01",
+    "requirements": [
+      "GR-EXP-001",
+      "GR-DESK-001",
+      "GR-DESK-002",
+      "GR-DEPLOY-001",
+      "GR-DEPLOY-002"
+    ],
+    "given": "Clean declared supported Desktop host without Docker/developer tools or Euclas state; local/cloud capabilities declared separately",
+    "when": "Install graphical app, interrupt/retry downloads, test invalid provenance, insufficient resources, unknown data and restart",
+    "then": "Verified app-managed installation with private data/readiness and honest capability limits; no user Docker/CLI/GPU purchase prerequisite, silent data overwrite/upload or hidden provider calls; exact native profile G3 evidence, local model/hardware support only when actually qualified; macOS and Windows initial targets need their own exact-profile evidence, Mac-first engineering does not silently drop Windows or imply all architectures",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-EXP-02",
+    "requirements": [
+      "GR-EXP-002",
+      "GR-ONB-001",
+      "GR-ONB-002",
+      "GR-ONB-003"
+    ],
+    "given": "Non-developer with real personal, household, company or club work and permitted material",
+    "when": "Begin with one persistent assistant, commit useful work, form/reuse an organization when needed, retry/reopen and accept an exact result",
+    "then": "Existing scoped Unit/Actor/Position/Assignment and current grants apply; no forced organization-tree/model setup, duplicate identity or accidental dispatch; responsibilities, decisions and pending work survive role/model/harness changes; first assistant remains an entry convenience rather than permanent gatekeeper, subsequent authorized assistants at any hierarchy level are direct contacts with independent scoped work",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-EXP-03",
+    "requirements": [
+      "GR-EXP-003",
+      "GR-KNOW-001",
+      "GR-SEC-003",
+      "GR-PORT-001"
+    ],
+    "given": "Two assistant spaces, private/shared company material, an external folder and an accepted immutable output",
+    "when": "Open Files and OS folder; import/edit/export; race a human edit; attempt symlink/renamed-mount escape; revoke during execution; restore to a new location; edit a managed working version without changing the external original, compare history, let authorized supervisor review and publish under a scoped standing write grant; modify the source externally during review, revoke the grant and interrupt publication",
+    "then": "Visible files correspond to governed versions; no private/host-secret escape; stale replacement fails; originals and accepted bytes remain protected; revocation removes future context/write access and active work is reconciled; restore requires explicit rebinding; user sees coherent identity/history rather than manual duplicate housekeeping; default original bytes unchanged, exact work/result/source versions preserved; conflict-free current-authority publication may proceed without per-save approval, but changed/missing/unknown source or revoked scope prevents blind overwrite; recoverable prior version for claimed undo, no unsupported atomicity/fidelity promise or implicit egress",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-EXP-04",
+    "requirements": [
+      "GR-EXP-004",
+      "GR-INT-001",
+      "GR-INT-003",
+      "GR-SUB-001",
+      "GR-SUB-006"
+    ],
+    "given": "Qualified real local model on declared supported hardware and qualified cloud subscription with a versioned fixed task",
+    "when": "Complete the local journey after provisioning with provider network denied; exercise cloud and explicit mixed policy, supporting calls, OOM/quota/cancel/restart and mode change; set company defaults, assistant preferences and per-work overrides; attempt ceiling expansion and stale/duplicate settings changes; change preferences during an active Run; delegate a permitted route set, choose models/harnesses for different work, switch after quota failure, hard-pin a combination and revoke a route while queued or active; attempt paid/unapproved alternative and stale routing changes",
+    "then": "Local-only uses no remote AI/knowledge call; all planning/retrieval/summary calls follow policy; real local/cloud results pass criteria; cloud egress is authorized; errors preserve work without unauthorized fallback; routes/profile versions/resource/usage/quality evidence recorded; both routes use shared business/review criteria; effective precedence is displayed and intersects company/source/grant/budget ceilings; no route is silently preferred or substituted; mixed-stage derived-data egress is authorized; active Runs retain pins or fence/reconcile into a new attempt; state/history survives route failure; current policy selection/switch within current allowed qualified routes needs no repeated user prompt, actual route/reason/policy is visible; hard pins/current grants/egress/aggregate entitlement and budget remain binding; no API billing, new subscription, unapproved account or egress expansion; route revocation/unsupported capability blocks use, and active switches fence/reconcile into linked attempts without duplicate external effects",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-EXP-05",
+    "requirements": [
+      "GR-EXP-005",
+      "GR-KNOW-001",
+      "GR-KNOW-002",
+      "GR-SEC-001"
+    ],
+    "given": "Company, project/specialty, role, assistant and temporary knowledge scopes; stale/conflicting UTF-8/Markdown/CSV sources and private client records",
+    "when": "Import/search/cite/correct/promote/revoke; replace assistant and model; inject instructions and CSV formulas; attempt cross-scope retrieval and stale cache reads",
+    "then": "Exact citations and uncertainty persist; company/Position knowledge survives replacement; private notes do not become shared; unauthorized data absent from model context/search/cache; proposed inference is not fact; formulas are not executed; original bytes retained and safe export documented; organizational common knowledge is role-permitted shared context while personal conversations and private Actor memory remain scoped; users need not repeat already authorized common facts to every assistant",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-EXP-06",
+    "requirements": [
+      "GR-EXP-006",
+      "GR-INT-001",
+      "GR-INT-003",
+      "GR-SEC-003"
+    ],
+    "given": "Curated qualified file/search/CSV/repository/research tools with versioned manifests and applicable platform limits",
+    "when": "Preview/consent/provision/activate/use/update/disable the pack; test bad schema/hash, incompatible hardware/license, URL redirect/private-network attack and hostile tool output",
+    "then": "Real useful work uses qualified tools with measured benefit/limits; typed gateway/current grants, SSRF and credential isolation; invalid hashes/schemas/licenses fail, installation does not grant authority; no mandatory NVIDIA purchase or paid enrollment; disable fences/reconciles work",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-EXP-07",
+    "requirements": [
+      "GR-EXP-007",
+      "GR-EXEC-001",
+      "GR-EXEC-002",
+      "GR-WORK-004",
+      "GR-DESK-005"
+    ],
+    "given": "An owner with real organizational work, two isolated client/request scopes, approved sources and separately qualified tool grants",
+    "when": "Delegate brief-to-deliverable work, hand off Positions, correct/accept an output, schedule the next review and interrupt/restart mid-work",
+    "then": "Useful source-linked work is produced and accepted at exact revision; no client leakage or lost ownership; follow-up creates useful bounded work, not just a stored occurrence; no ungranted send/publish/payment; unknown effects are reconciled without blind resend",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-EXP-08",
+    "requirements": [
+      "GR-EXP-008",
+      "GR-SEC-001",
+      "GR-SEC-002",
+      "GR-SEC-003",
+      "GR-SEC-004",
+      "GR-SEC-006",
+      "GR-DEPLOY-002"
+    ],
+    "given": "Each declared Desktop/backend or qualified replacement content/coding/tool tuple with explicit grants and active descendants/connections",
+    "when": "Run injection/exfiltration/path/process/network/stale-approval attacks; stop/revoke mid-call; inspect four-condition qualification and platform default selection",
+    "then": "Current authority and isolation block bypass; no prompt-only substitute, workload socket or widened grant; preserved audit/results and honest stop/reconciliation; OpenShell default only on fully passing tuples; failures/unexecuted checks not generalized to other platforms",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-EXP-09",
+    "requirements": [
+      "GR-EXP-009",
+      "GR-KNOW-003",
+      "GR-KNOW-004",
+      "GR-INT-003",
+      "GR-ONB-004"
+    ],
+    "given": "The reference existing understaffed SME used over five actual awake working days, consented owners in en/zh-Hant and verified de views",
+    "when": "Review reports, correct a method, repeat work, compare changed model/tool against baseline and inspect quiet/no-change plus material-decision cases",
+    "then": "Results and decisions cite current permitted evidence; costs/quotas/resources show known/estimated/unknown; corrections are reviewed versions with measured effort/usefulness; no self-approved regression or authority growth; no-change stays quiet; failed/incomplete trials retained; owner decision/due/blocked/review queues have exact work/source links; GR-PROD-006 separates net measured effort and unknown baselines from hypothetical ROI",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-EXP-10",
+    "requirements": [
+      "GR-EXP-010",
+      "GR-PORT-001",
+      "GR-PORT-002",
+      "GR-PORT-003",
+      "GR-PORT-004",
+      "GR-INT-001"
+    ],
+    "given": "Accepted company outputs/knowledge, pending work, assistant files and pinned model/tool manifests on a source machine",
+    "when": "Replace assistant/model; export permitted ordinary files; back up, restore to a qualified second machine with unavailable package/mount/credential cases and retire source authority",
+    "then": "Stable identities/evidence persist; portable backup covers promised files; no imported code executes; indexes rebuild under current rights; unavailable dependencies leave data readable/work blocked; explicit credential/folder rebinding and one dispatch authority; no automatic cloud upload",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-DOCKER-AUTH",
+    "requirements": [
+      "GR-DEPLOY-001",
+      "GR-SEC-001",
+      "GR-SEC-004",
+      "GR-DEPLOY-002"
+    ],
+    "given": "Fresh engineering Docker deployment, protected one-use bootstrap ingress and one human owner",
+    "when": "Bootstrap/login, replay/forge tickets, try external origins/CSRF, inspect logs/browser/Executor access and revoke sessions",
+    "then": "Only current authenticated owner obtains session; no secret in logs/public URLs/chat; protected local transport/origin/CSRF, no default password/anonymous API; private DB/controller and denial audit; init/retry cannot create another owner",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "roadmap"
+  },
+  {
+    "id": "T-DOCKER-UPDATE",
+    "requirements": [
+      "GR-DEPLOY-002",
+      "GR-MAINT-001",
+      "GR-MAINT-002",
+      "GR-MAINT-003",
+      "GR-MAINT-004",
+      "GR-DEPLOY-001"
+    ],
+    "given": "Running Docker Instance with work, persistent artifacts and journal; signed pinned old/new deployment sets",
+    "when": "Update through every stage/cutpoint, wrong signature/digest, incompatible DB migration, controller/host restart and low disk; remove app and request data deletion separately",
+    "then": "Verified compatible image/data set only; maintenance fences/journal/recovery point persist; failed update retains recoverable source and exact unknown effects; browser or guarded owner/AI recovery path works; no implicit volume deletion; old binary alone cannot roll back incompatible schema",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "roadmap"
+  },
+  {
+    "id": "T-OPENSHELL-QUALIFICATION",
+    "requirements": [
+      "GR-SEC-006",
+      "GR-DEPLOY-001",
+      "GR-DEPLOY-002",
+      "GR-INT-003"
+    ],
+    "given": "Version-pinned OpenShell-first content/coding tuples, alternative backend and real local/cloud/tools/material path",
+    "when": "Test each four-condition cell: install/update/recover; complete useful work; attacks; stop/revoke/crash. Include partial pass, unsupported platform, backend/version change and user-selected qualified alternative",
+    "then": "Exact per-tuple pass/fail/not_run receipts; full pass defaults OpenShell, partial/failed stays unavailable with recorded reason; replacement only after same tests, no silent active-Run change/authority widening; required safety survives rejection; fixtures/other-platform results cannot qualify real integration",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-SME-VALUE",
+    "requirements": [
+      "GR-PROD-006",
+      "GR-EXP-007",
+      "GR-EXP-009",
+      "GR-ONB-004"
+    ],
+    "given": "Consenting non-developer users and owners, real organizational/personal work, repeated actual awake app-open sessions and declared routes; comparable manual baseline where available",
+    "when": "Observe repeated delegation, return without researcher prompting, correction, exact acceptance, follow-up work and interruptions; collect operation/review/correction/setup/maintenance/support effort and voluntary willingness-to-pay feedback",
+    "then": "Retain rejected/incomplete/non-return and rescue cases, effort/source quality and measured/estimated/unknown costs; comparable net effort only, no claimed conversion/ROI; no unauthorized outreach/billing/sends; include household/club evidence before general-public suitability claims",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-SME-COLLAB",
+    "requirements": [
+      "GR-PROD-002",
+      "GR-SEC-001",
+      "GR-SEC-002",
+      "GR-SEC-004"
+    ],
+    "given": "Initial multi-human profile with owner, invited independent human identities, client scopes and per-user provider entitlements; exact enrollment/identity/session/migration qualification required",
+    "when": "Invite and assign scoped members, delegate and review work, race stale/duplicate approvals, revoke access during Runs/streams/search/cache reads and recover deployment; invite another member on native mobile/desktop, accept duplicate/expired/revoked invitation, replace a phone, attempt reuse of owner pairing as a colleague, concurrently edit/approve exact revisions and remove one Unit membership while keeping another; sign in to the unified Euclas Account on Desktop/mobile, invite by Email and accept with verified intended account, change Email and attempt forwarded/wrong-account invitation acceptance; lose network/account service on previously verified device, use existing local permissions within finite validity, revoke local rights, expire validity/change clock, reconnect after global disable, and attempt offline first-login/invitation/account change or validity renewal; assistant drafts invite, human administrator confirms exact recipient/Unit/role/rights revision, recipient accepts; alter recipient/privileges, revoke issuer authority and race duplicate sends/acceptance; explicitly enable/revoke a bounded automatic invitation rule",
+    "then": "No shared-owner credential or pooled personal seat; membership/grants distinct, current isolated data and decisions, stale/duplicate operations fenced, revocation/recovery traced; pairing alone grants no additional human membership; same core/schema, no fixed R2/R3 delivery assumption; device pairing never creates/impersonates another human; each person can use multiple devices, revoking one device differs from removing scoped membership/global disable; no matching or merging by email/display name alone; concurrent decisions honor exact revisions, authorized shared-host work requires that host app open/awake/ready, no silent replicated host/cloud fallback; stable account identity maps to local Actors independently of Email or device, verified invitation commits only currently authorized scope, forwarded/wrong-account links and display-name/Email-only linking cannot grant access; the account service receives only disclosed minimal identity/invitation routing metadata, not private work content/model credentials; local host authorization remains authoritative and account outage never implies Cloud execution; current policy finite offline behavior requires exact validity/revalidation qualification; within validated finite validity only existing current-authority local capabilities continue, local revocation/expiry blocks immediately, global disable is revalidated on reconnect and not claimed instantaneous offline; new login/invites/account changes/offline renewal/self-grants rejected, clock rollback cannot extend validity; expired/revoked admission fences new protected work with preserved data/checkpoints and in-flight reconciliation; no network/model/remote access is fabricated; current policy default needs actually authorized human confirmation before invitation send/admission, draft alone does nothing; recipient acceptance remains independent, changed targets/stale or out-of-ceiling privileges fail closed; explicit matching current standing rule permits supported automatic invitations without re-prompt, out-of-rule/revoked/expired rules do not; approvals never implicitly create rules, unknown send/admission reconciles without duplicate invitation/membership/privilege escalation",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-ASSISTANT-CONTINUITY",
+    "requirements": [
+      "GR-PROD-004",
+      "GR-EXP-005",
+      "GR-EXEC-001"
+    ],
+    "given": "A persistent assistant with private/Unit memory, responsibility, pending work and accepted results",
+    "when": "Change supported model/harness, restart or hand off a role and inspect permitted history",
+    "then": "Actor identity/history and governed memory/work survive; provider session is replaceable, no invented native resume; conflicting/private memory not leaked; memory growth never enlarges grants; reconcile and link attempts before continuing",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-FIRST-JOURNEY",
+    "requirements": [
+      "GR-PROD-002",
+      "GR-PROD-003",
+      "GR-ONB-003",
+      "GR-INT-001"
+    ],
+    "given": "A non-developer with a real client request from a qualified mailbox or supplied equivalent, permitted sources and scoped tools",
+    "when": "Coordinator decomposes work, uses permitted parallel helpers, creates interactive deliverable, visually inspects it and prepares a reply draft for review; inspect initial email send, explicitly grant/revoke a recurring email class, then try in-scope, out-of-scope and changed-recipient/content cases; browse/visually inspect/prepare a form, attempt submission without extra authority, explicitly enable additional browser actions, narrow/revoke them and test a form with autosave/upload side effects; choose a qualified structured tool versus scoped visual interaction, queue two assistants for a shared interactive session, let a human take over, change the active target, revoke control and close the app; attempt an unavailable desktop capability",
+    "then": "Source-linked useful result and visual verification evidence; business assumptions/commitments and unresolved choices highlighted; routine authorized work does not re-prompt; no send/merge/publish from drafting alone; disconnected mailbox retains text path; app-close/reopen reconciles effects and exact versions before continuation; initial draft cannot send before user confirmation; repeated approvals/memory/confidence do not auto-create grants; a later explicit scoped standing grant permits only matching current-authority sends without repeated prompts; changed targets outside that scope and revoked/stale grants return to review or refuse, with unknown delivery reconciled rather than blindly resent; initial browser policy pauses before consequential submission, authorized explicit additional permissions allow only supported in-scope actions without repeated prompts; no permanent prepare-only ceiling or agent self-grant; narrowing/revocation/stale scope prevents later effects; preparation autosave/upload is checked as its actual effect, and unknown submissions reconcile before retry; reliable qualified structured interfaces are preferred, visual verification uses actual authorized application state; only one automated input owner per shared session, independent concurrency only in qualified isolated sessions; human takeover/stale target/revocation prevents later automated input until fresh observation and current-authority resumption, with no silent control reacquisition; screen content does not grant permissions or expose unrelated windows, uncertain external effects are reconciled, and unavailable desktop control is truthfully blocked rather than simulated",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-PRIVATE-PLUGIN",
+    "requirements": [
+      "GR-PROD-007",
+      "GR-INT-001",
+      "GR-SEC-003"
+    ],
+    "given": "Private personal/Unit plugin generated from an authorized request, with Desktop/mobile views and versioned data bindings; company and nested department Units with distinct plugin owners, views and data grants",
+    "when": "Preview/test/activate/edit/disable/rollback; inject scripts/tool output, stale grants and cross-Unit access; replace maintainer; create/use interactive dashboard and form, edit authorized data and start assistant work from Desktop/paired mobile; attempt ungranted edits or starting independent custom backend services; ask by conversation to create and modify company/department dashboards, navigate each scope, attempt cross-level visibility/data aggregation without grants; share an authorized company template, adopt distinct customized department versions, publish upstream changes, have an authorized supervisor compare/test/apply a compatible update, inject conflicting edits/schema/grant/egress changes and crash during activation/rollback",
+    "then": "Responsive views share authoritative data/current rights; no host/DB/secret bypass or self-grant, version/activation audited; disable fences actions, rollback preserves compatible data and reconciles effects; ownership survives maintainer change; no marketplace required; initial interactive level supports governed edits/work creation rather than read-only placeholders; mutations validate schema/current scope and deduplicate retries, starting work conveys no extra authority; custom backend/persistent-service activation is unavailable without separate capability scope, not silently inferred from plugin creation; full first-release conversational lifecycle is functional rather than fixed templates only; each Unit level can own distinct plugins with stable scope/version across devices, parent/child navigation does not grant visibility or data/action access; company summaries exclude inaccessible records and hidden-scope metadata; current policy shared-template/independent customization and supervisor-reviewed update behavior is confirmed, exact package/binding/merge contracts require qualification; current policy each adopted plugin retains scoped ownership/pinned base/local customization/data bindings/history, sharing copies no source data/credentials/grants; supported reviewed compatible update preserves customizations without per-update human prompt inside actual mandate, conflict/unsafe migration/ungranted changes retain working version and follow delegated escalation; activation uses exact new versions/idempotency and preserves active interactions/work/effect identity or waits, no old-action replay/duplicate job, rollback respects data compatibility and cannot undo external effects",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-MOBILE-PAIR",
+    "requirements": [
+      "GR-DESK-007",
+      "GR-DESK-003",
+      "GR-SEC-005"
+    ],
+    "given": "Open awake ready local app, installed native iPhone/iOS and Android clients, unpaired attacker device and short-lived one-use enrollment on supported separate mobile/home/company networks with direct/relay candidate transport, adversarial endpoint and revoked/lost device",
+    "when": "Pair correct/wrong Instance, replay/expire enrollment, revoke device, close/sleep/crash host and reconnect with stale/duplicate requests; attempt interception/wrong-host or key substitution, certificate/peer validation bypass, plaintext downgrade, repeated/expired ciphertext/session use, revocation of an active lost device from Desktop and relay/network failure; enroll invited member devices against their own authenticated human identity and attempt owner impersonation; sign in to the unified Euclas Account on Desktop/mobile, invite by Email and accept with verified intended account, change Email and attempt forwarded/wrong-account invitation acceptance",
+    "then": "Explicit scoped pairing only, authenticated encrypted transport and current grants; no provider credential copy, new human seat, cloud storage/execution fallback or app wakeup; host-offline/stale status truthful, no offline approvals; revoke blocks active sessions, reconnect refreshes authority/revisions and reconciles uncertain effects before retry; actual native-client pairing on both declared platforms, not responsive-web fixtures; real cross-network native control qualifies only with authenticated enrolled endpoints and end-to-end application-content privacy, relay sees no plaintext/decryption keys under declared threat model; peer failure/downgrade/replay/revoked sessions fail closed, authoritative host rechecks current action scope/revisions, no direct DB/model/CLI/admin exposure; relay outage preserves local use but remote is honestly unavailable, no plaintext/cloud/paid fallback, reconnect reconciles unknown effects; member pairing retains that human identity/current membership, neither invite nor device grants owner authority or unapproved provider subscription use; stable account identity maps to local Actors independently of Email or device, verified invitation commits only currently authorized scope, forwarded/wrong-account links and display-name/Email-only linking cannot grant access; the account service receives only disclosed minimal identity/invitation routing metadata, not private work content/model credentials; local host authorization remains authoritative and account outage never implies Cloud execution; current policy finite offline continuation follows current host rights, while exact validity/revalidation mechanics still require qualification; host-disconnected remote clients cannot commit actions",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-DELEGATED-STAFFING",
+    "requirements": [
+      "GR-PROD-004",
+      "GR-SEC-001",
+      "GR-SEC-002",
+      "GR-EXEC-004"
+    ],
+    "given": "Authorized supervising digital Actor with bounded staffing mandate, approved profiles, existing qualified assistants and aggregate resource/permission/budget ceilings",
+    "when": "Reuse capacity or create temporary/persistent staff; race duplicate/stale/revoked requests, crash after uncertain commit, recursively allocate assistants/budgets, request extra grants/accounts and close/reopen app",
+    "then": "In-scope staffing does not require per-member human confirmation; stable attributable Actor/Position/Assignment IDs and original result on duplicate/reconciled retry, no owner impersonation; creation conveys no implicit source/action/human-seat/provider/billing rights, child grants require distinct delegated authority; atomic aggregate budgets/concurrency and current scope enforced across the tree, no recursive limit evasion; out-of-scope needs escalate through authorized chain; app closure stops dispatch, persistent memory/history and temporary outputs/responsibilities retained under lifecycle policy",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "roadmap"
+  },
+  {
+    "id": "T-MOBILE-NATIVE",
+    "requirements": [
+      "GR-DESK-007",
+      "GR-UX-001",
+      "GR-UX-003",
+      "GR-PROD-007"
+    ],
+    "given": "Installed native iPhone/iOS and Android Apps on declared actual devices, paired to open awake ready macOS/Windows host and qualified private interactive plugin",
+    "when": "Install/open/pair, directly chat with named/pinned assistants, inspect work/review/documents, use plugin forms/authorized data edits; background/terminate/reopen mobile app, change networks, revoke device, race duplicates/stale actions and close/sleep Desktop; use authorized operations from an outside network through the qualified secure path; enroll/deny/disable important-event push, rotate/revoke device token, mute an organization/assistant and open delayed notifications across background/termination/network/host-offline cases",
+    "then": "Native device-appropriate accessible interaction with scoped shared data and actual host state; both platforms tested independently, no browser/build-only substitution; plugin bridge isolates generated content and enforces current action rights; phone has no provider/DB-owner credentials or executor fallback, mobile inactivity does not stop open ready Desktop, Desktop closure stops local dispatch; reconnect rechecks authority/revisions and reconciles unknown effects before retry; no invented offline commits/native capability parity or distribution qualification; same-LAN or responsive-only proof does not close outside-network security acceptance; actual platform-specific push behavior recorded without invented background-delivery guarantees, routing contains no required protected plaintext, host/app-offline state truthful, current target/rights fetched before actions, no wake/Cloud execution from push and no action from mere notification delivery",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-DOCUMENT-OFFICE",
+    "requirements": [
+      "GR-CHAT-005",
+      "GR-CHAT-006",
+      "GR-CHAT-007",
+      "GR-KNOW-001",
+      "GR-EXP-005"
+    ],
+    "given": "Qualified bounded real PDF/DOCX fixtures including Traditional Chinese fonts, tables, images and complex or unsupported layouts; original files and current grants",
+    "when": "Import, inspect original and reflowed reading, cite exact sources, create or edit a proposal, export editable DOCX and PDF, revise during conversion, interrupt publication and revoke access",
+    "then": "Immutable originals and exact-version lineage persist; source anchors and warnings are truthful; supported Chinese content/tables/layout and DOCX editability are independently checked against declared limits; unsupported encrypted/scanned/complex features are disclosed without invented extraction or silent loss; scripts/macros do not execute; partial exports are unavailable and never mislabeled as newer versions; current access and guarded original-publication rules apply; no mandatory Microsoft/Adobe service, cloud upload or tool adoption inferred",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  },
+  {
+    "id": "T-COMMUNICATION",
+    "requirements": [
+      "GR-PROD-001",
+      "GR-CHAT-001",
+      "GR-CHAT-004",
+      "GR-SEC-001",
+      "GR-UX-001"
+    ],
+    "given": "current policy independently authenticated humans and digital assistants with scoped general direct/group conversations, private DMs, work results/ArtifactVersions, Reports and revision-bound questions/decisions on Desktop/native mobile",
+    "when": "Direct/group chat with permitted humans/assistants; reply/comment beside result/report/question, quote exact section and revise target; send ambiguous comments versus clear authorized instructions, retry messages/commands, revoke membership and attempt forwarding private chat or hidden-member discovery; reopen work without general chat/model history; post a focused reply, inspect default audience, have authorized supervising assistant read for review without thread membership setup, try hierarchy-only/cross-scope/private-DM/restricted-source access and revoke oversight during reads/search/summaries; add a human/helper after earlier discussion/results/decisions, retrieve permitted history and source anchors, include confidential quotes/attachments/private DMs, revoke access while cached/search/summary views exist, and attempt replay of old instructions/approvals",
+    "then": "General messaging and contextual focus are both usable in initial release; workspace replies remain next to exact target/version/audience, not forced into general chat or silently moved to newer versions; current conversation/source rights enforced, no contact hierarchy/global-login self-grant or implicit private-DM forwarding; precise authorized instructions produce existing domain commands and attributable receipts without extra confirmation within standing scope, comments/reactions/read receipts alone cannot approve/accept/complete work; stale/duplicate/unauthorized actions fenced and unknown effects reconciled; work ownership/state/schedule/results/decisions survive missing chat/context; audience/history/transport support requires qualified contracts and actual native evidence, no voice/video/federation claim; current policy current authorized work participants see shared discussion by default, actual higher-authority supervisor with explicit current work/discussion oversight-read mandate can inspect when needed without per-thread human enrollment; purpose/scope/attributable access enforced, hierarchy/title alone cannot read, read grants no write/accept/member privileges; no wholesale transcript copying/private-DM promotion/restricted-source leakage, revocation affects retrieval/context/summaries; current policy current-authority earlier-history access requires qualified query/cache/source/version enforcement; current policy joining time alone does not hide currently permitted earlier work history, restricted private/source/cross-scope data and metadata remain protected; current history read grants do not inherit past grants/approval/ownership or replay commands, old targets retain exact versions; bounded retrieval/permission-safe handoff summaries avoid bulk transcript/context replication and notification storms; revocation fences future reads/context/cache/streams without claiming erasure of previously exported files",
+    "required_test_level": "runtime",
+    "runtime_status": "not_run",
+    "release_stage": "R1"
+  }
+]

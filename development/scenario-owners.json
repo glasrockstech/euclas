@@ -1,0 +1,409 @@
+{
+  "scope": "Current initial-release requirement allocation; not execution or completion evidence.",
+  "owners": [
+    {
+      "scenario_id": "T-DATA",
+      "primary_package": "R01"
+    },
+    {
+      "scenario_id": "T-HANDOFF",
+      "primary_package": "R01"
+    },
+    {
+      "scenario_id": "T-ISOLATION",
+      "primary_package": "R01"
+    },
+    {
+      "scenario_id": "T-AUTH",
+      "primary_package": "R01"
+    },
+    {
+      "scenario_id": "T-TEAM-SETUP",
+      "primary_package": "R01"
+    },
+    {
+      "scenario_id": "T-SME-COLLAB",
+      "primary_package": "R01"
+    },
+    {
+      "scenario_id": "T-DESKTOP-INSTALL",
+      "primary_package": "R02"
+    },
+    {
+      "scenario_id": "T-DESKTOP-LIFECYCLE",
+      "primary_package": "R02"
+    },
+    {
+      "scenario_id": "T-DESKTOP-AUTH",
+      "primary_package": "R02"
+    },
+    {
+      "scenario_id": "T-PG-NATIVE",
+      "primary_package": "R02"
+    },
+    {
+      "scenario_id": "T-PG-PREFLIGHT",
+      "primary_package": "R02"
+    },
+    {
+      "scenario_id": "T-SUPERVISOR",
+      "primary_package": "R02"
+    },
+    {
+      "scenario_id": "T-SLEEP-SHUTDOWN",
+      "primary_package": "R02"
+    },
+    {
+      "scenario_id": "T-DB-PRIVILEGES",
+      "primary_package": "R02"
+    },
+    {
+      "scenario_id": "T-DESKTOP-CATCHUP",
+      "primary_package": "R02"
+    },
+    {
+      "scenario_id": "T-HOSTED-MINIMAL",
+      "primary_package": "R02"
+    },
+    {
+      "scenario_id": "T-EXP-01",
+      "primary_package": "R02"
+    },
+    {
+      "scenario_id": "T-COMMIT",
+      "primary_package": "R03"
+    },
+    {
+      "scenario_id": "T-LIFECYCLE",
+      "primary_package": "R03"
+    },
+    {
+      "scenario_id": "T-REVISION",
+      "primary_package": "R03"
+    },
+    {
+      "scenario_id": "T-SCHEDULE",
+      "primary_package": "R03"
+    },
+    {
+      "scenario_id": "T-API",
+      "primary_package": "R03"
+    },
+    {
+      "scenario_id": "T-RECOVERY",
+      "primary_package": "R03"
+    },
+    {
+      "scenario_id": "T-EFFECT",
+      "primary_package": "R03"
+    },
+    {
+      "scenario_id": "T-CANCEL",
+      "primary_package": "R03"
+    },
+    {
+      "scenario_id": "T-BUDGET",
+      "primary_package": "R03"
+    },
+    {
+      "scenario_id": "T-ADAPTER",
+      "primary_package": "R03"
+    },
+    {
+      "scenario_id": "T-CONTENT-SCOPE",
+      "primary_package": "R03"
+    },
+    {
+      "scenario_id": "T-ENGINE-ATOMIC",
+      "primary_package": "R03"
+    },
+    {
+      "scenario_id": "T-ENGINE-CHECKPOINT",
+      "primary_package": "R03"
+    },
+    {
+      "scenario_id": "T-ENGINE-APPROVAL",
+      "primary_package": "R03"
+    },
+    {
+      "scenario_id": "T-ENGINE-RETRY",
+      "primary_package": "R03"
+    },
+    {
+      "scenario_id": "T-ENGINE-CANCEL",
+      "primary_package": "R03"
+    },
+    {
+      "scenario_id": "T-ENGINE-UPGRADE",
+      "primary_package": "R03"
+    },
+    {
+      "scenario_id": "T-ENGINE-PORTABLE",
+      "primary_package": "R03"
+    },
+    {
+      "scenario_id": "T-ENGINE-LEASE",
+      "primary_package": "R03"
+    },
+    {
+      "scenario_id": "T-ENGINE-PROFILE",
+      "primary_package": "R03"
+    },
+    {
+      "scenario_id": "T-ENGINE-G1",
+      "primary_package": "R03"
+    },
+    {
+      "scenario_id": "T-AI-ACCESS",
+      "primary_package": "R04"
+    },
+    {
+      "scenario_id": "T-SUB-POLICY",
+      "primary_package": "R04"
+    },
+    {
+      "scenario_id": "T-SUB-LOGIN",
+      "primary_package": "R04"
+    },
+    {
+      "scenario_id": "T-SUB-FIRST",
+      "primary_package": "R04"
+    },
+    {
+      "scenario_id": "T-SUB-EXHAUST",
+      "primary_package": "R04"
+    },
+    {
+      "scenario_id": "T-SUB-SWITCH",
+      "primary_package": "R04"
+    },
+    {
+      "scenario_id": "T-SUB-DEPLOY",
+      "primary_package": "R04"
+    },
+    {
+      "scenario_id": "T-OPENSHELL-QUALIFICATION",
+      "primary_package": "R04"
+    },
+    {
+      "scenario_id": "T-EXP-04",
+      "primary_package": "R04"
+    },
+    {
+      "scenario_id": "T-EXP-06",
+      "primary_package": "R04"
+    },
+    {
+      "scenario_id": "T-EXP-08",
+      "primary_package": "R04"
+    },
+    {
+      "scenario_id": "T-STORAGE",
+      "primary_package": "R05"
+    },
+    {
+      "scenario_id": "T-EVIDENCE",
+      "primary_package": "R05"
+    },
+    {
+      "scenario_id": "T-KNOWLEDGE",
+      "primary_package": "R05"
+    },
+    {
+      "scenario_id": "T-DOCUMENT-OFFICE",
+      "primary_package": "R05"
+    },
+    {
+      "scenario_id": "T-EXP-03",
+      "primary_package": "R05"
+    },
+    {
+      "scenario_id": "T-EXP-05",
+      "primary_package": "R05"
+    },
+    {
+      "scenario_id": "T-LANGUAGE",
+      "primary_package": "R06"
+    },
+    {
+      "scenario_id": "T-UX",
+      "primary_package": "R06"
+    },
+    {
+      "scenario_id": "T-CHAT-HOME",
+      "primary_package": "R06"
+    },
+    {
+      "scenario_id": "T-CHAT-RICH",
+      "primary_package": "R06"
+    },
+    {
+      "scenario_id": "T-CHAT-MOBILE",
+      "primary_package": "R06"
+    },
+    {
+      "scenario_id": "T-CHAT-FOCUS",
+      "primary_package": "R06"
+    },
+    {
+      "scenario_id": "T-CHAT-SELECTION",
+      "primary_package": "R06"
+    },
+    {
+      "scenario_id": "T-CHAT-VERSIONS",
+      "primary_package": "R06"
+    },
+    {
+      "scenario_id": "T-CHAT-CAPABILITY",
+      "primary_package": "R06"
+    },
+    {
+      "scenario_id": "T-CHAT-JOURNEY",
+      "primary_package": "R06"
+    },
+    {
+      "scenario_id": "T-COMMUNICATION",
+      "primary_package": "R06"
+    },
+    {
+      "scenario_id": "T-REPORT",
+      "primary_package": "R07"
+    },
+    {
+      "scenario_id": "T-ASSISTANT-CONTINUITY",
+      "primary_package": "R07"
+    },
+    {
+      "scenario_id": "T-EXP-02",
+      "primary_package": "R07"
+    },
+    {
+      "scenario_id": "T-EXP-07",
+      "primary_package": "R07"
+    },
+    {
+      "scenario_id": "T-EXP-09",
+      "primary_package": "R07"
+    },
+    {
+      "scenario_id": "T-PRIVATE-PLUGIN",
+      "primary_package": "R09"
+    },
+    {
+      "scenario_id": "T-MOBILE-PAIR",
+      "primary_package": "R08"
+    },
+    {
+      "scenario_id": "T-MOBILE-NATIVE",
+      "primary_package": "R08"
+    },
+    {
+      "scenario_id": "T-DESKTOP-UPDATE",
+      "primary_package": "R10"
+    },
+    {
+      "scenario_id": "T-RELEASE-TRUST",
+      "primary_package": "R10"
+    },
+    {
+      "scenario_id": "T-UPDATE-CUTPOINTS",
+      "primary_package": "R10"
+    },
+    {
+      "scenario_id": "T-PG-UPGRADE",
+      "primary_package": "R10"
+    },
+    {
+      "scenario_id": "T-DISK-FAILURE",
+      "primary_package": "R10"
+    },
+    {
+      "scenario_id": "T-BACKUP-CONSISTENCY",
+      "primary_package": "R10"
+    },
+    {
+      "scenario_id": "T-BACKUP-PROTECTION",
+      "primary_package": "R10"
+    },
+    {
+      "scenario_id": "T-BACKUP-RETENTION",
+      "primary_package": "R10"
+    },
+    {
+      "scenario_id": "T-RESTORE-ISOLATED",
+      "primary_package": "R10"
+    },
+    {
+      "scenario_id": "T-RESTORE-OWNER",
+      "primary_package": "R10"
+    },
+    {
+      "scenario_id": "T-DISASTER-TAKEOVER",
+      "primary_package": "R10"
+    },
+    {
+      "scenario_id": "T-TARGET-COMPATIBILITY",
+      "primary_package": "R10"
+    },
+    {
+      "scenario_id": "T-MAINT-API",
+      "primary_package": "R10"
+    },
+    {
+      "scenario_id": "T-MAINT-UX",
+      "primary_package": "R10"
+    },
+    {
+      "scenario_id": "T-EXP-10",
+      "primary_package": "R10"
+    },
+    {
+      "scenario_id": "T-FIRST-USE",
+      "primary_package": "R11"
+    },
+    {
+      "scenario_id": "T-PROMISE",
+      "primary_package": "R11"
+    },
+    {
+      "scenario_id": "T-CASE-01",
+      "primary_package": "R11"
+    },
+    {
+      "scenario_id": "T-CASE-02",
+      "primary_package": "R11"
+    },
+    {
+      "scenario_id": "T-CASE-03",
+      "primary_package": "R11"
+    },
+    {
+      "scenario_id": "T-FIRST-JOURNEY",
+      "primary_package": "R11"
+    },
+    {
+      "scenario_id": "T-OPS",
+      "primary_package": "R12"
+    },
+    {
+      "scenario_id": "T-PRIVACY",
+      "primary_package": "R12"
+    },
+    {
+      "scenario_id": "T-LOAD",
+      "primary_package": "R12"
+    },
+    {
+      "scenario_id": "T-DOGFOOD",
+      "primary_package": "R12"
+    },
+    {
+      "scenario_id": "T-USABILITY",
+      "primary_package": "R12"
+    },
+    {
+      "scenario_id": "T-SME-VALUE",
+      "primary_package": "R12"
+    }
+  ]
+}

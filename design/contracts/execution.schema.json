@@ -1,0 +1,1639 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.euclas.invalid/contracts/execution.schema.json",
+  "title": "Minimum-profile First-slice execution.schema.json",
+  "$comment": "Specification only; trusted identities/authorizations and effects are established by the enforcing host, never by shape validation.",
+  "$defs": {
+    "route_pin": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "profile_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "profile_revision": {
+              "$ref": "common.schema.json#/$defs/revision"
+            },
+            "profile_hash": {
+              "$ref": "common.schema.json#/$defs/hash"
+            },
+            "provider_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "model_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "model_version": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "qualification_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "kind": {
+              "const": "local"
+            },
+            "model_manifest_hash": {
+              "$ref": "common.schema.json#/$defs/hash"
+            },
+            "billing_policy": {
+              "const": "local_no_api"
+            }
+          },
+          "required": [
+            "profile_id",
+            "profile_revision",
+            "profile_hash",
+            "provider_id",
+            "model_id",
+            "model_version",
+            "qualification_id",
+            "kind",
+            "model_manifest_hash",
+            "billing_policy"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "profile_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "profile_revision": {
+              "$ref": "common.schema.json#/$defs/revision"
+            },
+            "profile_hash": {
+              "$ref": "common.schema.json#/$defs/hash"
+            },
+            "provider_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "model_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "model_version": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "qualification_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "kind": {
+              "const": "cloud_subscription"
+            },
+            "provider_account_binding_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "billing_policy": {
+              "const": "subscription_no_overage"
+            }
+          },
+          "required": [
+            "profile_id",
+            "profile_revision",
+            "profile_hash",
+            "provider_id",
+            "model_id",
+            "model_version",
+            "qualification_id",
+            "kind",
+            "provider_account_binding_id",
+            "billing_policy"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "run_envelope": {
+      "type": "object",
+      "properties": {
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "root_unit_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "unit_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "run_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "work_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "work_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "criteria_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "work_snapshot_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "execution_epoch": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "actor_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "assignment_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "executor_profile_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "executor_profile_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "executor_type": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "executor_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "route": {
+          "$ref": "#/$defs/route_pin"
+        },
+        "auxiliary_routes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/route_pin"
+          },
+          "minItems": 0,
+          "maxItems": 16,
+          "uniqueItems": true
+        },
+        "capability_profile_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "grant_snapshot_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "workspace_binding_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "source_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "source_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/artifact_ref"
+          },
+          "minItems": 1,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "skill_version_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/hash"
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "budget_reservation_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/uuid"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "workflow_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "checkpoint_format_version": {
+          "const": 1
+        },
+        "source_locale": {
+          "$ref": "common.schema.json#/$defs/locale"
+        },
+        "output_locale": {
+          "$ref": "common.schema.json#/$defs/locale"
+        },
+        "deployment_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "deadline": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "correlation_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "predecessor_run_id": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "instance_id",
+        "root_unit_id",
+        "unit_id",
+        "schema_version",
+        "run_id",
+        "work_id",
+        "work_revision",
+        "criteria_revision",
+        "work_snapshot_hash",
+        "execution_epoch",
+        "actor_id",
+        "assignment_id",
+        "executor_profile_id",
+        "executor_profile_revision",
+        "executor_type",
+        "executor_version",
+        "route",
+        "auxiliary_routes",
+        "capability_profile_hash",
+        "grant_snapshot_ref",
+        "workspace_binding_id",
+        "source_manifest_hash",
+        "source_refs",
+        "skill_version_refs",
+        "budget_reservation_ids",
+        "workflow_version",
+        "checkpoint_format_version",
+        "source_locale",
+        "output_locale",
+        "deployment_id",
+        "deadline",
+        "correlation_id",
+        "predecessor_run_id"
+      ],
+      "additionalProperties": false
+    },
+    "worker_claim": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "worker_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "deployment_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "lease_epoch": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "claim_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "claimed_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "authorization": {
+          "$ref": "common.schema.json#/$defs/authorization_snapshot"
+        }
+      },
+      "required": [
+        "run_id",
+        "worker_id",
+        "deployment_id",
+        "lease_epoch",
+        "claim_id",
+        "claimed_at",
+        "expires_at",
+        "authorization"
+      ],
+      "additionalProperties": false
+    },
+    "claim_request": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "expected_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "worker_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "lease_seconds": {
+          "const": 30
+        }
+      },
+      "required": [
+        "run_id",
+        "expected_revision",
+        "worker_id",
+        "lease_seconds"
+      ],
+      "additionalProperties": false
+    },
+    "effect_target": {
+      "type": "object",
+      "properties": {
+        "action_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "resource_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/uuid"
+          },
+          "minItems": 1,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "target_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "parameters_schema_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "parameters_schema_version": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "parameters_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "recipient_or_endpoint_hash": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/hash"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "cost_limit_minor": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        }
+      },
+      "required": [
+        "action_name",
+        "resource_ids",
+        "target_revision",
+        "parameters_schema_id",
+        "parameters_schema_version",
+        "parameters_hash",
+        "recipient_or_endpoint_hash",
+        "cost_limit_minor",
+        "currency",
+        "expires_at"
+      ],
+      "additionalProperties": false
+    },
+    "action_intent": {
+      "type": "object",
+      "properties": {
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "root_unit_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "unit_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "logical_effect_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "origin_run_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "owner_run_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "owner_lease_epoch": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "work_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "work_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "step_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "step_attempt": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "target": {
+          "$ref": "#/$defs/effect_target"
+        },
+        "action_digest": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "authorization": {
+          "$ref": "common.schema.json#/$defs/authorization_snapshot"
+        },
+        "provider_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "provider_idempotency_key": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "budget_reservation_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "status": {
+          "enum": [
+            "prepared",
+            "dispatched",
+            "succeeded",
+            "failed",
+            "unknown",
+            "cancelled"
+          ]
+        },
+        "external_operation_id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "receipt_ref": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "updated_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        }
+      },
+      "required": [
+        "instance_id",
+        "root_unit_id",
+        "unit_id",
+        "id",
+        "revision",
+        "logical_effect_id",
+        "origin_run_id",
+        "owner_run_id",
+        "owner_lease_epoch",
+        "work_id",
+        "work_revision",
+        "step_id",
+        "step_attempt",
+        "target",
+        "action_digest",
+        "authorization",
+        "provider_id",
+        "provider_idempotency_key",
+        "budget_reservation_id",
+        "status",
+        "external_operation_id",
+        "receipt_ref",
+        "created_at",
+        "updated_at"
+      ],
+      "additionalProperties": false
+    },
+    "action_receipt": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "action_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "logical_effect_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "action_digest": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "source_event_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "external_operation_id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 256
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "outcome": {
+          "enum": [
+            "succeeded",
+            "failed",
+            "unknown"
+          ]
+        },
+        "result_hash": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/hash"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "result_ref": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "observed_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        }
+      },
+      "required": [
+        "id",
+        "action_id",
+        "logical_effect_id",
+        "action_digest",
+        "source_event_id",
+        "external_operation_id",
+        "outcome",
+        "result_hash",
+        "result_ref",
+        "observed_at"
+      ],
+      "additionalProperties": false
+    },
+    "measurement": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "quality": {
+              "enum": [
+                "measured",
+                "estimated"
+              ]
+            },
+            "value": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 9007199254740991
+            }
+          },
+          "required": [
+            "quality",
+            "value"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "quality": {
+              "const": "unknown"
+            },
+            "value": {
+              "type": "null"
+            }
+          },
+          "required": [
+            "quality",
+            "value"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "budget_dimension": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "money_minor",
+            "tokens",
+            "model_calls",
+            "cpu_ms",
+            "memory_bytes",
+            "concurrent_runs"
+          ]
+        },
+        "limit_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "limit_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "reserved_upper_bound": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "observed": {
+          "$ref": "#/$defs/measurement"
+        }
+      },
+      "required": [
+        "kind",
+        "limit_id",
+        "limit_revision",
+        "reserved_upper_bound",
+        "observed"
+      ],
+      "additionalProperties": false
+    },
+    "budget_reservation": {
+      "type": "object",
+      "properties": {
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "root_unit_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "unit_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "run_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "provider_binding_id": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "period_start": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "period_end": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "dimensions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/budget_dimension"
+          },
+          "minItems": 1,
+          "maxItems": 6,
+          "uniqueItems": true
+        },
+        "status": {
+          "enum": [
+            "held",
+            "settled",
+            "released"
+          ]
+        },
+        "unresolved_action_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/uuid"
+          },
+          "minItems": 0,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "updated_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        }
+      },
+      "required": [
+        "instance_id",
+        "root_unit_id",
+        "unit_id",
+        "id",
+        "revision",
+        "run_id",
+        "provider_binding_id",
+        "period_start",
+        "period_end",
+        "currency",
+        "dimensions",
+        "status",
+        "unresolved_action_ids",
+        "created_at",
+        "updated_at"
+      ],
+      "additionalProperties": false
+    },
+    "budget_event": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "reservation_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "action_id": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "source_event_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "kind": {
+          "enum": [
+            "reserve",
+            "settle",
+            "adjust",
+            "release"
+          ]
+        },
+        "dimensions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/budget_dimension"
+          },
+          "minItems": 1,
+          "maxItems": 6,
+          "uniqueItems": true
+        },
+        "observed_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        }
+      },
+      "required": [
+        "id",
+        "reservation_id",
+        "action_id",
+        "source",
+        "source_event_id",
+        "kind",
+        "dimensions",
+        "observed_at"
+      ],
+      "additionalProperties": false
+    },
+    "continuation": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "finish"
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "next"
+            },
+            "step_id": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128
+            },
+            "input_refs": {
+              "type": "array",
+              "items": {
+                "$ref": "common.schema.json#/$defs/artifact_ref"
+              },
+              "minItems": 0,
+              "maxItems": 32,
+              "uniqueItems": true
+            }
+          },
+          "required": [
+            "kind",
+            "step_id",
+            "input_refs"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "wait"
+            },
+            "wait_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "reason": {
+              "enum": [
+                "decision",
+                "authorization",
+                "dependency",
+                "provider",
+                "budget",
+                "recovery",
+                "timer"
+              ]
+            },
+            "due_at": {
+              "oneOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/instant"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "approval_request_id": {
+              "oneOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/uuid"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "wait_id",
+            "reason",
+            "due_at",
+            "approval_request_id"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "step": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "workflow_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "step_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "attempt": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "input_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "eligible_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "retry_owner": {
+          "const": "euclas_engine"
+        },
+        "attempt_limit": {
+          "const": 3,
+          "description": "Must match the canonical retry_policy in this document: total attempts including initial attempt1, not three retries."
+        },
+        "error_code": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 96
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "dispatched",
+            "completed",
+            "waiting",
+            "failed",
+            "unknown",
+            "cancelled"
+          ]
+        },
+        "output_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/artifact_ref"
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "action_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/uuid"
+          },
+          "minItems": 0,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "continuation": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/continuation"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "run_id",
+        "workflow_version",
+        "step_id",
+        "attempt",
+        "revision",
+        "input_hash",
+        "eligible_at",
+        "retry_owner",
+        "attempt_limit",
+        "error_code",
+        "status",
+        "output_refs",
+        "action_ids",
+        "continuation"
+      ],
+      "additionalProperties": false
+    },
+    "checkpoint": {
+      "type": "object",
+      "properties": {
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "root_unit_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "unit_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "run_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "work_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "work_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "criteria_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "workflow_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "step_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "step_attempt": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "format_version": {
+          "const": 1
+        },
+        "input_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "output_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/artifact_ref"
+          },
+          "minItems": 0,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "action_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/uuid"
+          },
+          "minItems": 0,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "continuation": {
+          "$ref": "#/$defs/continuation"
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        }
+      },
+      "required": [
+        "instance_id",
+        "root_unit_id",
+        "unit_id",
+        "id",
+        "schema_version",
+        "run_id",
+        "work_id",
+        "work_revision",
+        "criteria_revision",
+        "workflow_version",
+        "step_id",
+        "step_attempt",
+        "format_version",
+        "input_hash",
+        "output_refs",
+        "action_ids",
+        "continuation",
+        "created_at"
+      ],
+      "additionalProperties": false
+    },
+    "executor_event": {
+      "type": "object",
+      "properties": {
+        "event_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "run_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "lease_epoch": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "sequence": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "emitted_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "payload": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "started"
+                },
+                "external_session_ref": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 256
+                }
+              },
+              "required": [
+                "kind",
+                "external_session_ref"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "progress"
+                },
+                "message_key": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128
+                },
+                "completed_units": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 9007199254740991
+                }
+              },
+              "required": [
+                "kind",
+                "message_key",
+                "completed_units"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "artifact_staged"
+                },
+                "publication_intent_id": {
+                  "$ref": "common.schema.json#/$defs/uuid"
+                }
+              },
+              "required": [
+                "kind",
+                "publication_intent_id"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "completed"
+                },
+                "result_manifest_hash": {
+                  "$ref": "common.schema.json#/$defs/hash"
+                },
+                "artifact_refs": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "common.schema.json#/$defs/artifact_ref"
+                  },
+                  "minItems": 1,
+                  "maxItems": 32,
+                  "uniqueItems": true
+                }
+              },
+              "required": [
+                "kind",
+                "result_manifest_hash",
+                "artifact_refs"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "failed"
+                },
+                "error_code": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 96
+                },
+                "retryable": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "kind",
+                "error_code",
+                "retryable"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "stopped"
+                },
+                "unresolved_action_ids": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "common.schema.json#/$defs/uuid"
+                  },
+                  "minItems": 0,
+                  "maxItems": 64,
+                  "uniqueItems": true
+                }
+              },
+              "required": [
+                "kind",
+                "unresolved_action_ids"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "usage"
+                },
+                "provider_event_id": {
+                  "$ref": "common.schema.json#/$defs/uuid"
+                },
+                "dimensions": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/$defs/budget_dimension"
+                  },
+                  "minItems": 1,
+                  "maxItems": 6,
+                  "uniqueItems": true
+                }
+              },
+              "required": [
+                "kind",
+                "provider_event_id",
+                "dimensions"
+              ],
+              "additionalProperties": false
+            }
+          ]
+        }
+      },
+      "required": [
+        "event_id",
+        "schema_version",
+        "run_id",
+        "lease_epoch",
+        "sequence",
+        "emitted_at",
+        "payload"
+      ],
+      "additionalProperties": false
+    },
+    "inbox_outbox": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "direction": {
+          "enum": [
+            "inbox",
+            "outbox"
+          ]
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "event_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "scope": {
+          "$ref": "common.schema.json#/$defs/scope"
+        },
+        "aggregate_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "aggregate_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "payload_schema": {
+          "const": "d92-execution.executor_event.v1"
+        },
+        "payload_digest": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "payload": {
+          "$ref": "#/$defs/executor_event"
+        },
+        "correlation_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "processed_at": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/instant"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "delivery_attempts": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000
+        }
+      },
+      "required": [
+        "id",
+        "direction",
+        "source",
+        "event_id",
+        "scope",
+        "aggregate_id",
+        "aggregate_revision",
+        "payload_schema",
+        "payload_digest",
+        "payload",
+        "correlation_id",
+        "created_at",
+        "processed_at",
+        "delivery_attempts"
+      ],
+      "additionalProperties": false
+    },
+    "completion_request": {
+      "type": "object",
+      "properties": {
+        "run_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "expected_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "lease_epoch": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "step_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "step_attempt": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "event_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "result_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "checkpoint_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        }
+      },
+      "required": [
+        "run_id",
+        "expected_revision",
+        "lease_epoch",
+        "step_id",
+        "step_attempt",
+        "event_id",
+        "result_manifest_hash",
+        "checkpoint_id"
+      ],
+      "additionalProperties": false
+    },
+    "verifier_observation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "scope": {
+          "$ref": "common.schema.json#/$defs/scope"
+        },
+        "work_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "work_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "criteria_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "result_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "result_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "result_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "producer_run_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "criterion_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "verifier_kind": {
+          "enum": [
+            "deterministic",
+            "independent_review"
+          ]
+        },
+        "verifier_actor_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "verifier_assignment_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "authorization": {
+          "$ref": "common.schema.json#/$defs/authorization_snapshot"
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "outcome": {
+          "enum": [
+            "pass",
+            "fail",
+            "not_run"
+          ]
+        },
+        "artifact_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/artifact_ref"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "report_ref": {
+          "$ref": "common.schema.json#/$defs/artifact_ref"
+        },
+        "environment_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "command_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "exit_code": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 255
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "commit_hash": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{40,64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "observed_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "issuer_capability_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        }
+      },
+      "required": [
+        "id",
+        "scope",
+        "work_id",
+        "work_revision",
+        "criteria_revision",
+        "result_id",
+        "result_revision",
+        "result_manifest_hash",
+        "producer_run_id",
+        "criterion_id",
+        "verifier_kind",
+        "verifier_actor_id",
+        "verifier_assignment_id",
+        "authorization",
+        "method",
+        "outcome",
+        "artifact_refs",
+        "report_ref",
+        "environment_ref",
+        "command_ref",
+        "exit_code",
+        "commit_hash",
+        "observed_at",
+        "issuer_capability_ref"
+      ],
+      "additionalProperties": false
+    },
+    "retry_policy": {
+      "type": "object",
+      "description": "One policy for a step: initial attempt is 1; at most 3 total attempts. Retry 2 waits 1 second, retry 3 waits 5 seconds after the preceding failure. No fourth attempt, jitter or 30-second slot. Deadline/current authorization may prevent retry; SDK retries count in the same total. Unknown writes reconcile before any retry.",
+      "properties": {
+        "attempt_limit": {
+          "const": 3
+        },
+        "retry_delays_seconds": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": 1
+            },
+            {
+              "const": 5
+            }
+          ],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        }
+      },
+      "required": [
+        "attempt_limit",
+        "retry_delays_seconds"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

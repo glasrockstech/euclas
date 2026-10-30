@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "runtime": {
+    "initial": "stopped",
+    "edges": {
+      "stopped": [
+        "starting"
+      ],
+      "starting": [
+        "recovering",
+        "needs_attention",
+        "stopping"
+      ],
+      "recovering": [
+        "ready",
+        "needs_attention",
+        "stopping",
+        "maintenance"
+      ],
+      "ready": [
+        "maintenance",
+        "recovering",
+        "needs_attention",
+        "stopping"
+      ],
+      "maintenance": [
+        "ready",
+        "recovering",
+        "needs_attention",
+        "stopping"
+      ],
+      "needs_attention": [
+        "starting",
+        "recovering",
+        "maintenance",
+        "stopping"
+      ],
+      "stopping": [
+        "stopped",
+        "needs_attention"
+      ]
+    }
+  },
+  "maintenance": {
+    "initial": "requested",
+    "terminal": [
+      "completed",
+      "failed",
+      "cancelled"
+    ],
+    "edges": {
+      "requested": [
+        "preflight",
+        "cancelled"
+      ],
+      "preflight": [
+        "staging",
+        "blocked",
+        "failed",
+        "cancelled"
+      ],
+      "staging": [
+        "quiescing",
+        "applying",
+        "blocked",
+        "failed",
+        "cancelled"
+      ],
+      "quiescing": [
+        "checkpointing",
+        "blocked",
+        "failed",
+        "cancelled"
+      ],
+      "checkpointing": [
+        "applying",
+        "verifying",
+        "blocked",
+        "failed"
+      ],
+      "applying": [
+        "verifying",
+        "rolling_back",
+        "blocked",
+        "failed"
+      ],
+      "verifying": [
+        "awaiting_activation",
+        "completed",
+        "rolling_back",
+        "blocked",
+        "failed"
+      ],
+      "awaiting_activation": [
+        "activating",
+        "rolling_back",
+        "blocked",
+        "cancelled"
+      ],
+      "activating": [
+        "completed",
+        "rolling_back",
+        "blocked",
+        "failed"
+      ],
+      "rolling_back": [
+        "verifying",
+        "blocked",
+        "failed"
+      ],
+      "blocked": [
+        "preflight",
+        "staging",
+        "quiescing",
+        "checkpointing",
+        "applying",
+        "verifying",
+        "awaiting_activation",
+        "rolling_back",
+        "cancelled"
+      ],
+      "completed": [],
+      "failed": [],
+      "cancelled": []
+    }
+  },
+  "guards": {
+    "dispatch": [
+      "runtime_ready",
+      "admission_fence_clear",
+      "current_deployment_authority",
+      "current_lease_and_grant"
+    ],
+    "activate": [
+      "trusted_target",
+      "compatible_versions",
+      "verified_data",
+      "activation_authorized",
+      "source_retired_or_explicit_disaster_takeover"
+    ],
+    "resume_source": [
+      "target_dispatch_proven_disabled",
+      "source_resume_authorized",
+      "journal_consistent"
+    ],
+    "publish_backup": [
+      "database_snapshot_valid",
+      "all_required_payloads_verified",
+      "protection_valid",
+      "complete_marker_durable"
+    ]
+  },
+  "semantics": {
+    "blocked_resume": "Resume to the journaled safe phase only; an edge does not authorize skipping checkpoint or verification.",
+    "failed_retry": "Create a linked new operation; completed/failed/cancelled histories are immutable.",
+    "completed": "Check outcome as well as phase: succeeded or rolled_back; completed never implies the requested target was activated."
+  }
+}

@@ -1,0 +1,316 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.euclas.invalid/contracts/common.schema.json",
+  "title": "First-slice common contract v1",
+  "$comment": "Minimum-profile specification only; structural conformance is not authentication, runtime implementation or qualification.",
+  "$defs": {
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "instant": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+    },
+    "epoch": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "hash": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "fingerprint": {
+      "type": "string",
+      "pattern": "^(sha256|hmac-sha256):[0-9a-f]{64}$"
+    },
+    "opaque_secret": {
+      "type": "string",
+      "minLength": 43,
+      "maxLength": 2048,
+      "pattern": "^[A-Za-z0-9_-]+$"
+    },
+    "jwk_thumbprint": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{43}$"
+    },
+    "compact_jws": {
+      "type": "string",
+      "minLength": 32,
+      "maxLength": 16384,
+      "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
+    },
+    "locale": {
+      "enum": [
+        "en",
+        "zh-Hant",
+        "de"
+      ]
+    },
+    "platform": {
+      "enum": [
+        "macos",
+        "windows",
+        "linux",
+        "ios",
+        "android"
+      ]
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "root_unit_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "unit_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        }
+      },
+      "required": [
+        "instance_id",
+        "root_unit_id",
+        "unit_id"
+      ],
+      "additionalProperties": false
+    },
+    "artifact_ref": {
+      "type": "object",
+      "properties": {
+        "artifact_version_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "content_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "media_type": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10485760
+        }
+      },
+      "required": [
+        "artifact_version_id",
+        "content_hash",
+        "media_type",
+        "size_bytes"
+      ],
+      "additionalProperties": false
+    },
+    "public_key": {
+      "type": "object",
+      "properties": {
+        "kty": {
+          "const": "EC"
+        },
+        "crv": {
+          "const": "P-256"
+        },
+        "x": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{43}$"
+        },
+        "y": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{43}$"
+        }
+      },
+      "required": [
+        "kty",
+        "crv",
+        "x",
+        "y"
+      ],
+      "additionalProperties": false
+    },
+    "command_receipt": {
+      "type": "object",
+      "properties": {
+        "command_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "scope_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "principal_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "principal_kind": {
+          "enum": [
+            "actor",
+            "account",
+            "native_client"
+          ]
+        },
+        "command_name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "idempotency_key": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "request_fingerprint": {
+          "$ref": "common.schema.json#/$defs/fingerprint"
+        },
+        "response_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "committed_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "event_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/uuid"
+          },
+          "minItems": 0,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        }
+      },
+      "required": [
+        "command_id",
+        "scope_id",
+        "principal_id",
+        "principal_kind",
+        "command_name",
+        "idempotency_key",
+        "request_fingerprint",
+        "response_ref",
+        "committed_revision",
+        "event_ids",
+        "created_at"
+      ],
+      "additionalProperties": false
+    },
+    "authorization_snapshot": {
+      "type": "object",
+      "properties": {
+        "decision_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "actor_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "actor_kind": {
+          "enum": [
+            "human",
+            "digital"
+          ]
+        },
+        "assignment_id": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "action": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 96
+        },
+        "resource_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "scope": {
+          "$ref": "common.schema.json#/$defs/scope"
+        },
+        "policy_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "revocation_epoch": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        },
+        "evaluated_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        }
+      },
+      "required": [
+        "decision_id",
+        "actor_id",
+        "actor_kind",
+        "assignment_id",
+        "action",
+        "resource_id",
+        "scope",
+        "policy_revision",
+        "revocation_epoch",
+        "evaluated_at"
+      ],
+      "additionalProperties": false
+    },
+    "environment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "platform": {
+          "$ref": "common.schema.json#/$defs/platform"
+        },
+        "architecture": {
+          "enum": [
+            "arm64",
+            "x64"
+          ]
+        },
+        "runner_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "runner_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "qualification_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/uuid"
+          },
+          "minItems": 0,
+          "maxItems": 64,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "platform",
+        "architecture",
+        "runner_id",
+        "runner_version",
+        "qualification_ids"
+      ],
+      "additionalProperties": false
+    },
+    "command_response": {
+      "$ref": "shared-command.openapi.json#/components/schemas/CommandResponse"
+    },
+    "error": {
+      "$ref": "shared-command.openapi.json#/components/schemas/Error"
+    }
+  }
+}

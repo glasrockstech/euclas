@@ -1,0 +1,537 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.euclas.invalid/contracts/documents.schema.json",
+  "title": "Minimum-profile First-slice documents.schema.json",
+  "$comment": "Specification only; trusted identities/authorizations and effects are established by the enforcing host, never by shape validation.",
+  "$defs": {
+    "document_limits": {
+      "type": "object",
+      "properties": {
+        "profile_id": {
+          "const": "office-v1"
+        },
+        "max_input_bytes": {
+          "const": 10485760
+        },
+        "max_output_bytes": {
+          "const": 10485760
+        },
+        "max_expanded_zip_bytes": {
+          "const": 52428800
+        },
+        "max_zip_entries": {
+          "const": 1000
+        },
+        "max_compression_ratio": {
+          "const": 100
+        },
+        "max_pages": {
+          "const": 100
+        },
+        "max_paragraphs": {
+          "const": 10000
+        },
+        "max_tables": {
+          "const": 500
+        },
+        "max_process_seconds": {
+          "const": 120
+        },
+        "max_process_memory_bytes": {
+          "const": 536870912
+        }
+      },
+      "required": [
+        "profile_id",
+        "max_input_bytes",
+        "max_output_bytes",
+        "max_expanded_zip_bytes",
+        "max_zip_entries",
+        "max_compression_ratio",
+        "max_pages",
+        "max_paragraphs",
+        "max_tables",
+        "max_process_seconds",
+        "max_process_memory_bytes"
+      ],
+      "additionalProperties": false
+    },
+    "publication_prepare": {
+      "type": "object",
+      "properties": {
+        "idempotency_key": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "expected_work_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "criteria_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "run_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "lease_epoch": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "producer_action_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "step_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "source_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/artifact_ref"
+          },
+          "minItems": 1,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "source_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "media_type": {
+          "enum": [
+            "application/pdf",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          ]
+        },
+        "document_profile": {
+          "const": "office-v1"
+        },
+        "transform_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "transform_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "generator_profile_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "rendition_of": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/artifact_ref"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "idempotency_key",
+        "expected_work_revision",
+        "criteria_revision",
+        "run_id",
+        "lease_epoch",
+        "producer_action_id",
+        "step_id",
+        "source_refs",
+        "source_manifest_hash",
+        "media_type",
+        "document_profile",
+        "transform_id",
+        "transform_version",
+        "generator_profile_hash",
+        "rendition_of"
+      ],
+      "additionalProperties": false
+    },
+    "publication_intent": {
+      "type": "object",
+      "properties": {
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "root_unit_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "unit_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "command_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "request_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "work_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "work_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "criteria_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "run_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "lease_epoch": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "producer_action_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "step_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "source_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "source_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/artifact_ref"
+          },
+          "minItems": 1,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "storage_binding_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "staging_handle_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "document_profile": {
+          "const": "office-v1"
+        },
+        "media_type": {
+          "enum": [
+            "application/pdf",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          ]
+        },
+        "status": {
+          "enum": [
+            "prepared",
+            "materialized",
+            "published",
+            "rejected"
+          ]
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "artifact_version_id": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "transform_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "transform_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "generator_profile_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "rendition_of": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/artifact_ref"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "instance_id",
+        "root_unit_id",
+        "unit_id",
+        "id",
+        "revision",
+        "command_id",
+        "request_hash",
+        "work_id",
+        "work_revision",
+        "criteria_revision",
+        "run_id",
+        "lease_epoch",
+        "producer_action_id",
+        "step_id",
+        "source_manifest_hash",
+        "source_refs",
+        "storage_binding_id",
+        "staging_handle_id",
+        "document_profile",
+        "media_type",
+        "status",
+        "created_at",
+        "expires_at",
+        "artifact_version_id",
+        "transform_id",
+        "transform_version",
+        "generator_profile_hash",
+        "rendition_of"
+      ],
+      "additionalProperties": false
+    },
+    "byte_proof": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "publication_intent_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "storage_binding_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "staging_handle_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "platform": {
+          "enum": [
+            "macos",
+            "windows",
+            "linux"
+          ]
+        },
+        "storage_identity_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "content_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10485760
+        },
+        "detected_media_type": {
+          "enum": [
+            "application/pdf",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+          ]
+        },
+        "document_profile": {
+          "const": "office-v1"
+        },
+        "validator_report_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "durable_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "issuer_capability_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        }
+      },
+      "required": [
+        "id",
+        "publication_intent_id",
+        "storage_binding_id",
+        "staging_handle_id",
+        "platform",
+        "storage_identity_hash",
+        "content_hash",
+        "size_bytes",
+        "detected_media_type",
+        "document_profile",
+        "validator_report_ref",
+        "durable_at",
+        "issuer_capability_ref"
+      ],
+      "additionalProperties": false
+    },
+    "publication_commit": {
+      "type": "object",
+      "properties": {
+        "publication_intent_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "expected_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "run_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "lease_epoch": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "byte_proof_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        }
+      },
+      "required": [
+        "publication_intent_id",
+        "expected_revision",
+        "run_id",
+        "lease_epoch",
+        "byte_proof_id"
+      ],
+      "additionalProperties": false
+    },
+    "result_manifest": {
+      "type": "object",
+      "properties": {
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "root_unit_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "unit_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "work_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "work_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "criteria_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "result_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "producer_run_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "artifact_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/artifact_ref"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "source_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        }
+      },
+      "required": [
+        "instance_id",
+        "root_unit_id",
+        "unit_id",
+        "work_id",
+        "work_revision",
+        "criteria_revision",
+        "result_revision",
+        "producer_run_id",
+        "artifact_refs",
+        "source_manifest_hash"
+      ],
+      "additionalProperties": false
+    },
+    "rendition_report": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "source_ref": {
+          "$ref": "common.schema.json#/$defs/artifact_ref"
+        },
+        "output_ref": {
+          "$ref": "common.schema.json#/$defs/artifact_ref"
+        },
+        "transform_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "transform_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "fidelity": {
+          "enum": [
+            "exact",
+            "partial",
+            "unavailable"
+          ]
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "minItems": 0,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "environment_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/uuid"
+          },
+          "minItems": 1,
+          "maxItems": 128,
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "id",
+        "source_ref",
+        "output_ref",
+        "transform_id",
+        "transform_version",
+        "fidelity",
+        "limitations",
+        "environment_ref",
+        "evidence_ids"
+      ],
+      "additionalProperties": false
+    },
+    "publication_result": {
+      "type": "object",
+      "properties": {
+        "receipt": {
+          "$ref": "common.schema.json#/$defs/command_response"
+        },
+        "artifact_version": {
+          "$ref": "records.schema.json#/$defs/artifact_version"
+        }
+      },
+      "required": [
+        "receipt",
+        "artifact_version"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

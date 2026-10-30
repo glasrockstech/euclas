@@ -1,0 +1,2363 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.euclas.invalid/contracts/identity.schema.json",
+  "title": "First-slice identity contract v1",
+  "$comment": "Minimum-profile specification only; structural conformance is not authentication, runtime implementation or qualification.",
+  "$defs": {
+    "limits": {
+      "type": "object",
+      "properties": {
+        "offline_validity_seconds": {
+          "const": 86400
+        },
+        "otp_digits": {
+          "const": 8
+        },
+        "otp_validity_seconds": {
+          "const": 600
+        },
+        "otp_attempt_limit": {
+          "const": 5
+        },
+        "otp_resend_min_seconds": {
+          "const": 60
+        },
+        "otp_issues_per_address_15min": {
+          "const": 5
+        },
+        "otp_issues_per_client_15min": {
+          "const": 20
+        },
+        "otp_issues_per_network_15min": {
+          "const": 100
+        },
+        "account_proof_validity_seconds": {
+          "const": 300
+        },
+        "account_access_token_seconds": {
+          "const": 300
+        },
+        "account_refresh_max_seconds": {
+          "const": 604800
+        },
+        "local_challenge_seconds": {
+          "const": 300
+        },
+        "clock_skew_seconds": {
+          "const": 30
+        },
+        "authorization_code_seconds": {
+          "const": 60
+        }
+      },
+      "required": [
+        "offline_validity_seconds",
+        "otp_digits",
+        "otp_validity_seconds",
+        "otp_attempt_limit",
+        "otp_resend_min_seconds",
+        "otp_issues_per_address_15min",
+        "otp_issues_per_client_15min",
+        "otp_issues_per_network_15min",
+        "account_proof_validity_seconds",
+        "account_access_token_seconds",
+        "account_refresh_max_seconds",
+        "local_challenge_seconds",
+        "clock_skew_seconds",
+        "authorization_code_seconds"
+      ],
+      "additionalProperties": false
+    },
+    "account_identity": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "record_type": {
+          "const": "account_identity"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "updated_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "status": {
+          "enum": [
+            "active",
+            "disabled"
+          ]
+        },
+        "verified_email_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "security_epoch": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        }
+      },
+      "required": [
+        "id",
+        "record_type",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "status",
+        "verified_email_ref",
+        "security_epoch"
+      ],
+      "additionalProperties": false
+    },
+    "email_challenge_issue": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email",
+          "maxLength": 254
+        },
+        "purpose": {
+          "enum": [
+            "sign_in",
+            "recovery_email"
+          ]
+        },
+        "client_transaction_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "client_key_thumbprint": {
+          "$ref": "common.schema.json#/$defs/jwk_thumbprint"
+        }
+      },
+      "required": [
+        "email",
+        "purpose",
+        "client_transaction_id",
+        "client_key_thumbprint"
+      ],
+      "additionalProperties": false
+    },
+    "email_challenge_view": {
+      "type": "object",
+      "properties": {
+        "challenge_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "resend_after": {
+          "$ref": "common.schema.json#/$defs/instant"
+        }
+      },
+      "required": [
+        "challenge_id",
+        "expires_at",
+        "resend_after"
+      ],
+      "additionalProperties": false
+    },
+    "email_challenge_verify": {
+      "type": "object",
+      "properties": {
+        "challenge_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "client_transaction_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "code": {
+          "type": "string",
+          "pattern": "^[0-9]{8}$"
+        }
+      },
+      "required": [
+        "challenge_id",
+        "client_transaction_id",
+        "code"
+      ],
+      "additionalProperties": false
+    },
+    "email_challenge": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "record_type": {
+          "const": "email_challenge"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "updated_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "purpose": {
+          "enum": [
+            "sign_in",
+            "recovery_email"
+          ]
+        },
+        "client_transaction_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "client_key_thumbprint": {
+          "$ref": "common.schema.json#/$defs/jwk_thumbprint"
+        },
+        "email_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "code_verifier_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "issued_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "attempt_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 5
+        },
+        "consumed_at": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/instant"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "superseded_at": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/instant"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "auth_transaction_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        }
+      },
+      "required": [
+        "id",
+        "record_type",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "purpose",
+        "client_transaction_id",
+        "client_key_thumbprint",
+        "email_ref",
+        "code_verifier_ref",
+        "issued_at",
+        "expires_at",
+        "attempt_count",
+        "consumed_at",
+        "superseded_at",
+        "auth_transaction_id"
+      ],
+      "additionalProperties": false
+    },
+    "account_session": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "record_type": {
+          "const": "account_session"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "updated_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "account_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "device_key_thumbprint": {
+          "$ref": "common.schema.json#/$defs/jwk_thumbprint"
+        },
+        "security_epoch": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        },
+        "issued_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "revoked_at": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/instant"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "refresh_generation": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        },
+        "credential_verifier_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        }
+      },
+      "required": [
+        "id",
+        "record_type",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "account_id",
+        "device_key_thumbprint",
+        "security_epoch",
+        "issued_at",
+        "expires_at",
+        "revoked_at",
+        "refresh_generation",
+        "credential_verifier_ref"
+      ],
+      "additionalProperties": false
+    },
+    "authorization_request": {
+      "type": "object",
+      "properties": {
+        "client_id": {
+          "enum": [
+            "euclas.desktop",
+            "euclas.mobile"
+          ]
+        },
+        "response_type": {
+          "const": "code"
+        },
+        "redirect_uri": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048
+        },
+        "scope": {
+          "const": "openid euclas.identity"
+        },
+        "state": {
+          "$ref": "common.schema.json#/$defs/opaque_secret"
+        },
+        "nonce": {
+          "$ref": "common.schema.json#/$defs/opaque_secret"
+        },
+        "code_challenge": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{43}$"
+        },
+        "code_challenge_method": {
+          "const": "S256"
+        },
+        "dpop_jkt": {
+          "$ref": "common.schema.json#/$defs/jwk_thumbprint"
+        }
+      },
+      "required": [
+        "client_id",
+        "response_type",
+        "redirect_uri",
+        "scope",
+        "state",
+        "nonce",
+        "code_challenge",
+        "code_challenge_method",
+        "dpop_jkt"
+      ],
+      "additionalProperties": false
+    },
+    "authorization_code_exchange": {
+      "type": "object",
+      "properties": {
+        "grant_type": {
+          "const": "authorization_code"
+        },
+        "client_id": {
+          "enum": [
+            "euclas.desktop",
+            "euclas.mobile"
+          ]
+        },
+        "code": {
+          "$ref": "common.schema.json#/$defs/opaque_secret"
+        },
+        "redirect_uri": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 2048
+        },
+        "code_verifier": {
+          "type": "string",
+          "minLength": 43,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9._~-]+$"
+        }
+      },
+      "required": [
+        "grant_type",
+        "client_id",
+        "code",
+        "redirect_uri",
+        "code_verifier"
+      ],
+      "additionalProperties": false
+    },
+    "token_response": {
+      "type": "object",
+      "properties": {
+        "access_token": {
+          "$ref": "common.schema.json#/$defs/opaque_secret"
+        },
+        "token_type": {
+          "const": "DPoP"
+        },
+        "expires_in": {
+          "const": 300
+        },
+        "refresh_token": {
+          "$ref": "common.schema.json#/$defs/opaque_secret"
+        },
+        "scope": {
+          "const": "openid euclas.identity"
+        },
+        "id_token": {
+          "$ref": "common.schema.json#/$defs/compact_jws"
+        }
+      },
+      "required": [
+        "access_token",
+        "token_type",
+        "expires_in",
+        "refresh_token",
+        "scope",
+        "id_token"
+      ],
+      "additionalProperties": false
+    },
+    "refresh_exchange": {
+      "type": "object",
+      "properties": {
+        "grant_type": {
+          "const": "refresh_token"
+        },
+        "client_id": {
+          "enum": [
+            "euclas.desktop",
+            "euclas.mobile"
+          ]
+        },
+        "refresh_token": {
+          "$ref": "common.schema.json#/$defs/opaque_secret"
+        }
+      },
+      "required": [
+        "grant_type",
+        "client_id",
+        "refresh_token"
+      ],
+      "additionalProperties": false
+    },
+    "proof_request": {
+      "type": "object",
+      "properties": {
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "purpose": {
+          "enum": [
+            "owner_bind",
+            "sign_in",
+            "revalidate"
+          ]
+        },
+        "local_challenge_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "nonce": {
+          "$ref": "common.schema.json#/$defs/opaque_secret"
+        }
+      },
+      "required": [
+        "instance_id",
+        "purpose",
+        "local_challenge_id",
+        "nonce"
+      ],
+      "additionalProperties": false
+    },
+    "proof_response": {
+      "type": "object",
+      "properties": {
+        "proof": {
+          "$ref": "common.schema.json#/$defs/compact_jws"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        }
+      },
+      "required": [
+        "proof",
+        "expires_at"
+      ],
+      "additionalProperties": false
+    },
+    "proof_header": {
+      "type": "object",
+      "properties": {
+        "typ": {
+          "const": "euclas-instance-proof+jwt"
+        },
+        "alg": {
+          "const": "ES256"
+        },
+        "kid": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        }
+      },
+      "required": [
+        "typ",
+        "alg",
+        "kid"
+      ],
+      "additionalProperties": false
+    },
+    "proof_claims": {
+      "type": "object",
+      "properties": {
+        "iss": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://",
+          "maxLength": 2048
+        },
+        "sub": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "aud": {
+          "type": "string",
+          "pattern": "^urn:euclas:instance:[0-9a-f-]{36}$"
+        },
+        "jti": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "iat": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "nbf": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "exp": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "account_session_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "account_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "account_security_epoch": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        },
+        "verified_at": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "purpose": {
+          "enum": [
+            "owner_bind",
+            "sign_in",
+            "revalidate"
+          ]
+        },
+        "local_challenge_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "nonce": {
+          "$ref": "common.schema.json#/$defs/opaque_secret"
+        },
+        "cnf": {
+          "type": "object",
+          "properties": {
+            "jkt": {
+              "$ref": "common.schema.json#/$defs/jwk_thumbprint"
+            }
+          },
+          "required": [
+            "jkt"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "iss",
+        "sub",
+        "aud",
+        "jti",
+        "iat",
+        "nbf",
+        "exp",
+        "instance_id",
+        "account_session_id",
+        "account_revision",
+        "account_security_epoch",
+        "verified_at",
+        "purpose",
+        "local_challenge_id",
+        "nonce",
+        "cnf"
+      ],
+      "additionalProperties": false
+    },
+    "local_challenge_request": {
+      "type": "object",
+      "properties": {
+        "purpose": {
+          "enum": [
+            "owner_bind",
+            "sign_in",
+            "revalidate"
+          ]
+        },
+        "device_public_key": {
+          "$ref": "common.schema.json#/$defs/public_key"
+        }
+      },
+      "required": [
+        "purpose",
+        "device_public_key"
+      ],
+      "additionalProperties": false
+    },
+    "local_challenge": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "record_type": {
+          "const": "local_identity_challenge"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "updated_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "purpose": {
+          "enum": [
+            "owner_bind",
+            "sign_in",
+            "revalidate"
+          ]
+        },
+        "device_key_thumbprint": {
+          "$ref": "common.schema.json#/$defs/jwk_thumbprint"
+        },
+        "nonce_verifier_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "issued_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "consumed_at": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/instant"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "proof_jti": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "record_type",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "instance_id",
+        "purpose",
+        "device_key_thumbprint",
+        "nonce_verifier_ref",
+        "issued_at",
+        "expires_at",
+        "consumed_at",
+        "proof_jti"
+      ],
+      "additionalProperties": false
+    },
+    "local_challenge_view": {
+      "type": "object",
+      "properties": {
+        "challenge_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "nonce": {
+          "$ref": "common.schema.json#/$defs/opaque_secret"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        }
+      },
+      "required": [
+        "challenge_id",
+        "nonce",
+        "expires_at",
+        "instance_id"
+      ],
+      "additionalProperties": false
+    },
+    "owner_bind": {
+      "type": "object",
+      "properties": {
+        "expected_revision": {
+          "const": 0
+        },
+        "local_challenge_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "setup_generation": {
+          "$ref": "common.schema.json#/$defs/revision"
+        }
+      },
+      "required": [
+        "expected_revision",
+        "local_challenge_id",
+        "setup_generation"
+      ],
+      "additionalProperties": false
+    },
+    "session_exchange": {
+      "type": "object",
+      "properties": {
+        "local_challenge_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        }
+      },
+      "required": [
+        "local_challenge_id"
+      ],
+      "additionalProperties": false
+    },
+    "local_account_binding": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "record_type": {
+          "const": "local_account_binding"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "updated_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "account_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "actor_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "status": {
+          "enum": [
+            "active",
+            "revoked"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "record_type",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "instance_id",
+        "account_id",
+        "actor_id",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "local_device": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "record_type": {
+          "const": "local_device"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "updated_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "account_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "actor_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "key_thumbprint": {
+          "$ref": "common.schema.json#/$defs/jwk_thumbprint"
+        },
+        "status": {
+          "enum": [
+            "active",
+            "revoked"
+          ]
+        },
+        "enrolled_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "revoked_at": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/instant"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "record_type",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "instance_id",
+        "account_id",
+        "actor_id",
+        "key_thumbprint",
+        "status",
+        "enrolled_at",
+        "revoked_at"
+      ],
+      "additionalProperties": false
+    },
+    "local_session": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "record_type": {
+          "const": "local_session"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "updated_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "account_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "actor_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "device_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "account_security_epoch": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        },
+        "local_revocation_epoch": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        },
+        "issued_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "revoked_at": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/instant"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "credential_verifier_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "offline_proof_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        }
+      },
+      "required": [
+        "id",
+        "record_type",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "instance_id",
+        "account_id",
+        "actor_id",
+        "device_id",
+        "account_security_epoch",
+        "local_revocation_epoch",
+        "issued_at",
+        "expires_at",
+        "revoked_at",
+        "credential_verifier_ref",
+        "offline_proof_id"
+      ],
+      "additionalProperties": false
+    },
+    "offline_identity_proof": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "record_type": {
+          "const": "offline_identity_proof"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "updated_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "account_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "actor_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "device_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "device_key_thumbprint": {
+          "$ref": "common.schema.json#/$defs/jwk_thumbprint"
+        },
+        "account_security_epoch": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        },
+        "local_revocation_epoch": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        },
+        "verified_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "not_after": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "source_proof_jti": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "policy_version": {
+          "const": 1
+        },
+        "validity_seconds": {
+          "const": 86400
+        },
+        "secure_anchor_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        }
+      },
+      "required": [
+        "id",
+        "record_type",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "instance_id",
+        "account_id",
+        "actor_id",
+        "device_id",
+        "device_key_thumbprint",
+        "account_security_epoch",
+        "local_revocation_epoch",
+        "verified_at",
+        "not_after",
+        "source_proof_jti",
+        "policy_version",
+        "validity_seconds",
+        "secure_anchor_ref"
+      ],
+      "additionalProperties": false
+    },
+    "offline_anchor": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "device_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "source_proof_jti": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "boot_identity_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "verified_monotonic_ms": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        "deadline_monotonic_ms": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        "verified_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "not_after": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "account_security_epoch": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        },
+        "local_revocation_epoch": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        },
+        "integrity_key_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "elapsed_clock_profile": {
+          "const": "continuous_including_suspend_v1"
+        }
+      },
+      "required": [
+        "id",
+        "instance_id",
+        "device_id",
+        "source_proof_jti",
+        "boot_identity_hash",
+        "verified_monotonic_ms",
+        "deadline_monotonic_ms",
+        "verified_at",
+        "not_after",
+        "account_security_epoch",
+        "local_revocation_epoch",
+        "integrity_key_ref",
+        "elapsed_clock_profile"
+      ],
+      "additionalProperties": false
+    },
+    "owner_setup": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "record_type": {
+          "const": "local_owner_setup"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "updated_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "setup_generation": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "installation_context_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "setup_secret_verifier_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "status": {
+          "enum": [
+            "uninitialized",
+            "bound"
+          ]
+        },
+        "bound_account_id": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "actor_id": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "receipt_id": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "record_type",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "instance_id",
+        "setup_generation",
+        "installation_context_ref",
+        "setup_secret_verifier_ref",
+        "status",
+        "bound_account_id",
+        "actor_id",
+        "receipt_id"
+      ],
+      "additionalProperties": false
+    },
+    "session_view": {
+      "type": "object",
+      "properties": {
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "account_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "actor_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "device_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "session_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "identity_mode": {
+          "enum": [
+            "online",
+            "offline",
+            "expired",
+            "revoked"
+          ]
+        },
+        "last_verified_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "offline_not_after": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "local_revocation_epoch": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        },
+        "verification_environment_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        }
+      },
+      "required": [
+        "instance_id",
+        "account_id",
+        "actor_id",
+        "device_id",
+        "session_id",
+        "revision",
+        "identity_mode",
+        "last_verified_at",
+        "offline_not_after",
+        "expires_at",
+        "local_revocation_epoch",
+        "verification_environment_ref"
+      ],
+      "additionalProperties": false
+    },
+    "session_result": {
+      "type": "object",
+      "properties": {
+        "receipt": {
+          "$ref": "common.schema.json#/$defs/command_response"
+        },
+        "session": {
+          "$ref": "#/$defs/session_view"
+        }
+      },
+      "required": [
+        "receipt",
+        "session"
+      ],
+      "additionalProperties": false
+    },
+    "revoke_request": {
+      "type": "object",
+      "properties": {
+        "expected_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        }
+      },
+      "required": [
+        "expected_revision"
+      ],
+      "additionalProperties": false
+    },
+    "recovery_code_set": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "record_type": {
+          "const": "account_recovery_code_set"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "updated_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "account_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "security_epoch": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        },
+        "verifier_set_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "remaining_codes": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "status": {
+          "enum": [
+            "active",
+            "revoked"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "record_type",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "account_id",
+        "security_epoch",
+        "verifier_set_ref",
+        "remaining_codes",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "recovery_begin": {
+      "type": "object",
+      "properties": {
+        "recovery_code": {
+          "type": "string",
+          "pattern": "^rc1\\.[0-9a-f-]{36}\\.[A-Za-z0-9_-]{43}$"
+        },
+        "replacement_email": {
+          "type": "string",
+          "format": "email",
+          "maxLength": 254
+        },
+        "client_transaction_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "client_key_thumbprint": {
+          "$ref": "common.schema.json#/$defs/jwk_thumbprint"
+        }
+      },
+      "required": [
+        "recovery_code",
+        "replacement_email",
+        "client_transaction_id",
+        "client_key_thumbprint"
+      ],
+      "additionalProperties": false
+    },
+    "recovery_complete": {
+      "type": "object",
+      "properties": {
+        "recovery_transaction_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "challenge_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "code": {
+          "type": "string",
+          "pattern": "^[0-9]{8}$"
+        },
+        "client_transaction_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        }
+      },
+      "required": [
+        "recovery_transaction_id",
+        "challenge_id",
+        "code",
+        "client_transaction_id"
+      ],
+      "additionalProperties": false
+    },
+    "recovery_transaction": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "record_type": {
+          "const": "account_recovery_transaction"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "updated_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "account_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "client_transaction_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "client_key_thumbprint": {
+          "$ref": "common.schema.json#/$defs/jwk_thumbprint"
+        },
+        "recovery_set_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "code_verifier_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "replacement_email_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "challenge_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "expected_security_epoch": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        },
+        "issued_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "completed",
+            "expired",
+            "revoked"
+          ]
+        },
+        "receipt_id": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "record_type",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "account_id",
+        "client_transaction_id",
+        "client_key_thumbprint",
+        "recovery_set_id",
+        "code_verifier_ref",
+        "replacement_email_ref",
+        "challenge_id",
+        "expected_security_epoch",
+        "issued_at",
+        "expires_at",
+        "status",
+        "receipt_id"
+      ],
+      "additionalProperties": false
+    },
+    "verification_view": {
+      "type": "object",
+      "properties": {
+        "client_transaction_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "status": {
+          "const": "verified"
+        }
+      },
+      "required": [
+        "client_transaction_id",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "account_session_view": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "account_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "security_epoch": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "account_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        }
+      },
+      "required": [
+        "id",
+        "revision",
+        "account_id",
+        "security_epoch",
+        "expires_at",
+        "account_revision"
+      ],
+      "additionalProperties": false
+    },
+    "recovery_begin_view": {
+      "type": "object",
+      "properties": {
+        "recovery_transaction_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "challenge_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        }
+      },
+      "required": [
+        "recovery_transaction_id",
+        "challenge_id",
+        "expires_at"
+      ],
+      "additionalProperties": false
+    },
+    "recovery_result": {
+      "type": "object",
+      "properties": {
+        "account_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "security_epoch": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        },
+        "status": {
+          "const": "recovered"
+        },
+        "requires_sign_in": {
+          "const": true
+        }
+      },
+      "required": [
+        "account_id",
+        "security_epoch",
+        "status",
+        "requires_sign_in"
+      ],
+      "additionalProperties": false
+    },
+    "recovery_codes_issue": {
+      "type": "object",
+      "properties": {
+        "expected_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "confirmation_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        }
+      },
+      "required": [
+        "expected_revision",
+        "confirmation_id"
+      ],
+      "additionalProperties": false
+    },
+    "recovery_codes_view": {
+      "type": "object",
+      "properties": {
+        "set_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "codes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^rc1\\.[0-9a-f-]{36}\\.[A-Za-z0-9_-]{43}$"
+          },
+          "minItems": 10,
+          "maxItems": 10,
+          "uniqueItems": true
+        },
+        "expires_from_response_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        }
+      },
+      "required": [
+        "set_id",
+        "codes",
+        "expires_from_response_at"
+      ],
+      "additionalProperties": false
+    },
+    "oidc_id_claims": {
+      "type": "object",
+      "properties": {
+        "iss": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "sub": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "aud": {
+          "enum": [
+            "euclas.desktop",
+            "euclas.mobile"
+          ]
+        },
+        "iat": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "exp": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "auth_time": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "nonce": {
+          "$ref": "common.schema.json#/$defs/opaque_secret"
+        }
+      },
+      "required": [
+        "iss",
+        "sub",
+        "aud",
+        "iat",
+        "exp",
+        "auth_time",
+        "nonce"
+      ],
+      "additionalProperties": false
+    },
+    "jwks": {
+      "type": "object",
+      "properties": {
+        "keys": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "type": "object",
+            "properties": {
+              "kty": {
+                "const": "EC"
+              },
+              "crv": {
+                "const": "P-256"
+              },
+              "x": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_-]{43}$"
+              },
+              "y": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_-]{43}$"
+              },
+              "kid": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128
+              },
+              "use": {
+                "const": "sig"
+              },
+              "alg": {
+                "const": "ES256"
+              }
+            },
+            "required": [
+              "kty",
+              "crv",
+              "x",
+              "y",
+              "kid",
+              "use",
+              "alg"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "keys"
+      ],
+      "additionalProperties": false
+    },
+    "issuer_metadata": {
+      "type": "object",
+      "properties": {
+        "issuer": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "authorization_endpoint": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "token_endpoint": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "jwks_uri": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "response_types_supported": {
+          "const": [
+            "code"
+          ]
+        },
+        "grant_types_supported": {
+          "const": [
+            "authorization_code",
+            "refresh_token"
+          ]
+        },
+        "code_challenge_methods_supported": {
+          "const": [
+            "S256"
+          ]
+        },
+        "dpop_signing_alg_values_supported": {
+          "const": [
+            "ES256"
+          ]
+        },
+        "id_token_signing_alg_values_supported": {
+          "const": [
+            "ES256"
+          ]
+        },
+        "subject_types_supported": {
+          "const": [
+            "public"
+          ]
+        }
+      },
+      "required": [
+        "issuer",
+        "authorization_endpoint",
+        "token_endpoint",
+        "jwks_uri",
+        "response_types_supported",
+        "grant_types_supported",
+        "code_challenge_methods_supported",
+        "dpop_signing_alg_values_supported",
+        "id_token_signing_alg_values_supported",
+        "subject_types_supported"
+      ],
+      "additionalProperties": false
+    },
+    "setup_view": {
+      "type": "object",
+      "properties": {
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        },
+        "configured": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "instance_id",
+        "revision",
+        "configured"
+      ],
+      "additionalProperties": false
+    },
+    "authorization_transaction": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "record_type": {
+          "const": "authorization_transaction"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "updated_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "client_id": {
+          "enum": [
+            "euclas.desktop",
+            "euclas.mobile"
+          ]
+        },
+        "redirect_uri": {
+          "type": "string",
+          "format": "uri"
+        },
+        "state_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "nonce_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "code_challenge": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]{43}$"
+        },
+        "dpop_jkt": {
+          "$ref": "common.schema.json#/$defs/jwk_thumbprint"
+        },
+        "browser_session_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "challenge_id": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "account_id": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "verified_at": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/instant"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "issued_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "status": {
+          "enum": [
+            "pending",
+            "email_verified",
+            "code_issued",
+            "consumed",
+            "expired"
+          ]
+        },
+        "protected_authorization_parameters_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        }
+      },
+      "required": [
+        "id",
+        "record_type",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "client_id",
+        "redirect_uri",
+        "state_hash",
+        "nonce_hash",
+        "code_challenge",
+        "dpop_jkt",
+        "browser_session_ref",
+        "challenge_id",
+        "account_id",
+        "verified_at",
+        "issued_at",
+        "expires_at",
+        "status",
+        "protected_authorization_parameters_ref"
+      ],
+      "additionalProperties": false
+    },
+    "authorization_code": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "record_type": {
+          "const": "authorization_code"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "updated_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "authorization_transaction_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "code_verifier_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "dpop_jkt": {
+          "$ref": "common.schema.json#/$defs/jwk_thumbprint"
+        },
+        "issued_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "consumed_at": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/instant"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "account_session_id": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "record_type",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "authorization_transaction_id",
+        "code_verifier_ref",
+        "dpop_jkt",
+        "issued_at",
+        "expires_at",
+        "consumed_at",
+        "account_session_id"
+      ],
+      "additionalProperties": false
+    },
+    "refresh_generation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "record_type": {
+          "const": "account_refresh_generation"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "updated_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "account_session_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "generation": {
+          "$ref": "common.schema.json#/$defs/epoch"
+        },
+        "verifier_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "issued_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "consumed_at": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/instant"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "revoked_at": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/instant"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "record_type",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "account_session_id",
+        "generation",
+        "verifier_ref",
+        "issued_at",
+        "consumed_at",
+        "revoked_at"
+      ],
+      "additionalProperties": false
+    },
+    "identity_proof_issue": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "record_type": {
+          "const": "identity_proof_issue"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "updated_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "account_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "account_session_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "client_key_thumbprint": {
+          "$ref": "common.schema.json#/$defs/jwk_thumbprint"
+        },
+        "local_challenge_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "purpose": {
+          "enum": [
+            "owner_bind",
+            "sign_in",
+            "revalidate"
+          ]
+        },
+        "jti": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "verified_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "issued_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "encrypted_response_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "receipt_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        }
+      },
+      "required": [
+        "id",
+        "record_type",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "account_id",
+        "account_session_id",
+        "instance_id",
+        "client_key_thumbprint",
+        "local_challenge_id",
+        "purpose",
+        "jti",
+        "verified_at",
+        "issued_at",
+        "expires_at",
+        "encrypted_response_ref",
+        "receipt_id"
+      ],
+      "additionalProperties": false
+    },
+    "recovery_confirmation_request": {
+      "type": "object",
+      "properties": {
+        "expected_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "purpose": {
+          "const": "recovery_codes_rotate"
+        }
+      },
+      "required": [
+        "expected_revision",
+        "purpose"
+      ],
+      "additionalProperties": false
+    },
+    "recovery_confirmation_view": {
+      "type": "object",
+      "properties": {
+        "confirmation_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "account_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        }
+      },
+      "required": [
+        "confirmation_id",
+        "account_revision",
+        "expires_at"
+      ],
+      "additionalProperties": false
+    },
+    "human_confirmation": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "account_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "account_session_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "device_key_thumbprint": {
+          "$ref": "common.schema.json#/$defs/jwk_thumbprint"
+        },
+        "verified_auth_transaction_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "purpose": {
+          "const": "recovery_codes_rotate"
+        },
+        "target_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "target_digest": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "expires_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "consumed_at": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/instant"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "account_id",
+        "account_session_id",
+        "device_key_thumbprint",
+        "verified_auth_transaction_id",
+        "purpose",
+        "target_revision",
+        "target_digest",
+        "created_at",
+        "expires_at",
+        "consumed_at"
+      ],
+      "additionalProperties": false
+    },
+    "human_environment_binding": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "actor_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "device_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "session_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "environment_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "native_client_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "registered_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "revoked_at": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/instant"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "instance_id",
+        "actor_id",
+        "device_id",
+        "session_id",
+        "environment_ref",
+        "native_client_id",
+        "registered_at",
+        "revoked_at"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

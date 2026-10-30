@@ -1,0 +1,1961 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.euclas.invalid/contracts/records.schema.json",
+  "title": "Euclas cross-component record projections v1",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/committed_work"
+    },
+    {
+      "$ref": "#/$defs/run"
+    },
+    {
+      "$ref": "#/$defs/artifact_version"
+    },
+    {
+      "$ref": "#/$defs/report"
+    },
+    {
+      "$ref": "#/$defs/maintenance_operation"
+    },
+    {
+      "$ref": "#/$defs/goal"
+    },
+    {
+      "$ref": "#/$defs/project"
+    },
+    {
+      "$ref": "#/$defs/responsibility"
+    },
+    {
+      "$ref": "#/$defs/result"
+    },
+    {
+      "$ref": "#/$defs/evidence"
+    },
+    {
+      "$ref": "#/$defs/acceptance"
+    }
+  ],
+  "$defs": {
+    "work": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "instance_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "root_unit_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "unit_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "record_type": {
+          "const": "work"
+        },
+        "work_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "owner_position_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "scope": {
+          "$ref": "#/$defs/scope"
+        },
+        "criteria": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1
+              },
+              "verifier": {
+                "enum": [
+                  "deterministic",
+                  "independent_review",
+                  "human_judgment"
+                ]
+              },
+              "required_evidence_kind": {
+                "type": "string",
+                "minLength": 1
+              },
+              "pass_condition": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "id",
+              "description",
+              "verifier",
+              "required_evidence_kind",
+              "pass_condition"
+            ],
+            "additionalProperties": false
+          },
+          "minItems": 0
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "clarifying",
+            "ready",
+            "executing",
+            "verifying",
+            "awaiting_acceptance",
+            "accepted",
+            "failed",
+            "cancelled"
+          ]
+        },
+        "source_locale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "output_locale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "blocked_reason": {
+          "enum": [
+            null,
+            "decision",
+            "authorization",
+            "dependency",
+            "provider",
+            "budget",
+            "recovery"
+          ]
+        },
+        "result_revision": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "criteria_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "execution_epoch": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "committed_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "project_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "responsibility_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "parent_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "required_child": {
+          "type": "boolean"
+        },
+        "source_message_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "predecessor_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "instance_id",
+        "root_unit_id",
+        "unit_id",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "record_type",
+        "work_revision",
+        "owner_position_id",
+        "title",
+        "scope",
+        "criteria",
+        "status",
+        "source_locale",
+        "output_locale",
+        "blocked_reason",
+        "result_revision"
+      ],
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "properties": {
+            "status": {
+              "enum": [
+                "draft",
+                "clarifying",
+                "cancelled"
+              ]
+            }
+          },
+          "type": "object",
+          "required": [
+            "status"
+          ]
+        },
+        {
+          "properties": {
+            "status": {
+              "enum": [
+                "ready",
+                "executing",
+                "verifying",
+                "awaiting_acceptance",
+                "accepted",
+                "failed"
+              ]
+            },
+            "criteria": {
+              "type": "array",
+              "minItems": 1
+            }
+          },
+          "type": "object",
+          "required": [
+            "status",
+            "criteria"
+          ]
+        }
+      ]
+    },
+    "run": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "instance_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "root_unit_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "unit_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "record_type": {
+          "const": "run"
+        },
+        "work_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "work_revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "actor_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "assignment_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "attempt": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "lease_epoch": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "status": {
+          "enum": [
+            "queued",
+            "running",
+            "waiting",
+            "recovering",
+            "cancelling",
+            "succeeded",
+            "failed",
+            "cancelled"
+          ]
+        },
+        "executor_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "executor_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "capabilities": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "uniqueItems": true
+        },
+        "grant_snapshot_ref": {
+          "type": "string",
+          "format": "uuid"
+        }
+      },
+      "required": [
+        "id",
+        "instance_id",
+        "root_unit_id",
+        "unit_id",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "record_type",
+        "work_id",
+        "work_revision",
+        "actor_id",
+        "assignment_id",
+        "attempt",
+        "lease_epoch",
+        "status",
+        "executor_type",
+        "executor_version",
+        "capabilities",
+        "grant_snapshot_ref"
+      ],
+      "additionalProperties": false
+    },
+    "artifact_version": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "instance_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "root_unit_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "unit_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "record_type": {
+          "const": "artifact_version"
+        },
+        "artifact_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "content_hash": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "media_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "size_bytes": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "status": {
+          "enum": [
+            "staged",
+            "verified",
+            "available",
+            "rejected"
+          ]
+        },
+        "source_locale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "storage_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "presentation": {
+          "$ref": "#/$defs/artifact_presentation"
+        },
+        "content_encoding": {
+          "enum": [
+            "jsonb_text_v1",
+            "raw_utf8_v1",
+            "raw_binary_v1"
+          ],
+          "description": "Explicit encoding for governed structured artifacts, uploaded UTF-8 Markdown, or generated office bytes; no missing-encoding compatibility mode."
+        },
+        "provenance": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "uploaded"
+                },
+                "uploaded_by_actor_id": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "required": [
+                "kind",
+                "uploaded_by_actor_id"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "$ref": "#/$defs/generated_document_provenance"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "instance_id",
+        "root_unit_id",
+        "unit_id",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "record_type",
+        "artifact_id",
+        "content_hash",
+        "media_type",
+        "size_bytes",
+        "status",
+        "source_locale",
+        "storage_ref",
+        "content_encoding"
+      ],
+      "additionalProperties": false,
+      "oneOf": [
+        {
+          "description": "Governed immutable JSONB structured artifact; explicit jsonb_text_v1 encoding. Used for canonical structured content and trusted human verification statements.",
+          "type": "object",
+          "properties": {
+            "id": {},
+            "instance_id": {},
+            "root_unit_id": {},
+            "unit_id": {},
+            "schema_version": {},
+            "revision": {},
+            "created_at": {},
+            "updated_at": {},
+            "record_type": {},
+            "artifact_id": {},
+            "content_hash": {},
+            "media_type": {},
+            "size_bytes": {},
+            "status": {},
+            "source_locale": {},
+            "storage_ref": {},
+            "presentation": {},
+            "content_encoding": {
+              "const": "jsonb_text_v1"
+            }
+          },
+          "additionalProperties": false
+        },
+        {
+          "description": "Canonical uploaded Markdown version; only durable available raw bytes.",
+          "type": "object",
+          "properties": {
+            "content_encoding": {
+              "const": "raw_utf8_v1"
+            },
+            "media_type": {
+              "const": "text/markdown"
+            },
+            "status": {
+              "const": "available"
+            },
+            "size_bytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 64000
+            },
+            "provenance": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "uploaded"
+                },
+                "uploaded_by_actor_id": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              },
+              "required": [
+                "kind",
+                "uploaded_by_actor_id"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "content_encoding",
+            "provenance"
+          ]
+        },
+        {
+          "type": "object",
+          "description": "Available generated DOCX/PDF with admitted producer provenance; separate from human-uploaded source content.",
+          "properties": {
+            "content_encoding": {
+              "const": "raw_binary_v1"
+            },
+            "media_type": {
+              "enum": [
+                "application/pdf",
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+              ]
+            },
+            "status": {
+              "const": "available"
+            },
+            "size_bytes": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10485760
+            },
+            "provenance": {
+              "$ref": "#/$defs/generated_document_provenance"
+            }
+          },
+          "required": [
+            "content_encoding",
+            "provenance"
+          ]
+        }
+      ]
+    },
+    "report": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "instance_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "root_unit_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "unit_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "record_type": {
+          "const": "report"
+        },
+        "locale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "data_cutoff": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "generated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "result": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "risks": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "next_actions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "human_decisions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "instance_id",
+        "root_unit_id",
+        "unit_id",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "record_type",
+        "locale",
+        "data_cutoff",
+        "generated_at",
+        "result",
+        "evidence_refs",
+        "risks",
+        "next_actions",
+        "human_decisions"
+      ],
+      "additionalProperties": false
+    },
+    "scope": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/repository_scope"
+        },
+        {
+          "$ref": "#/$defs/content_scope"
+        }
+      ]
+    },
+    "repository_scope": {
+      "type": "object",
+      "properties": {
+        "repository_connection_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "base_commit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "allowed_paths": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "excluded_paths": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "allowed_actions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "max_tokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_cost": {
+          "type": "object",
+          "properties": {
+            "minor_units": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "currency": {
+              "type": "string",
+              "pattern": "^[A-Z]{3}$"
+            },
+            "enforcement": {
+              "enum": [
+                "hard",
+                "estimated"
+              ]
+            }
+          },
+          "required": [
+            "minor_units",
+            "currency",
+            "enforcement"
+          ],
+          "additionalProperties": false
+        },
+        "deadline": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "repository_connection_id",
+        "base_commit",
+        "allowed_paths",
+        "excluded_paths",
+        "allowed_actions",
+        "max_tokens",
+        "max_cost",
+        "deadline"
+      ],
+      "additionalProperties": false
+    },
+    "content_scope": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "content"
+        },
+        "source_artifact_version_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "allowed_actions": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "model.generate",
+              "artifact.read",
+              "artifact.write"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "max_tokens": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "max_cost": {
+          "type": "object",
+          "properties": {
+            "minor_units": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "currency": {
+              "type": "string",
+              "pattern": "^[A-Z]{3}$"
+            },
+            "enforcement": {
+              "enum": [
+                "hard",
+                "estimated"
+              ]
+            }
+          },
+          "required": [
+            "minor_units",
+            "currency",
+            "enforcement"
+          ],
+          "additionalProperties": false
+        },
+        "deadline": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "kind",
+        "source_artifact_version_ids",
+        "allowed_actions",
+        "max_tokens",
+        "max_cost",
+        "deadline"
+      ],
+      "additionalProperties": false
+    },
+    "maintenance_operation": {
+      "type": "object",
+      "properties": {
+        "schema_version": {
+          "const": 1
+        },
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "instance_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "kind": {
+          "enum": [
+            "install",
+            "update",
+            "backup",
+            "restore",
+            "migrate",
+            "takeover"
+          ]
+        },
+        "phase": {
+          "enum": [
+            "requested",
+            "preflight",
+            "staging",
+            "quiescing",
+            "checkpointing",
+            "applying",
+            "verifying",
+            "awaiting_activation",
+            "activating",
+            "rolling_back",
+            "blocked",
+            "completed",
+            "failed",
+            "cancelled"
+          ]
+        },
+        "outcome": {
+          "enum": [
+            null,
+            "succeeded",
+            "rolled_back",
+            "failed",
+            "cancelled"
+          ]
+        },
+        "initiator_actor_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "source_deployment_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "target_deployment_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "checkpoint_backup_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "release_manifest_hash": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "source_dispatch_enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "target_dispatch_enabled": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "last_safe_phase": {
+          "type": "string",
+          "minLength": 1
+        },
+        "error_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "decision_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "stage_history": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "phase": {
+                "type": "string",
+                "minLength": 1
+              },
+              "at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "detail_code": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "phase",
+              "at",
+              "detail_code"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "record_type": {
+          "const": "maintenance_operation"
+        }
+      },
+      "required": [
+        "schema_version",
+        "id",
+        "instance_id",
+        "created_at",
+        "updated_at",
+        "revision",
+        "kind",
+        "phase",
+        "outcome",
+        "initiator_actor_id",
+        "source_deployment_id",
+        "target_deployment_id",
+        "checkpoint_backup_id",
+        "release_manifest_hash",
+        "source_dispatch_enabled",
+        "target_dispatch_enabled",
+        "last_safe_phase",
+        "error_code",
+        "decision_ref",
+        "stage_history",
+        "record_type"
+      ],
+      "additionalProperties": false
+    },
+    "artifact_presentation": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "enum": [
+            "structured",
+            "export",
+            "import_reading"
+          ]
+        },
+        "source_artifact_version_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uuid"
+        },
+        "source_content_hash": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "transform_version": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "fidelity": {
+          "enum": [
+            "exact",
+            "partial",
+            "not_applicable"
+          ]
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "required": [
+        "role",
+        "source_artifact_version_id",
+        "source_content_hash",
+        "transform_version",
+        "fidelity",
+        "limitations"
+      ],
+      "additionalProperties": false
+    },
+    "goal": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "instance_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "root_unit_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "unit_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "owner_position_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "outcome": {
+          "type": "string",
+          "minLength": 1
+        },
+        "success_metrics": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "horizon": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "constraints": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "record_type": {
+          "const": "goal"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "active",
+            "achieved",
+            "abandoned"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "instance_id",
+        "root_unit_id",
+        "unit_id",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "owner_position_id",
+        "outcome",
+        "success_metrics",
+        "horizon",
+        "constraints",
+        "record_type",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "project": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "instance_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "root_unit_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "unit_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "owner_position_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "outcome": {
+          "type": "string",
+          "minLength": 1
+        },
+        "responsibility_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "horizon": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "record_type": {
+          "const": "project"
+        },
+        "status": {
+          "enum": [
+            "planned",
+            "active",
+            "completed",
+            "cancelled"
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "instance_id",
+        "root_unit_id",
+        "unit_id",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "owner_position_id",
+        "outcome",
+        "responsibility_ids",
+        "horizon",
+        "record_type",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "responsibility": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "instance_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "root_unit_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "unit_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "owner_position_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "desired_condition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "review_rule": {
+          "oneOf": [
+            {
+              "$ref": "shared-command.openapi.json#/components/schemas/ReviewRule"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "escalation_position_id": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "goal_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "record_type": {
+          "const": "responsibility"
+        },
+        "status": {
+          "enum": [
+            "active",
+            "paused",
+            "retired"
+          ]
+        },
+        "next_review_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "last_scheduled_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "pending_review_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "pending_scheduled_cycles": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "id",
+        "instance_id",
+        "root_unit_id",
+        "unit_id",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "owner_position_id",
+        "desired_condition",
+        "review_rule",
+        "escalation_position_id",
+        "goal_ids",
+        "record_type",
+        "status",
+        "next_review_at"
+      ],
+      "additionalProperties": false
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "record_type": {
+          "const": "result"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "updated_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "root_unit_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "unit_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "work_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "work_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "criteria_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "result_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "producer_run_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "produced_by_actor_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "produced_by_assignment_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "artifact_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/artifact_ref"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "source_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "result_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "produced_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        }
+      },
+      "required": [
+        "id",
+        "record_type",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "instance_id",
+        "root_unit_id",
+        "unit_id",
+        "work_id",
+        "work_revision",
+        "criteria_revision",
+        "result_revision",
+        "producer_run_id",
+        "produced_by_actor_id",
+        "produced_by_assignment_id",
+        "artifact_refs",
+        "source_manifest_hash",
+        "result_manifest_hash",
+        "produced_at"
+      ],
+      "additionalProperties": false
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "record_type": {
+          "const": "evidence"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "updated_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "root_unit_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "unit_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "work_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "work_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "criteria_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "result_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "result_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "result_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "producer_run_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "criterion_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "verifier_kind": {
+          "enum": [
+            "deterministic",
+            "independent_review",
+            "human_judgment"
+          ]
+        },
+        "verifier_actor_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "verifier_assignment_id": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "authority_decision_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "method": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "outcome": {
+          "enum": [
+            "pass",
+            "fail",
+            "not_run"
+          ]
+        },
+        "artifact_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/artifact_ref"
+          },
+          "minItems": 1,
+          "maxItems": 32,
+          "uniqueItems": true
+        },
+        "observed_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "environment_ref": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "command_ref": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "exit_code": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 255
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "commit_hash": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{40,64}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "report_ref": {
+          "$ref": "common.schema.json#/$defs/artifact_ref"
+        }
+      },
+      "required": [
+        "id",
+        "record_type",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "instance_id",
+        "root_unit_id",
+        "unit_id",
+        "work_id",
+        "work_revision",
+        "criteria_revision",
+        "result_id",
+        "result_revision",
+        "result_manifest_hash",
+        "producer_run_id",
+        "criterion_id",
+        "verifier_kind",
+        "verifier_actor_id",
+        "verifier_assignment_id",
+        "authority_decision_id",
+        "method",
+        "outcome",
+        "artifact_refs",
+        "observed_at",
+        "environment_ref",
+        "command_ref",
+        "exit_code",
+        "commit_hash",
+        "report_ref"
+      ],
+      "additionalProperties": false
+    },
+    "acceptance": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "record_type": {
+          "const": "acceptance"
+        },
+        "schema_version": {
+          "const": 1
+        },
+        "revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "created_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "updated_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "instance_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "root_unit_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "unit_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "work_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "work_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "criteria_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "result_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "result_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "result_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "decision": {
+          "enum": [
+            "accepted",
+            "rejected"
+          ]
+        },
+        "acceptor_actor_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "acceptor_assignment_id": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "acceptor_kind": {
+          "enum": [
+            "human",
+            "digital"
+          ]
+        },
+        "authority_decision_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/uuid"
+          },
+          "minItems": 1,
+          "maxItems": 128,
+          "uniqueItems": true
+        },
+        "command_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "decided_at": {
+          "$ref": "common.schema.json#/$defs/instant"
+        },
+        "rationale": {
+          "type": "string",
+          "maxLength": 4000
+        }
+      },
+      "required": [
+        "id",
+        "record_type",
+        "schema_version",
+        "revision",
+        "created_at",
+        "updated_at",
+        "instance_id",
+        "root_unit_id",
+        "unit_id",
+        "work_id",
+        "work_revision",
+        "criteria_revision",
+        "result_id",
+        "result_revision",
+        "result_manifest_hash",
+        "decision",
+        "acceptor_actor_id",
+        "acceptor_assignment_id",
+        "acceptor_kind",
+        "authority_decision_id",
+        "evidence_ids",
+        "command_id",
+        "decided_at",
+        "rationale"
+      ],
+      "additionalProperties": false
+    },
+    "generated_document_provenance": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "generated"
+        },
+        "producer_run_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "producer_action_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "work_id": {
+          "$ref": "common.schema.json#/$defs/uuid"
+        },
+        "work_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "criteria_revision": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "execution_epoch": {
+          "$ref": "common.schema.json#/$defs/revision"
+        },
+        "step_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "source_version_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/uuid"
+          },
+          "minItems": 1,
+          "maxItems": 64,
+          "uniqueItems": true
+        },
+        "source_manifest_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "transform_id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "transform_version": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128
+        },
+        "generator_profile_hash": {
+          "$ref": "common.schema.json#/$defs/hash"
+        },
+        "document_profile": {
+          "const": "office-v1"
+        },
+        "rendition_of": {
+          "oneOf": [
+            {
+              "$ref": "common.schema.json#/$defs/artifact_ref"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "producer_run_id",
+        "producer_action_id",
+        "work_id",
+        "work_revision",
+        "criteria_revision",
+        "execution_epoch",
+        "step_id",
+        "source_version_ids",
+        "source_manifest_hash",
+        "transform_id",
+        "transform_version",
+        "generator_profile_hash",
+        "document_profile",
+        "rendition_of"
+      ],
+      "additionalProperties": false
+    },
+    "committed_work": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/work"
+        },
+        {
+          "required": [
+            "criteria_revision",
+            "execution_epoch",
+            "committed_at"
+          ],
+          "properties": {
+            "committed_at": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "ready",
+                  "executing",
+                  "verifying",
+                  "awaiting_acceptance",
+                  "accepted",
+                  "failed"
+                ]
+              }
+            },
+            "required": [
+              "status"
+            ]
+          },
+          "then": {
+            "properties": {
+              "committed_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "description": "Current public exchange projections for scoped work, execution, artifacts, reports, organization outcomes and maintenance. Canonical Work uses committed_work, including explicit criteria/execution revisions and conditional committed_at. Identity private records belong to identity.schema.json and are not public record union members. Not a whole-Instance persistence schema."
+}

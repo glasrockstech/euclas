@@ -1,0 +1,6 @@
+.DS_Store
+.tools/
+.worktrees/
+node_modules/
+dist/
+coverage/

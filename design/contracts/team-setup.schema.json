@@ -1,0 +1,210 @@
+{
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "source_message_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "scenario_id": {
+      "enum": [
+        "UC-01",
+        "UC-02",
+        "UC-03",
+        "UC-04",
+        "UC-05",
+        "UC-06",
+        "UC-07",
+        "UC-08",
+        "UC-09",
+        "UC-10"
+      ]
+    },
+    "target_unit_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uuid"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "outcome": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_locale": {
+      "type": "string",
+      "minLength": 1
+    },
+    "output_locale": {
+      "type": "string",
+      "minLength": 1
+    },
+    "roles": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "plan_role_key": {
+            "type": "string",
+            "minLength": 1
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "mandate": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "plan_role_key",
+          "title",
+          "mandate"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "responsibility": {
+      "type": "object",
+      "properties": {
+        "desired_condition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "review_rule": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "./shared-command.openapi.json#/components/schemas/ReviewRule"
+            }
+          ]
+        }
+      },
+      "required": [
+        "desired_condition",
+        "review_rule"
+      ],
+      "additionalProperties": false
+    },
+    "first_work": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner_plan_role_key": {
+          "type": "string",
+          "minLength": 1
+        },
+        "criteria": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "./records.schema.json#/$defs/work/properties/criteria/items"
+          }
+        },
+        "scope": {
+          "$ref": "./records.schema.json#/$defs/scope"
+        }
+      },
+      "required": [
+        "title",
+        "owner_plan_role_key",
+        "criteria",
+        "scope"
+      ],
+      "additionalProperties": false
+    },
+    "requested_access": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "resource_description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "purpose": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "resource_description",
+          "actions",
+          "purpose"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "report_rule": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "enum": [
+            "on_result",
+            "weekly",
+            "material_events"
+          ]
+        },
+        "locale": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "mode",
+        "locale"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "schema_version",
+    "source_message_ids",
+    "scenario_id",
+    "target_unit_id",
+    "title",
+    "outcome",
+    "source_locale",
+    "output_locale",
+    "roles",
+    "responsibility",
+    "first_work",
+    "requested_access",
+    "assumptions",
+    "report_rule"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.euclas.invalid/contracts/team-setup.schema.json",
+  "description": "Versioned Artifact content. Cross-field semantics, approved profiles and authority checked before atomic commit; schedule objects use the ReviewRule contract in shared-command.openapi.json."
+}
