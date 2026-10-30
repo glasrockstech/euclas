@@ -1,6 +1,6 @@
 # Euclas 開發進度總覽
 
-更新：2026-10-30 18:12 Europe/Berlin。這是依 [plan.md](plan.md)、[progress.md](progress.md)、[驗收情境](../design/acceptance/scenarios.json)與[情境歸屬](scenario-owners.json)整理的進度檔，由協調者在實際關卡完成時更新；沒有背景自動監控。任務依賴以 plan 為準，實際授權與證據以 progress 為準。
+更新：2026-10-30 18:18 Europe/Berlin。這是依 [plan.md](plan.md)、[progress.md](progress.md)、[驗收情境](../design/acceptance/scenarios.json)與[情境歸屬](scenario-owners.json)整理的進度檔，由協調者在實際關卡完成時更新；沒有背景自動監控。任務依賴以 plan 為準，實際授權與證據以 progress 為準。
 
 ## 現況
 
@@ -19,13 +19,13 @@
 
 本輪已授權專案內安裝與專用一次性 PostgreSQL／crash 測試，排除既有資料庫、憑證與全域服務。六項等權關卡是 F01b 的驗收清單，不是工時估算，也不與 F01a 的六項重複加總。
 
-**F01b 關卡完成：1／6＝16.7%。**
+**F01b 關卡完成：2／6＝33.3%。**
 
 | 關卡 | 完成條件 | 狀態 |
 |---|---|---|
 | B1 | 精確 main 基底、授權、Orca 隔離工作樹／唯一作者 | 完成：a74706b；codex/f01b-baseline；作者／研究 session 已確認送達 |
-| B2 | 精確 PostgreSQL tuple、私有資源邊界及介面／恢復前置審查 | 進行中：18.6／私有目錄與 socket 已鎖定；db27174 前置獨立審查中；工具編譯資格查核進行中，尚無 DB 執行 |
-| B3 | 最小初始化與五類角色隔離實作 | 待執行 |
+| B2 | 精確 PostgreSQL tuple、私有資源邊界及介面／恢復前置審查 | 完成：18.6 原始碼／工具／libpq 與私有資源已查核；db27174 前置獨立審查 PASS；只限 macOS 開發組合 |
+| B3 | 最小初始化與五類角色隔離實作 | 進行中：已建立最小測試與初始化介面；未驗收 |
 | B4 | 真實 DB 允許／拒絕／過期／重複／crash-window 與恢復驗收 | 待執行 |
 | B5 | 精確來源的獨立安全／恢復／工程規範審查及必要修正 | 待執行 |
 | B6 | main 整合重現、測試程序清理與完整交接 | 待執行 |
@@ -91,7 +91,7 @@
 
 ## 代理、工作樹與 session
 
-- F01b：唯一作者在 `codex/f01b-baseline`，工作樹 `/Users/ckuo/orca/workspaces/euclas/f01b-baseline`；官方版本研究代理已完成並釋放，前置安全／恢復／介面 reviewer 正在獨立審查 `db27174`。
+- F01b：唯一作者在 `codex/f01b-baseline`，工作樹 `/Users/ckuo/orca/workspaces/euclas/f01b-baseline`；官方版本研究代理已完成並釋放，前置安全／恢復／介面 reviewer 已對 `db27174` 回報 PASS 並釋放；作者繼續實作。
 - Run：`run_031592cbc65a`；精確 Task／Dispatch、授權與證據位置見 [progress.md](progress.md)。共用契約、lockfile 與實作由同一作者負責；進度檔由協調者維護。
 - F01a：作者與 reviewers 均已釋放，來源 `309c0bb` 已審查及整合 main；工作樹與證據保留，作為本輪前提。
 - Session：繼續目前協調對話；作者與 reviewer 的新 context 已由協調者安排，不需要你另建 session。F01b 完成後會停下回報，不自動開始 F02。

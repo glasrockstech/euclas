@@ -15,3 +15,11 @@ Coordinator record, 2026-10-30. This is a development foundation review; product
 ## Final source review
 
 Pending. Pin the final immutable implementation head, run independent Standards and Spec/security/recovery axes, correct findings and review the resulting exact head before local integration.
+
+## Coordinator main tool qualification
+
+Before any main runtime, fresh `.tools/postgres/{source,build,install}` and `.tools/qualification` were exclusively created after confirming both parents absent/non-symlink and ample disk. Copied this repository worktree's immutable official archive; independently verified22,632,314 bytes and SHA256 `555610c24d53e4316da5b7d3fc25c279d96856d5e0e23ee308c328c5fa881d9f`. Validated every archive entry (bounded total, exact source root, no traversal/absolute entries, only files/directories), then extracted. Source license notice retained/read. No new public download.
+
+Explicit subprocess environment (no HOME override, SDKROOT, PG/DYLD credentials or host config) set PATH `/usr/bin:/bin:/usr/sbin:/sbin`, LC_ALL C, exact Xcode clang21.0.0 and MacOSX27.2.sdk, DEVELOPER_DIR, PG_SYSROOT, MACOSX_DEPLOYMENT_TARGET27.0 and both CPPFLAGS/LDFLAGS `-isysroot <SDK>`. Official configure with main-owned absolute prefix and `--without-icu --without-readline --without-zlib`, `/usr/bin/make -j2`, `/usr/bin/make install` each returned0 under600-second child deadlines. Detailed argv/environment/results: main `.tools/qualification/postgres-main-build.json`; build logs are retained privately alongside it.
+
+Eight tools (postgres/initdb/pg_ctl/psql/pg_controldata/pg_dump/pg_restore/pg_config) each reported18.6; SHA256 and otool dependencies were recorded in main `.tools/qualification/postgres-tool-inventory.json`. Main libpq hash `3d8080e062e58232fa0a21343ba78f9f810c7e9a8f358d80194a75b4225126ea`; native clients link this exact main-owned absolute install and system libSystem. Binaries differ from the author's absolute-prefix build; no cross-prefix bit reproducibility is claimed. Main `.tools`540MiB plus node_modules71MiB; under the combined5GiB ceiling. No main DB/server was started by this qualification. Behavioral/main integration reproduction remains pending.
