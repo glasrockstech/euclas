@@ -11838,6 +11838,9 @@ export const resources: readonly ResourceInput[] = [
                 "pg_restore"
               ],
               "additionalProperties": false
+            },
+            "library_hash": {
+              "$ref": "common.schema.json#/$defs/hash"
             }
           },
           "required": [
@@ -11848,9 +11851,24 @@ export const resources: readonly ResourceInput[] = [
             "secrets_path",
             "authority_path",
             "root_identity_hash",
-            "tool_hashes"
+            "tool_hashes",
+            "library_hash"
           ],
           "additionalProperties": false
+        },
+        "baseline_test_cut": {
+          "$comment": "Private development crash-fixture control only; not a CP5 native command or authority. Null disables fault injection.",
+          "enum": [
+            null,
+            "before_journal",
+            "after_journal",
+            "before_initdb",
+            "after_initdb",
+            "before_sql_commit",
+            "after_sql_commit",
+            "before_publication",
+            "after_publication"
+          ]
         }
       }
     }
@@ -16265,6 +16283,7 @@ export const contractNames: readonly (keyof ContractTypes)[] = [
   "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_initialize_request",
   "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_receipt",
   "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_state",
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_test_cut",
   "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/initialization_journal",
   "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/limits",
   "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/maintenance_permit_claims",

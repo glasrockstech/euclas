@@ -18,7 +18,7 @@ function witness(suffix: string, value: unknown, expected: boolean): void {
 
 await test('generated runtime resources exactly match canonical inputs and public roots', async () => {
   assert.deepEqual(resources, await readCanonical());
-  assert.equal(contractNames.length, 627);
+  assert.equal(contractNames.length, 628);
   for (const root of contractNames) assert.deepEqual(validateContract(root, null), direct.validate(root, null), root);
   assert.throws(() => validateContract(`${namespace}records.schema.json#/$defs/work`, work), /Unknown/);
 });
