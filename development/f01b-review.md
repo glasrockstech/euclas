@@ -14,7 +14,17 @@ Coordinator record, 2026-10-30. This is a development foundation review; product
 
 ## Final source review
 
-Pending. Pin the final immutable implementation head, run independent Standards and Spec/security/recovery axes, correct findings and review the resulting exact head before local integration.
+First final wave in progress: base `a74706ba986256bd08ccde27b1966561075d8f66`, frozen head `80195aba09087e4c751b883d721f21f9347ed701`, 27 changed files and five commits. HEAD and clean worktree independently confirmed. Author waits on question `msg_1536e213ebcd`; no PASS/integration yet.
+
+### Standards
+
+Pending: Task `task_87cfcc987409`, Dispatch `ctx_213067e1e65c`, independent read-only structured context, ready/input_accepted/turn observed.
+
+### Spec, security and recovery
+
+Pending: Task `task_117ad0391fa5`, Dispatch `ctx_f5448be0a09b`, independent read-only structured context, ready/input_accepted/turn observed.
+
+Neither reviewer may edit/install/start DB/signal processes/build. Founder-authorized scope and current local spec are the source, no external issue tracker/setup is needed. Author remains the sole writer for any correction; final exact head must pass before local integration.
 
 ## Coordinator main tool qualification
 
