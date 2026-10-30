@@ -1,6 +1,16 @@
 # Current development state
 
-Date: 2026-10-30 19:41 Europe/Berlin. **F01b accepted and integrated locally; F01 is closed.** Product app runtime and all118 product scenarios remain `not_run`. Stop after this milestone; F02 and other implementation slices have not started.
+Date: 2026-10-30 Europe/Berlin. **F02 planning authorized and in progress on `codex/f02-plan`; F01 remains accepted.** Product app runtime and all118 product scenarios remain `not_run`. No F02 implementation is authorized.
+
+## Current F02 planning authorization and checkpoint
+
+創辦人明確授權 F02 **PLAN ONLY**：沿用已接受 F01a／F01b，準備最小 Electron／獨立 Supervisor／私有 IPC／單一 controller／退出與 crash recovery 切片封包、分解及驗收，安排精確來源獨立安全／復原審查，完成後由協調者驗證公開遠端狀態、push `codex/f02-plan` 並建立 draft PR。此授權僅在規劃及該分支 PR 範圍取代舊 F02／遠端排除；不授權實作或 main 整合。
+
+- Base `e8f21ab01b5f1883a7c45cbef581332b2d577cd9`; worktree `/Users/ckuo/orca/workspaces/euclas/f02-plan`; sole writer branch `codex/f02-plan`.
+- Orca Run `run_965596ce1c6d`; Task `task_8007ecd7668d`; Dispatch `ctx_30ae761d1461`. 作者只改 Markdown；協調者負責來源研究、獨立 read-only reviewers 與最終遠端操作。
+- Allowed: local planning documents/commits, Orca contexts, read-only source/version checks and static JSON/link/owner/diff checks. Spending zero. No install/build/runtime/package/DB tests, native state change, existing DB/account/provider/credential access, global services, canonical JSON/source/manifests/scripts changes or product start. No author remote mutation.
+- Planning gates: P1 authorization/worktree **PASS** (clean branch at base); P2 owners/source facts **in progress**; P3 packet/slices/matrix **pending**; P4 exact-source independent security/recovery review **pending**; P5 pushed draft PR/handoff **pending**, coordinator-owned. These are planning gates, not product acceptance.
+- Accepted counts unchanged: plan2/28=7.1%, implementation1/27=3.7%, R1 0/101, roadmap0/17. F02 runtime `not_run`. Current author session continues through planning/review; implementation requires fresh explicit authorization and a new author context. Packet/evidence links will be added at freeze.
 
 ## Remote repository bootstrap authorization
 
