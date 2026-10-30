@@ -60,7 +60,7 @@ Additional tests cover symlink/replaced root, unsafe permissions, symlink/hardli
 
 An additional red test caught silent reconstruction after a published SQL receipt was deleted (`r-UGHkY9`, retained). The fix verifies already-applied SQL state before any replay mutation when local generation>=4; missing SQL receipt now blocks and leaves record count0. This preserves the journal/SQL publication boundary rather than recreating lost authority. The partial-staging test uses actual SIGKILL before initdb, then deliberately injects unknown bytes: it proves retained refusal, not a claim that every possible mid-initdb syscall cut is qualified.
 
-## Final author verification
+## Initial final author verification (80195ab; superseded by review corrections below)
 
 Use P for this exact executed isolated prefix:
 
@@ -84,3 +84,36 @@ Built public ESM smoke ran from packages/baseline via `rtk proxy node --input-ty
 Final exact owned-resource audit returned0: eight retained failed fixtures, **zero** lock holders, sockets or postmaster PID files in each; no active task DB/initializer/native child remains. Detailed nonsecret audit `.tools/qualification/final-owned-resource-audit.json` is retained. C launcher source SHA-256 `ad3c8c963cf74ecf4102d0d40b5851faf6602f8c0741bf47b9ba990bb5af9d86`; built binary SHA-256 `0eddae5cf5b51cc9d5e9137c05f9623ae0581b4be5e90f0488beb9317e71da3d`. Task footprint `.tools`853MiB, node_modules71MiB, baseline package176KiB, under5GiB; exact known source/checksum download22,632,404 bytes plus bounded metadata refresh, no new registry package artifact/spend. Eight private fixtures retain fresh secrets solely for failure evidence; none are printed or reused as product credentials.
 
 This is author evidence, not independent final acceptance. Coordinator must review exact final base/head and perform local main integration/reproduction. No F02, Account/Email/model/provider, full business schema, Windows, packaging, existing/unrelated DB, global service/config change, remote Git, publication or spend occurred. All118 product scenarios remain `not_run`; F01b does not close T-PG-NATIVE/PREFLIGHT or R02. Current session continues for the exact-head review gate and any same-slice corrections; coordinator owns final synthesis/handoff.
+
+## Independent review corrections — P1 inspection / P2 start failure
+
+Initial frozen head `80195aba09087e4c751b883d721f21f9347ed701` passed Standards but the independent Spec/security/recovery review required two corrections (reviewer Task `task_117ad0391fa5`, Dispatch `ctx_f5448be0a09b`, receipt `msg_d409eade6f3b`). Coordinator explicitly returned NEEDS CHANGES through final question `msg_1536e213ebcd`; no worker_done or integration occurred. The packet and private canonical fault enum were updated before corrected consumers. Existing acceptance/authority remains unchanged; no F02 or new dependency.
+
+P1 red public-interface test: after real SQL active=false while private fixture authority stayed active, public `inspect` incorrectly returned its local journal/receipt (`r-EKm3LY`, retained). The fix changes the existing SQL inspection function to accept exact Instance/controller/epoch/location from the canonical request, lock and check the current protected authority/reader mapping, then return the scoped receipt. Public inspection from database_initialized onward requires this real restricted SQL check and matching SQL receipt; SQL unavailable means denied disclosure. It does not start a server or mutate rows. Planned/staging retain their pre-SQL inspection semantics; a stopped database requires the trusted harness to start its owned server before protected inspection. Active/revoke, epoch and controller changes now all deny the original public request; restored current bindings allow inspection with journal bytes and SQL row count unchanged. Existing callers/tests now explicitly start their owned server around protected inspection.
+
+P2 red test first showed the missing failure path (normal success when the private fault was unavailable, `r-kYqMHn`); then the private canonical `start_reports_failure` injects an adapter failure immediately after the real qualified pg_ctl has actually started PostgreSQL. With the old boundary, the test observed live postmaster53693 instead of null (`r-KjbIsB`), and test finally safely stopped it. This is a real native postmaster effect with a deliberately reported adapter failure, not a claim to reproduce an upstream pg_ctl timeout itself.
+
+The native start call now lies inside try/finally. Cleanup verifies cluster system ID, private PID-file data/socket/port, exact executable and unique fixture parent before stopping only that owned postmaster; it checks socket/PID disappearance. The parent checks gate release on failed initialization; unprovable ownership/remaining holders remain `unknown_native_effect` and are never killed/adopted. The shared ownership helper replaces the earlier test-only duplicate. The start-failure regression now verifies error, no postmaster/socket, SQL-unavailable inspection, original receipt/operation preserved on successful retry, and released gate. A separate actual test-owned unrelated Node child replaces the PID field: cleanup refuses it, both real postmaster and unrelated child remain alive, and only the trusted test finally restores its own saved PID-file bytes and stops/reaps its exact recorded children. Product cleanup performs no repair/reset of unknown bytes.
+
+Focused correction tests passed after the red cases; all failed private fixtures remain stopped and retained. Final corrected full command results, built smoke and fresh resource audit follow after execution.
+
+## Corrected final author verification
+
+All commands below ran after P1/P2 source changes using the same isolated P prefix above:
+
+| Actual command suffix | Exit | Corrected result |
+|---|---:|---|
+| install --frozen-lockfile --ignore-scripts --ignore-pnpmfile --offline |0|3 workspace projects; no dependency change/download/scripts |
+| contracts:check |0|628 roots; no writes/drift; private fault enum generated from its canonical owner |
+| typecheck |0|All strict compiler checks unchanged |
+| lint |0|Both packages/generated/tests;0 warnings/suppressions |
+| build |0|Contracts, warning-clean native gate, baseline ESM/declarations |
+| test |0|40/40:29 F01b +11 F01a;0 fail/skip/todo;102,354ms |
+
+The complete corrected test run includes every original acceptance case, all eight SIGKILL cuts again, and three added tests: public SQL active/epoch/controller/current inspection without baseline mutation; real postmaster started then adapter reports failure, stops/releases gate and retries with original operation/receipt; mismatched-PID cleanup refusal with unrelated child survival. All are actual local PostgreSQL/OS process evidence at the bounded development tuple. Failed initialization additionally checks parent-side gate release; success may release its own gate before another legitimate caller acquires it, so the parent does not misclassify a new controller's gate as its own leak.
+
+Corrected built-public smoke (same `rtk proxy node --input-type=module -` entry) imports actual `@euclas/baseline`, initializes through compiled cli.js, asserts stopped/unavailable SQL denies inspection, starts only the harness-owned server, then asserts live SQL-authorized inspection succeeds, stops and cleans its known fixture. Exit0. This supersedes the initial smoke's file-only inspection semantics; no new package/user-facing runtime was added.
+
+Fresh `.tools/qualification/corrected-owned-resource-audit.json` returned0: **11 retained private failed fixtures, zero lock holders, zero sockets, zero postmaster PID files**. All exact test children, including the deliberately unrelated-to-DB Node child, were stopped/reaped through their recorded handles; no task runtime remains active. C source/binary SHA-256 values remain the exact values recorded in the initial audit. Task `.tools`969MiB, node_modules71MiB, baseline package180KiB; resource ceilings remain intact. No additional public download, dependency, global configuration/service, existing DB/credential, F02, provider, remote Git or spend in this correction.
+
+`rtk git diff --check` returns0. Source is to be committed and frozen for fresh exact-head Standards and Spec/security/recovery re-review through a new coordinator blocking ask; initial80195ab review is not represented as corrected-source acceptance. All118 product scenarios remain `not_run`. Continue this same author session only for that review/correction gate; coordinator owns integration, reproduction and final milestone synthesis.

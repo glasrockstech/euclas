@@ -26,7 +26,7 @@ try {
       writeSync(1, `${JSON.stringify(cut)}\n`);
       process.kill(process.pid, 'SIGSTOP');
     }
-  });
+  }, cut === 'start_reports_failure');
   writeSync(1, `${JSON.stringify(receipt)}\n`);
 } catch (error) {
   const code = error instanceof Error && /^[a-z0-9_]{1,64}$/.test(error.message) ? error.message : 'initialization_failed';

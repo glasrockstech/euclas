@@ -493,7 +493,8 @@ export type Schema0372 =
   | "before_sql_commit"
   | "after_sql_commit"
   | "before_publication"
-  | "after_publication";
+  | "after_publication"
+  | "start_reports_failure";
 export type Schema0381 =
   | {
       protocol_version: 1;

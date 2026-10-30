@@ -11867,7 +11867,8 @@ export const resources: readonly ResourceInput[] = [
             "before_sql_commit",
             "after_sql_commit",
             "before_publication",
-            "after_publication"
+            "after_publication",
+            "start_reports_failure"
           ]
         }
       }

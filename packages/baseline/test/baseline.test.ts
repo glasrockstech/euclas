@@ -6,13 +6,14 @@ import { fixture } from './fixture.ts';
 import { randomUUID } from 'node:crypto';
 import { admit } from '../src/types.ts';
 import { sql, literal } from '../src/native.ts';
-import { start, stop, systemIdentifier } from '../src/database.ts';
+import { start, stop, stopVerified, systemIdentifier, inspectionQuery } from '../src/database.ts';
 import { canonical, hash } from '../src/files.ts';
-import { spawn } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import { once } from 'node:events';
 import { join } from 'node:path';
 import { atCut, ownedPostmaster, waitExited } from './crash.ts';
 import type { Cut } from '../src/operation.ts';
+import { resolve } from 'node:path';
 
 await test('inspection refuses denied authority and unknown data without mutating either target', async () => {
   const f = await fixture();
@@ -24,6 +25,91 @@ await test('inspection refuses denied authority and unknown data without mutatin
     await writeFile(`${f.root}/unknown`, 'retain me');
     await assert.rejects(inspect(f.request, f.environment), /unknown_target/);
     assert.deepEqual(await readdir(f.root), ['unknown']);
+    passed = true;
+  } finally { await f.cleanup(passed); }
+});
+
+await test('public inspection rechecks protected SQL active, epoch and controller without mutating baseline state', async () => {
+  const f = await fixture();
+  const env = admit('https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_environment', f.environment);
+  let passed = false;
+  try {
+    await initialize(f.request, env);
+    start(env);
+    try {
+      const original = await inspect(f.request, env);
+      const journal = await readFile(join(f.root, 'journal.json'), 'utf8');
+      for (const assignment of ['active=false', 'ownership_epoch=2', `controller_id=${literal(randomUUID())}::uuid`]) {
+        sql(env, 'euclas_bootstrap', `UPDATE baseline.authority SET ${assignment}`);
+        await assert.rejects(inspect(f.request, env), /denied|sql_42501/);
+        sql(env, 'euclas_bootstrap', `UPDATE baseline.authority SET active=true,ownership_epoch=1,controller_id=${literal(f.authority.controller_id)}::uuid`);
+        assert.deepEqual(await inspect(f.request, env), original);
+        assert.equal(await readFile(join(f.root, 'journal.json'), 'utf8'), journal);
+        assert.equal(sql(env, 'euclas_application', 'SELECT count(*) FROM baseline.record'), '1');
+      }
+    } finally { stop(env); }
+    await assert.rejects(inspect(f.request, env), /sql_authority_unavailable/);
+    passed = true;
+  } finally { await f.cleanup(passed); }
+});
+
+await test('reported start failure stops the real owned postmaster and releases its gate', async () => {
+  const f = await fixture();
+  const env = admit('https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_environment', f.environment);
+  let passed = false;
+  try {
+    const child = spawnSync(resolve('.tools/f01b-lock-run'), [env.lock_path, process.execPath, resolve('packages/baseline/src/cli.ts')],
+      { input: `${JSON.stringify(f.request)}\n${JSON.stringify(env)}\n"start_reports_failure"\n`, encoding: 'utf8',
+        env: { PATH: '/usr/bin:/bin', LC_ALL: 'C' }, timeout: 15000 });
+    assert.equal(child.status, 1);
+    assert.equal(child.stderr.trim(), 'native_start_failed');
+    assert.equal(await ownedPostmaster(env), null);
+    assert.deepEqual(await readdir(f.socket), []);
+    await assert.rejects(inspect(f.request, env), /sql_authority_unavailable/);
+    const retained = admit('https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_state', JSON.parse(await readFile(join(f.root, 'journal.json'), 'utf8')));
+    const receipt = await initialize(f.request, env);
+    assert.equal(receipt.receipt_id, retained.journal.receipt_id);
+    assert.equal(receipt.operation_id, f.request.payload.operation_id);
+    passed = true;
+  } finally {
+    const pid = await ownedPostmaster(env);
+    if (pid) stop(env);
+    await f.cleanup(passed);
+  }
+});
+
+await test('cleanup refuses a mismatched PID without killing the unrelated task-owned child', async () => {
+  const f = await fixture();
+  const env = admit('https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_environment', f.environment);
+  let passed = false;
+  try {
+    await initialize(f.request, env);
+    start(env);
+    const pidPath = join(f.root, 'staging/postmaster.pid');
+    const original = await readFile(pidPath);
+    const realPid = await ownedPostmaster(env);
+    assert.ok(realPid);
+    const unrelated = spawn(process.execPath, ['-e', 'setInterval(() => {}, 1000)'], { env: { PATH: '/usr/bin:/bin', LC_ALL: 'C' }, stdio: 'ignore' });
+    const closed = once(unrelated, 'close');
+    try {
+      await once(unrelated, 'spawn');
+      const pid = unrelated.pid;
+      assert.equal(typeof pid, 'number');
+      assert.ok(pid);
+      const lines = original.toString('utf8').split('\n');
+      lines[0] = String(pid);
+      await writeFile(pidPath, lines.join('\n'));
+      await assert.rejects(stopVerified(env, systemIdentifier(env)), /unknown_native_effect/);
+      process.kill(pid, 0);
+      process.kill(realPid, 0);
+      assert.equal(unrelated.signalCode, null);
+      assert.equal(unrelated.exitCode, null);
+    } finally {
+      await writeFile(pidPath, original);
+      stop(env);
+      unrelated.kill('SIGTERM');
+      await closed;
+    }
     passed = true;
   } finally { await f.cleanup(passed); }
 });
@@ -56,9 +142,11 @@ for (const cut of cuts) {
       assert.equal(receipt.revision, 6);
       if (before) assert.equal(receipt.receipt_id, before.journal.receipt_id);
       if (systemBefore) assert.equal(receipt.cluster_system_identifier, systemBefore);
-      assert.equal((await inspect(f.request, env))?.journal.stage, 'verified');
       start(env);
-      try { assert.equal(sql(env, 'euclas_application', 'SELECT count(*) FROM baseline.record'), '1'); }
+      try {
+        assert.equal((await inspect(f.request, env))?.journal.stage, 'verified');
+        assert.equal(sql(env, 'euclas_application', 'SELECT count(*) FROM baseline.record'), '1');
+      }
       finally { stop(env); }
       passed = true;
     } finally {
@@ -77,13 +165,14 @@ await test('real restricted logins enforce SQL authority, RLS, revisions, idempo
   const f = await fixture();
   let passed = false;
   const env = admit('https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_environment', f.environment);
+  const inspectQuery = inspectionQuery(admit('https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_initialize_request', f.request));
   try {
     const receipt = await initialize(f.request, env);
     start(env);
     try {
       for (const role of ['application', 'storage', 'verifier']) {
         const login = `euclas_${role}`;
-        assert.deepEqual(JSON.parse(sql(env, login, 'SELECT baseline.inspect()')), receipt);
+        assert.deepEqual(JSON.parse(sql(env, login, inspectQuery)), receipt);
         for (const query of [
           'INSERT INTO baseline.record SELECT * FROM baseline.record', 'UPDATE baseline.record SET revision=2',
           'DELETE FROM baseline.record', 'TRUNCATE baseline.record', 'ALTER TABLE baseline.record DISABLE ROW LEVEL SECURITY',
@@ -103,7 +192,7 @@ await test('real restricted logins enforce SQL authority, RLS, revisions, idempo
       const passPath = join(env.secrets_path, 'euclas_application.pgpass');
       const originalPass = await readFile(passPath);
       await writeFile(passPath, '*:*:postgres:euclas_application:invalid-fresh-fixture-secret\n');
-      try { assert.throws(() => sql(env, 'euclas_application', 'SELECT baseline.inspect()'), /native_psql_failed/); }
+      try { assert.throws(() => sql(env, 'euclas_application', inspectQuery), /native_psql_failed/); }
       finally { await writeFile(passPath, originalPass); }
       const invoke = (request: typeof f.request) => {
         const digest = hash(canonical(request));
@@ -134,7 +223,7 @@ await test('real restricted logins enforce SQL authority, RLS, revisions, idempo
       const other = randomUUID();
       sql(env, 'euclas_bootstrap', `INSERT INTO baseline.authority SELECT ${literal(other)}::uuid,controller_id,data_location_id,ownership_epoch,root_hash,staging_hash,manifest_hash,active FROM baseline.authority; UPDATE baseline.reader SET instance_id=${literal(other)}::uuid WHERE login='euclas_application';`);
       assert.equal(sql(env, 'euclas_application', 'SELECT count(*) FROM baseline.record'), '0');
-      assert.equal(sql(env, 'euclas_application', 'SELECT baseline.inspect()'), '');
+      assert.throws(() => sql(env, 'euclas_application', inspectQuery), /sql_42501/);
       sql(env, 'euclas_bootstrap', `UPDATE baseline.reader SET instance_id=${literal(f.authority.instance_id)}::uuid WHERE login='euclas_application'; DELETE FROM baseline.authority WHERE instance_id=${literal(other)}::uuid;`);
       const revoker = spawn(join(env.tool_prefix, 'bin/psql'), ['--no-psqlrc', '--no-password', '-qAt', '-v', 'ON_ERROR_STOP=1',
         '-h', env.socket_path, '-p', '55461', '-U', 'euclas_bootstrap', '-d', 'postgres'],
@@ -166,7 +255,10 @@ await test('fresh initialization publishes one durable receipt and identical aut
     await writeFile(f.environment.authority_path, JSON.stringify({ ...f.authority, active: false }));
     await assert.rejects(initialize(f.request, f.environment), /denied/);
     await writeFile(f.environment.authority_path, JSON.stringify(f.authority));
-    assert.equal((await inspect(f.request, f.environment))?.journal.stage, 'verified');
+    const env = admit('https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_environment', f.environment);
+    start(env);
+    try { assert.equal((await inspect(f.request, env))?.journal.stage, 'verified'); }
+    finally { stop(env); }
     passed = true;
   } finally { await f.cleanup(passed); }
 });
@@ -176,7 +268,10 @@ await test('inspection rejects incoherent journal generation instead of presenti
   let passed = false;
   try {
     await initialize(f.request, f.environment);
-    const state = await inspect(f.request, f.environment);
+    const env = admit('https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_environment', f.environment);
+    start(env);
+    let state;
+    try { state = await inspect(f.request, env); } finally { stop(env); }
     assert.ok(state);
     state.journal.generation = 1;
     await writeFile(`${f.root}/journal.json`, JSON.stringify(state));

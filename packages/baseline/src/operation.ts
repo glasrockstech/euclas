@@ -3,14 +3,14 @@ import { randomUUID } from 'node:crypto';
 import { join } from 'node:path';
 import { context, stateAt, hash, identity, durable, json, canonical, clusterTree } from './files.ts';
 import { qualify, run } from './native.ts';
-import { manifestHash, systemIdentifier, start, stop, bootstrap, apply, verifyCluster, assertStopped } from './database.ts';
+import { manifestHash, systemIdentifier, start, stopVerified, bootstrap, apply, verifyCluster } from './database.ts';
 import { admit } from './types.ts';
 import type { State, Receipt } from './types.ts';
 import type { ContractTypes } from '@euclas/contracts';
 
 export type Cut = ContractTypes['https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_test_cut'];
 
-export async function execute(input: unknown, configuration: unknown, checkpoint: (name: NonNullable<Cut>) => void = () => {}): Promise<Receipt> {
+export async function execute(input: unknown, configuration: unknown, checkpoint: (name: NonNullable<Cut>) => void = () => {}, reportStartFailure = false): Promise<Receipt> {
   const { request, environment, authority } = await context(input, configuration);
   await qualify(environment);
   if (request.payload.migration_manifest_hash !== await manifestHash()) throw new Error('manifest_mismatch');
@@ -81,8 +81,8 @@ export async function execute(input: unknown, configuration: unknown, checkpoint
     await durable(journalPath, current);
   }
   await context(input, configuration);
-  start(environment);
   try {
+    start(environment, reportStartFailure);
     await bootstrap(environment, current, authority);
     await context(input, configuration);
     if (current.journal.generation >= 4) {
@@ -113,7 +113,6 @@ export async function execute(input: unknown, configuration: unknown, checkpoint
     if (current.journal.generation < 6) await save('verified', 6);
     return current.receipt;
   } finally {
-    stop(environment);
-    await assertStopped(environment);
+    await stopVerified(environment, current.cluster_system_identifier);
   }
 }

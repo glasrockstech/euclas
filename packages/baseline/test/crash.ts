@@ -2,9 +2,6 @@ import { spawn } from 'node:child_process';
 import { once } from 'node:events';
 import { fileURLToPath } from 'node:url';
 import { admit } from '../src/types.ts';
-import { privateBytes } from '../src/files.ts';
-import { run } from '../src/native.ts';
-import { join, dirname } from 'node:path';
 import type { Environment } from '../src/types.ts';
 import type { Cut } from '../src/operation.ts';
 
@@ -37,21 +34,7 @@ export async function atCut(request: unknown, environment: Environment, cut: Non
   return { child, closed };
 }
 
-export async function ownedPostmaster(environment: Environment) {
-  let bytes: Buffer;
-  try { bytes = await privateBytes(join(environment.root_path, 'staging/postmaster.pid')); }
-  catch (error) { if (error instanceof Error && 'code' in error && error.code === 'ENOENT') return null; throw error; }
-  const lines = bytes.toString('utf8').trimEnd().split('\n');
-  const pid = admit('https://schemas.euclas.invalid/contracts/common.schema.json#/$defs/revision', Number(lines[0]));
-  if (lines[1] !== join(environment.root_path, 'staging') || lines[3] !== '55461' || lines[4] !== environment.socket_path) {
-    throw new Error('Unverifiable owned postmaster');
-  }
-  const command = run('/bin/ps', ['-ww', '-p', String(pid), '-o', 'command=']);
-  if (!command.startsWith(join(environment.tool_prefix, 'bin/postgres')) || !command.includes(dirname(environment.root_path))) {
-    throw new Error('Unverifiable owned postmaster command');
-  }
-  return pid;
-}
+export { ownedPostmaster } from '../src/native.ts';
 
 export async function waitExited(pid: number) {
   for (let attempt = 0; attempt < 100; attempt++) {

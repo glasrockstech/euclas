@@ -131,13 +131,23 @@ BEGIN
 END
 $$;
 
-CREATE FUNCTION baseline.inspect() RETURNS jsonb LANGUAGE sql STABLE SET search_path=pg_catalog,baseline
-AS $$ SELECT receipt FROM baseline.record $$;
+CREATE FUNCTION baseline.inspect(p_instance uuid, p_controller uuid, p_epoch bigint, p_location uuid)
+RETURNS jsonb LANGUAGE plpgsql SECURITY DEFINER SET search_path=pg_catalog,baseline AS $$
+DECLARE a baseline.authority;
+BEGIN
+  SELECT auth.* INTO a FROM baseline.authority auth JOIN baseline.reader r USING(instance_id)
+    WHERE r.login=session_user FOR SHARE OF auth,r;
+  IF NOT FOUND OR NOT a.active OR a.instance_id IS DISTINCT FROM p_instance OR a.controller_id IS DISTINCT FROM p_controller
+    OR a.ownership_epoch IS DISTINCT FROM p_epoch OR a.data_location_id IS DISTINCT FROM p_location
+    THEN RAISE EXCEPTION 'denied' USING ERRCODE='42501'; END IF;
+  RETURN (SELECT receipt FROM baseline.record);
+END
+$$;
 
 REVOKE ALL ON ALL TABLES IN SCHEMA baseline FROM PUBLIC;
 REVOKE ALL ON ALL FUNCTIONS IN SCHEMA baseline FROM PUBLIC;
 GRANT USAGE ON SCHEMA baseline TO euclas_migration, euclas_application, euclas_storage, euclas_verifier;
 GRANT SELECT ON baseline.record TO euclas_migration, euclas_application, euclas_storage, euclas_verifier;
-GRANT EXECUTE ON FUNCTION baseline.visible_instance(), baseline.inspect() TO euclas_migration, euclas_application, euclas_storage, euclas_verifier;
+GRANT EXECUTE ON FUNCTION baseline.visible_instance(), baseline.inspect(uuid,uuid,bigint,uuid) TO euclas_migration, euclas_application, euclas_storage, euclas_verifier;
 GRANT EXECUTE ON FUNCTION baseline.apply(text,jsonb,jsonb,bigint) TO euclas_migration;
 COMMIT;

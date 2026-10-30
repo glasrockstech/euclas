@@ -1,9 +1,9 @@
-import { readFile, readdir } from 'node:fs/promises';
+import { readFile, readdir, lstat } from 'node:fs/promises';
 import { join } from 'node:path';
 import { hash, identity, privateBytes } from './files.ts';
-import { literal, sql, run } from './native.ts';
+import { literal, sql, run, ownedPostmaster } from './native.ts';
 import { admit } from './types.ts';
-import type { Environment, State, Authority, Receipt } from './types.ts';
+import type { Environment, State, Authority, Receipt, Request } from './types.ts';
 
 export const migrationSource = () => readFile(new URL('../sql/baseline.sql', import.meta.url), 'utf8');
 export const manifestHash = async () => hash(await migrationSource());
@@ -16,14 +16,27 @@ export function systemIdentifier(environment: Environment) {
   return id;
 }
 
-export function start(environment: Environment) {
+export function start(environment: Environment, reportFailure = false) {
   const options = `-c listen_addresses='' -c unix_socket_directories=${shellQuote(environment.socket_path)} -c unix_socket_permissions=0700 -c port=55461 -c max_connections=12 -c shared_buffers=16MB -c log_min_error_statement=panic -c log_error_verbosity=terse`;
   run(join(environment.tool_prefix, 'bin/pg_ctl'), ['-D', join(environment.root_path, 'staging'), '-l',
     join(environment.socket_path, '../server.log'), '-o', options, '-w', '-t', '15', 'start']);
+  if (reportFailure) throw new Error('native_start_failed');
 }
 
 export function stop(environment: Environment) {
   run(join(environment.tool_prefix, 'bin/pg_ctl'), ['-D', join(environment.root_path, 'staging'), '-m', 'fast', '-w', '-t', '15', 'stop']);
+}
+
+export async function stopVerified(environment: Environment, expectedSystem: string) {
+  try {
+    if (systemIdentifier(environment) !== expectedSystem || await ownedPostmaster(environment) === null) throw new Error('unknown_native_effect');
+  } catch { throw new Error('unknown_native_effect'); }
+  stop(environment);
+  await assertStopped(environment);
+}
+
+export function inspectionQuery(request: Request) {
+  return `SELECT baseline.inspect(${literal(request.instance_id)}::uuid,${literal(request.controller_id)}::uuid,${String(request.ownership_epoch)},${literal(request.payload.data_location_id)}::uuid)`;
 }
 
 export async function bootstrap(environment: Environment, state: State, authority: Authority) {
@@ -50,8 +63,8 @@ export async function verifyCluster(environment: Environment, state: State): Pro
   if (await identity(join(environment.root_path, 'staging'), state.request.payload.data_location_id) !== state.staging_identity_hash ||
     (await privateBytes(join(environment.root_path, 'staging/PG_VERSION'))).toString('utf8').trim() !== '18' ||
     systemIdentifier(environment) !== state.cluster_system_identifier) throw new Error('cluster_mismatch');
-  const bytes = sql(environment, 'euclas_migration',
-    "SELECT baseline.inspect() WHERE current_setting('listen_addresses')='' AND current_setting('fsync')='on' AND (SELECT count(*) FROM pg_roles WHERE rolname IN ('euclas_owner','euclas_migration','euclas_application','euclas_storage','euclas_verifier') AND NOT rolsuper AND NOT rolcreatedb AND NOT rolcreaterole AND NOT rolinherit AND NOT rolreplication AND NOT rolbypassrls)=5");
+  const bytes = sql(environment, 'euclas_migration', inspectionQuery(state.request) +
+    " WHERE current_setting('listen_addresses')='' AND current_setting('fsync')='on' AND (SELECT count(*) FROM pg_roles WHERE rolname IN ('euclas_owner','euclas_migration','euclas_application','euclas_storage','euclas_verifier') AND NOT rolsuper AND NOT rolcreatedb AND NOT rolcreaterole AND NOT rolinherit AND NOT rolreplication AND NOT rolbypassrls)=5");
   if (!bytes || bytes === 'null') throw new Error('missing_sql_receipt');
   const controls: unknown = JSON.parse(bytes);
   const receipt = admit('https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_receipt', controls);
@@ -69,4 +82,7 @@ export function apply(environment: Environment, state: State): Receipt {
 export async function assertStopped(environment: Environment) {
   const entries = await readdir(environment.socket_path);
   if (entries.some(name => name.startsWith('.s.PGSQL.'))) throw new Error('owned_listener_remains');
+  try { await lstat(join(environment.root_path, 'staging/postmaster.pid')); }
+  catch (error) { if (error instanceof Error && 'code' in error && error.code === 'ENOENT') return; throw error; }
+  throw new Error('owned_process_remains');
 }
