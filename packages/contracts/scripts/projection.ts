@@ -73,6 +73,8 @@ export function declarationProjection(inputs: readonly ResourceInput[]): JsonObj
       isObject(child) && typeof child.$id === 'string' ? uri.resolve(base, child.$id) : base);
     for (const [key, value] of Object.entries(schema)) {
       if (['$id', '$schema', '$defs', 'definitions', 'title'].includes(key) || runtimeOnly.has(key)) continue;
+      // Count-only branches must not erase sibling element types with unknown tuples.
+      if ((key === 'minItems' || key === 'maxItems') && schema.items === undefined && schema.prefixItems === undefined) continue;
       if (key === '$ref') {
         if (typeof value !== 'string') throw new Error('Expected string reference');
         result.$ref = referenceType(uri.resolve(base, value)).$ref ?? null;

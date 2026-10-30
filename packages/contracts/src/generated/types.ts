@@ -221,10 +221,7 @@ export type Schema03491 =
     }
   | {
       status: "ready" | "executing" | "verifying" | "awaiting_acceptance" | "accepted" | "failed";
-      /**
-       * @minItems 1
-       */
-      criteria: [unknown, ...unknown[]];
+      criteria: unknown[];
       [k: string]: unknown;
     };
 /**
