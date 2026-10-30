@@ -1,6 +1,14 @@
 # Current development state
 
-Date: 2026-10-30. Phase: F01a development environment accepted and locally integrated; product runtime not started.
+Date: 2026-10-30. Phase: authorized F01b baseline preparation in progress; F01a accepted; product app runtime not started.
+
+## Active F01b authorization and task
+
+The founder explicitly requests starting F01b and authorizes version qualification, project-local installation, starting/stopping owned disposable PostgreSQL test databases, implementation/tests, Orca worktrees/agents, independent security/recovery review and local Git integration. Additional spending zero. This supersedes earlier F01b exclusions for this bounded slice; F01a remains accepted and is reused. No existing database, real credential, global service, remote Git, publication, provider integration or F02 is authorized. Newly generated disposable test-role secrets are permitted only within private owned test resources, never printed or reused as product credentials.
+
+Current task: pin a maintained PostgreSQL/tool tuple from primary sources, record paths/socket/port/process/resources/cleanup before execution, publish the minimum F01b interface/role/journal/recovery packet, independently review its security/recovery prerequisites, then implement/test and review exact final source before main integration. One primary writer owns F01b code/contracts/evidence; coordinator owns current status/plan/entry documents. Reversible choices within this authority are autonomous. Proposed resource ceiling:2GiB public downloads and5GiB newly owned task artifacts; stop and report uncertainty instead of touching unknown data/processes. All test processes must be stopped or explicitly reported before closure.
+
+F01b progress will use six explicit gates B1–B6 in overview.zh-TW.md, separate from accepted F01a E1–E6. Current0/6; whole-plan closure1/28=3.6%, R1 passes0/101. A genuine F01b pass may close F01 after F01a; it does not qualify the native installer/private app endpoint or complete T-PG-NATIVE/T-PG-PREFLIGHT product journeys. Session: keep the current coordinator conversation; a fresh Orca author context will be arranged, then independent packet/final-source reviewers. No founder-created session or repeated permission is needed.
 
 ## Active environment and F01a authorization — 2026-10-30
 
