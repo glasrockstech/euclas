@@ -8,9 +8,9 @@ The founder explicitly authorizes F01b version qualification, project-local inst
 
 One writer owns feature code/contracts/packet/evidence; coordinator owns main status/plan/entry/review records. Current Run `run_031592cbc65a`; writer Task `task_fe9142d65f4f`, Dispatch `ctx_81304d850c40`, worktree `/Users/ckuo/orca/workspaces/euclas/f01b-baseline`, branch `codex/f01b-baseline`, original base `a74706ba986256bd08ccde27b1966561075d8f66`. No feature source is integrated into main yet. Continue the same writer for corrections, then freeze a clean exact head and independently review before integration. Coordinator arranges reviewers; the founder need not create sessions.
 
-## Current checkpoint: four gates accepted
+## Current checkpoint: five gates accepted
 
-Accepted B1–B4:4/6=66.7%, subject to review/reproduction reopening. Frozen clean candidate `ca41da8e7e0fd39ea61a74660cfeba5380c53b7f` independently confirmed. Author completed42/42 tests (31F01b+11F01a), all required commands/built smoke0, all8 actual SIGKILL cuts again, and13 retained failed fixtures with0 holders/sockets/PID files; no live task children. Those remain author runtime evidence until main reproduction. B5/B6 incomplete.
+Accepted B1–B5:5/6=83.3%, subject to main reproduction reopening. Frozen clean candidate `ca41da8e7e0fd39ea61a74660cfeba5380c53b7f` independently confirmed. Author completed42/42 tests (31F01b+11F01a), all required commands/built smoke0, all8 actual SIGKILL cuts again, and13 retained failed fixtures with0 holders/sockets/PID files; no live task children. Those remain author runtime evidence until main reproduction. B5 exact-source review accepted; B6 main integration/reproduction incomplete.
 
 [Review receipt](f01b-review.md): initial packet `db27174` PASS before consumers; first final source `80195ab` Standards PASS / Spec required P1 public inspection missing current protected SQL rights and P2 partial native start outside cleanup. Both were corrected/tested in `aab97ce`; its Standards PASS / Spec accepted those fixes but found a P2 protected-reader mapping revocation race. Both review waves are settled/released with transcripts captured. Original final question `msg_31950cc5adc9` was answered NEEDS CHANGES in `msg_06e468125d9c`.
 
@@ -31,3 +31,5 @@ F01a source `309c0bb44f6a4343d876525946648c97692cc5e1`, integration `8a9b43a31fc
 [Founder overview](overview.zh-TW.md) is the timestamped count snapshot: plan1/28=3.6%, implementation0/27, R1 scenarios0/101, roadmap0/17; F01 stays open until genuine F01b acceptance. These are explicit-denominator counts, not product/effort estimates. Reopen invalidated gates. [F01b checkpoint history](history/f01b-progress-2026-10-30.md) is historical only; this file owns current authority/status. Communicate Traditional Chinese; normative technical documents/code docs English.
 
 Session: continue current coordinator and writer. No founder intervention/new session is needed. After F01b completion report and stop; do not automatically start F02. [Session/handoff policy](prompts.md).
+
+Both final independent axes PASS for ca41da8: Standards msg_2bbf15676295 and Spec/security/recovery msg_f3415f6e5faa,0 necessary findings each. Both reviewer terminals released/transcripts captured. Coordinator replied PASS to question msg_62364a6839f7 and requested author worker_done with no further feature edits; primary settlement is pending. Main source integration/reproduction is next, not yet accepted. Current5/6=83.3%; same coordinator session continues.
