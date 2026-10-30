@@ -40,3 +40,33 @@ Before any main runtime, fresh `.tools/postgres/{source,build,install}` and `.to
 Explicit subprocess environment (no HOME override, SDKROOT, PG/DYLD credentials or host config) set PATH `/usr/bin:/bin:/usr/sbin:/sbin`, LC_ALL C, exact Xcode clang21.0.0 and MacOSX27.2.sdk, DEVELOPER_DIR, PG_SYSROOT, MACOSX_DEPLOYMENT_TARGET27.0 and both CPPFLAGS/LDFLAGS `-isysroot <SDK>`. Official configure with main-owned absolute prefix and `--without-icu --without-readline --without-zlib`, `/usr/bin/make -j2`, `/usr/bin/make install` each returned0 under600-second child deadlines. Detailed argv/environment/results: main `.tools/qualification/postgres-main-build.json`; build logs are retained privately alongside it.
 
 Eight tools (postgres/initdb/pg_ctl/psql/pg_controldata/pg_dump/pg_restore/pg_config) each reported18.6; SHA256 and otool dependencies were recorded in main `.tools/qualification/postgres-tool-inventory.json`. Main libpq hash `3d8080e062e58232fa0a21343ba78f9f810c7e9a8f358d80194a75b4225126ea`; native clients link this exact main-owned absolute install and system libSystem. Binaries differ from the author's absolute-prefix build; no cross-prefix bit reproducibility is claimed. Main `.tools`540MiB plus node_modules71MiB; under the combined5GiB ceiling. No main DB/server was started by this qualification. Behavioral/main integration reproduction remains pending.
+
+## Corrected exact-head wave
+
+Original base `a74706ba986256bd08ccde27b1966561075d8f66`, corrected frozen head `aab97ce9d4a1db99ef5b408ec889697166720d4e`, clean HEAD independently confirmed. Correction delta from80195ab touches14 files (+232/-51), including packet/canonical private fault enum, current SQL inspect binding, failure cleanup, source/tests/generated output and evidence. Author reports40/40 final tests, all required commands, built smoke and zero-owned-resource audit; this restores B3/B4 but is not final independent acceptance. Question `msg_31950cc5adc9` remains pending; source/DB frozen.
+
+### Corrected Standards
+
+**PASS**, Task `task_6f775e1a57ce`, Dispatch `ctx_82e9ca343307`, completion `msg_1847e06216fe`, 2026-10-30 18:10:30 UTC. All27 files/six commits and correction diff reviewed; exact clean HEAD confirmed at both ends. No necessary documented-standard breach or reported smell. Read-only checks covered canonical ownership/types/validation, restricted roles/default privileges/FORCE RLS/fixed search_path, current SQL authority before disclosure/replay, start within cleanup/verified-owned stop/retained unknown, regression/cut source, generated canonical and both lifecycle equality/628 roots, retained tool/libpq/launcher/archive hashes, diff --check0.40/40, eight SIGKILL cuts, built smoke and11-fixture zero-live audit are author evidence, not reviewer reruns. Reviewer released; transcript captured. Exact PASS applies to aab97ce only.
+
+### Corrected Spec, security and recovery
+
+**NEEDS CHANGES**, Task `task_c1794a70c8f8`, Dispatch `ctx_83ff726d5723`, completion `msg_5e8fe6f8ffa3`, 2026-10-30 18:13:38 UTC. Exact clean head/full27-file/six-commit and correction diff reviewed. Original P1 public inspection and P2 partial-start fixes accepted in source. One new P2: `baseline.sql:62` locks authority but not protected reader mapping; after admission, a command waiting on an unchanged record can use its pre-wait RLS/STABLE reader snapshot and replay after mapping revocation. Packet requires current protected role mapping/recheck. Reviewer inferred the schedule using retained PostgreSQL18.6 executor/function sources; did not run a DB reproduction. Minimum: deterministic real lock-wait/mapping-delete test, then lock both authority and reader mapping through transaction if reproduced. Existing authority.active revoke test does not cover mapping deletion. Remaining source/canonical/hash/cut checks found no new necessary gap. Reviewer released/transcript captured; original final questionmsg_31950cc5adc9 answered NEEDS CHANGES inmsg_06e468125d9c. B3/B4 reopened pending real reproduction/correction/full checks and another exact-head review.
+
+Second-wave count: Standards0; Spec1 P2 reader-mapping revocation race. Prior two findings resolved in this head; new race remains source-inferred until author red test. Author also identified fixture helper servers may not inherit a gate, so pre-fixture checks must cover sockets/PID residue and dummy-child cleanup must run even if server stop fails; coordinator assigned these bounded cleanup corrections under existing serial-resource scope.
+
+### Reproduction of second-wave P2
+
+Author message `msg_0264ce511757` confirms a real PostgreSQL two-session red test: maintenance held record/reader locks, pg_locks proved migration waiting, maintenance removed reader and committed, then old apply returned0/replayed the receipt. Retained fixture `r-fSknWq`; source hypothesis is now empirically reproduced. Live helper/no-gate expansion red test also reproduced the harness guard gap (`r-waTA6M`). Both known resource sets stopped in finally. Fix/check/final review remain pending; these are failure evidence, not acceptance.
+
+## Final reader-mapping correction wave
+
+Original base `a74706ba986256bd08ccde27b1966561075d8f66`, frozen clean head `ca41da8e7e0fd39ea61a74660cfeba5380c53b7f` independently confirmed. Delta fromaab97ce touches six files (+127/-13): protected reader lock, real race regression, ungated helper/PID/socket fixture guard, nested child cleanup, packet/readme/evidence. Author42/42 full tests/all8cuts/built smoke and13-fixture zero-live audit restore B3/B4; independent final acceptance/main reproduction remain pending. Question `msg_62364a6839f7` pending; author/source/DB frozen.
+
+### Final Standards
+
+Pending: Task `task_3beb9dd89582`, Dispatch `ctx_f2f4c651f4b2`; fresh read-only context, ready/input_accepted/turn observed.
+
+### Final Spec, security and recovery
+
+Pending: Task `task_759b644c1062`, Dispatch `ctx_6f4603fca245`; fresh read-only context, ready/input_accepted/turn observed.

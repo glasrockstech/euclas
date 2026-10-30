@@ -1,6 +1,6 @@
 # Euclas 開發進度總覽
 
-更新：2026-10-30 18:53 Europe/Berlin。這是依 [plan.md](plan.md)、[progress.md](progress.md)、[驗收情境](../design/acceptance/scenarios.json)與[情境歸屬](scenario-owners.json)整理的進度檔，由協調者在實際關卡完成時更新；沒有背景自動監控。任務依賴以 plan 為準，實際授權與證據以 progress 為準。
+更新：2026-10-30 19:29 Europe/Berlin。這是依 [plan.md](plan.md)、[progress.md](progress.md)、[驗收情境](../design/acceptance/scenarios.json)與[情境歸屬](scenario-owners.json)整理的進度檔，由協調者在實際關卡完成時更新；沒有背景自動監控。任務依賴以 plan 為準，實際授權與證據以 progress 為準。
 
 ## 現況
 
@@ -13,21 +13,21 @@
 
 不估算整體產品完成百分比、剩餘工時或交付日期。F01a／F01b 是 F01 子切片，不重複加入節點分母。任務新增、拆分或範圍改變時，記錄日期、原因及新分母；失敗、受阻或進行中不算通過。已驗收項目若被後續變更破壞，重新開啟並更新比例。
 
-**目前階段：F01b 獨立審查發現兩項必要修正，同一作者正在補正。** F01a 工具環境已接受並整合 main；[實作證據](f01a-evidence.md)與[獨立審查](f01a-review.md)保留工具／檢查／限制。沿用現有契約測試與 build，不重做 F01a；產品尚不能啟動。
+**目前階段：F01b 修正與 42 項完整測試已完成，正在重審 ca41da8。** F01a 工具環境已接受並整合 main；[實作證據](f01a-evidence.md)與[獨立審查](f01a-review.md)保留工具／檢查／限制。沿用現有契約測試與 build，不重做 F01a；產品尚不能啟動。
 
 ## F01b 資料庫基線
 
 本輪已授權專案內安裝與專用一次性 PostgreSQL／crash 測試，排除既有資料庫、憑證與全域服務。六項等權關卡是 F01b 的驗收清單，不是工時估算，也不與 F01a 的六項重複加總。
 
-**F01b 關卡完成：2／6＝33.3%（獨立審查後重新開啟 B3／B4）。**
+**F01b 關卡完成：4／6＝66.7%（競態與失敗清理修正已通過完整測試，精確來源重審中）。**
 
 | 關卡 | 完成條件 | 狀態 |
 |---|---|---|
 | B1 | 精確 main 基底、授權、Orca 隔離工作樹／唯一作者 | 完成：a74706b；codex/f01b-baseline；作者／研究 session 已確認送達 |
 | B2 | 精確 PostgreSQL tuple、私有資源邊界及介面／恢復前置審查 | 完成：18.6 原始碼／工具／libpq 與私有資源已查核；db27174 前置獨立審查 PASS；只限 macOS 開發組合 |
-| B3 | 最小初始化與五類角色隔離實作 | 重新開啟：修正公開 inspect 的 SQL 現行授權，以及部分啟動失敗的清理 |
-| B4 | 真實 DB 允許／拒絕／過期／重複／crash-window 與恢復驗收 | 重新開啟：37／37 原有案例通過；需新增兩項審查回歸並重跑完整檢查 |
-| B5 | 精確來源的獨立安全／恢復／工程規範審查及必要修正 | 進行中：Standards PASS；Spec／安全恢復有 P1／P2，修正後重審精確新來源 |
+| B3 | 最小初始化與五類角色隔離實作 | 完成：ca41da8 已含 reader 映射交易鎖、現行 SQL inspect 與失敗清理 |
+| B4 | 真實 DB 允許／拒絕／過期／重複／crash-window 與恢復驗收 | 完成：42／42＝31 項 F01b＋11 項回歸；含真實競態、helper 防線及 8 個 SIGKILL 切點 |
+| B5 | 精確來源的獨立安全／恢復／工程規範審查及必要修正 | 進行中：ca41da8 已凍結，兩個新 context 重審工程規範／安全恢復 |
 | B6 | main 整合重現、測試程序清理與完整交接 | 待執行 |
 
 ## F01a 開發環境準備
@@ -91,7 +91,7 @@
 
 ## 代理、工作樹與 session
 
-- F01b：唯一作者在 `codex/f01b-baseline`，工作樹 `/Users/ckuo/orca/workspaces/euclas/f01b-baseline`；官方版本研究代理已完成並釋放，前置安全／恢復／介面 reviewer 已對 `db27174` 回報 PASS 並釋放；`80195ab` 首輪審查已完成並釋放 reviewers；同一作者修正兩項必要發現。
+- F01b：唯一作者在 `codex/f01b-baseline`，工作樹 `/Users/ckuo/orca/workspaces/euclas/f01b-baseline`；官方版本研究代理已完成並釋放，前置安全／恢復／介面 reviewer 已對 `db27174` 回報 PASS 並釋放；`80195ab` 首輪審查已完成並釋放 reviewers；同一作者已修正兩項發現，aab97ce 的兩個新 reviewers 正在重審。
 - Run：`run_031592cbc65a`；精確 Task／Dispatch、授權與證據位置見 [progress.md](progress.md)。共用契約、lockfile 與實作由同一作者負責；進度檔由協調者維護。
 - F01a：作者與 reviewers 均已釋放，來源 `309c0bb` 已審查及整合 main；工作樹與證據保留，作為本輪前提。
 - Session：繼續目前協調對話；作者與 reviewer 的新 context 已由協調者安排，不需要你另建 session。F01b 完成後會停下回報，不自動開始 F02。
