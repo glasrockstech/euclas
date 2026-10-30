@@ -1,6 +1,6 @@
 # Euclas 開發進度總覽
 
-更新：2026-10-30 19:41 Europe/Berlin。這是依 [plan.md](plan.md)、[progress.md](progress.md)、[驗收情境](../design/acceptance/scenarios.json)與[情境歸屬](scenario-owners.json)整理的進度檔，由協調者在實際關卡完成時更新；沒有背景自動監控。任務依賴以 plan 為準，實際授權與證據以 progress 為準。
+更新：2026-10-30 20:33 Europe/Berlin。這是依 [plan.md](plan.md)、[progress.md](progress.md)、[驗收情境](../design/acceptance/scenarios.json)與[情境歸屬](scenario-owners.json)整理的進度檔，由協調者在實際關卡完成時更新；沒有背景自動監控。任務依賴以 plan 為準，實際授權與證據以 progress 為準。
 
 ## 現況
 
@@ -90,6 +90,8 @@
 情境數是計數單位，不表示複雜度相等；例如 R09 的一個情境不代表 Plugin 是小工作。
 
 ## 代理、工作樹與 session
+
+Git 遠端：[glasrockstech/euclas](https://github.com/glasrockstech/euclas)。創辦人已授權保留目前公開狀態並首次同步完整 main 歷史，稍後自行改私有。後續功能切片採分支／檢查／獨立審查／PR，再整合 main；不補造已合併工作的空 PR。此設定不增加產品完成數；遠端 CI 與分支保護尚未配置。
 
 - F01b 精確來源 `ca41da8` 已本機整合 `5ffeae0`，27 個 feature 檔逐位元組一致；[作者證據](f01b-evidence.md)與[審查／main 重現](f01b-review.md)記錄全部修正、命令與限制。
 - Run `run_031592cbc65a` 的 9 個 workers 均釋放並保留 transcript；兩工作區已確認無測試鎖持有者、socket 或 postmaster PID 檔。保留作者 13 份私有失敗 fixture，main 0 份。

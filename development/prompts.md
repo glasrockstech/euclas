@@ -12,6 +12,12 @@ Before handoff, record task ID, accepted base/current source snapshot, writable 
 
 For current overall progress read [overview.zh-TW.md](overview.zh-TW.md). Report accepted node/scenario counts with their denominator and limits; use [progress.md](progress.md) for actual authority/evidence.
 
+## Remote Git workflow
+
+Origin is `https://github.com/glasrockstech/euclas.git`. The founder explicitly accepted its current public visibility for the initial main/history push and will change visibility later. Do not assume that change occurred; verify before later disclosures. Initial bootstrap preserves existing reviewed history; no retrospective empty F01a/F01b PR is needed.
+
+For a later explicitly authorized functional slice: one codex/ branch/worktree owner, required local checks and exact-source independent review, then a PR before main integration. Branch pushes, PR creation and merge each follow the actual selected scope, not this template alone. No branch protection or CI is assumed: bootstrap observed main protected=false and zero Actions workflows. Do not enable paid features or claim local macOS/native qualification is portable CI evidence.
+
 ## F01a launch handoff
 
 F01a is already accepted on main. Use this only for an explicitly selected reproduction/repair task, not as the default next development launch. The [launch record](launch.md) and progress own its actual source/scope. This prompt grants no new authority.
