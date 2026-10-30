@@ -18,11 +18,18 @@ First final wave in progress: base `a74706ba986256bd08ccde27b1966561075d8f66`, f
 
 ### Standards
 
-Pending: Task `task_87cfcc987409`, Dispatch `ctx_213067e1e65c`, independent read-only structured context, ready/input_accepted/turn observed.
+**PASS**, Task `task_87cfcc987409`, Dispatch `ctx_213067e1e65c`, `worker_done` message `msg_cd1a8674e092`, 2026-10-30 17:50:24 UTC. Exact base/head and clean source confirmed at both ends; all27 changed files/connected code reviewed. No necessary documented-standard breach or reported smell. Read-only checks covered roles/default privileges/fixed search_path/RLS/current authority before replay, file/native lock/recovery source, diff --check, canonical/lifecycle generated resource equality and628 unique roots, seven tools/libpq/launcher/archive hash records.37/37 tests, eight SIGKILL cuts, build and zero-live-resource results remain author evidence, not rerun by reviewer. Released after acceptance; transcript captured. This PASS is for80195ab only; it does not accept any later fix head.
 
 ### Spec, security and recovery
 
-Pending: Task `task_117ad0391fa5`, Dispatch `ctx_f5448be0a09b`, independent read-only structured context, ready/input_accepted/turn observed.
+**NEEDS CHANGES**, Task `task_117ad0391fa5`, Dispatch `ctx_f5448be0a09b`, `worker_done` message `msg_d409eade6f3b`, 2026-10-30 17:51:07 UTC. All27 changed files/connected code and exact clean base/head checked read-only, including canonical/runtime resource equality and retained archive/launcher hash records. No DB/test/build rerun. Two necessary corrections:
+
+1. **P1 — public inspection misses protected current SQL authority.** `packages/baseline/src/index.ts:9` only reads fixture/file context and state even after SQL initialization. SQL revoke/ownership epoch/controller changes can deny SQL readers while public inspect still discloses journal/receipt under stale fixture authority. Packet requires thereafter checking protected SQL state and denies revoked/wrong-controller inspection. Prove current protected full bindings before disclosure once SQL exists; add public inspect revoke/epoch/controller negatives and allowed/read-only regression.
+2. **P2 — partial start is outside cleanup.** `packages/baseline/src/operation.ts:83` invokes start before try/finally; pg_ctl wait failure after spawning a postmaster bypasses cleanup, leaving server/inherited flock and busy future calls. Packet requires tracking exact owned identities and stopping only verified owned effects with exit confirmation. Include startup effects in the failure boundary, stop only verifiably owned children or retain explicit unknown, and add a real spawned-server/start-reported-failure regression plus unknown-target no-signal check.
+
+Reviewer was released after acceptance; transcript captured. The author independently raised the second hypothesis while frozen; reviewer assessed it against source/requirements. Coordinator routed both findings to the sole author through original final question `msg_1536e213ebcd`, reply `msg_d7ce484687eb`. No main source integration occurred. B3/B4 reopened pending fixes and full checks; B5 remains incomplete.
+
+First-wave count: Standards0 necessary findings; Spec2 (worst P1 stale SQL authorization during public inspect). Neither axis substitutes for the other. Both must review the corrected exact head before integration.
 
 Neither reviewer may edit/install/start DB/signal processes/build. Founder-authorized scope and current local spec are the source, no external issue tracker/setup is needed. Author remains the sole writer for any correction; final exact head must pass before local integration.
 
