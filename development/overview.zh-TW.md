@@ -1,25 +1,25 @@
 # Euclas 開發進度總覽
 
-更新：2026-10-30 19:32 Europe/Berlin。這是依 [plan.md](plan.md)、[progress.md](progress.md)、[驗收情境](../design/acceptance/scenarios.json)與[情境歸屬](scenario-owners.json)整理的進度檔，由協調者在實際關卡完成時更新；沒有背景自動監控。任務依賴以 plan 為準，實際授權與證據以 progress 為準。
+更新：2026-10-30 19:41 Europe/Berlin。這是依 [plan.md](plan.md)、[progress.md](progress.md)、[驗收情境](../design/acceptance/scenarios.json)與[情境歸屬](scenario-owners.json)整理的進度檔，由協調者在實際關卡完成時更新；沒有背景自動監控。任務依賴以 plan 為準，實際授權與證據以 progress 為準。
 
 ## 現況
 
 | 指標 | 已完成／總數 | 比例 | 計算意義 |
 |---|---:|---:|---|
-| 計畫節點關閉 | 1／28 | 3.6% | 等權計數；只有 F00 文件修正關閉，並非產品完成或工時比例 |
-| 實作節點關閉 | 0／27 | 0% | F01a 子切片已接受；F01 仍待 F01b，尚無整個實作節點關閉 |
+| 計畫節點關閉 | 2／28 | 7.1% | 等權計數；F00 與 F01 關閉，並非產品完成或工時比例 |
+| 實作節點關閉 | 1／27 | 3.7% | F01a／F01b 均接受，F01 已關閉 |
 | 首版實際驗收通過 | 0／101 | 0% | R1 情境；全部 not_run |
 | Roadmap 情境通過 | 0／17 | 0% | 另外列示，不混入首版分母 |
 
 不估算整體產品完成百分比、剩餘工時或交付日期。F01a／F01b 是 F01 子切片，不重複加入節點分母。任務新增、拆分或範圍改變時，記錄日期、原因及新分母；失敗、受阻或進行中不算通過。已驗收項目若被後續變更破壞，重新開啟並更新比例。
 
-**目前階段：F01b 的 ca41da8 已雙軸獨立審查 PASS，準備 main 整合重現。** F01a 工具環境已接受並整合 main；[實作證據](f01a-evidence.md)與[獨立審查](f01a-review.md)保留工具／檢查／限制。沿用現有契約測試與 build，不重做 F01a；產品尚不能啟動。
+**目前階段：F01b 已完成並整合 main；F01 已關閉。** F01a 工具環境已接受並整合 main；[實作證據](f01a-evidence.md)與[獨立審查](f01a-review.md)保留工具／檢查／限制。沿用現有契約測試與 build，不重做 F01a；產品尚不能啟動。
 
 ## F01b 資料庫基線
 
 本輪已授權專案內安裝與專用一次性 PostgreSQL／crash 測試，排除既有資料庫、憑證與全域服務。六項等權關卡是 F01b 的驗收清單，不是工時估算，也不與 F01a 的六項重複加總。
 
-**F01b 關卡完成：5／6＝83.3%（精確來源雙軸 PASS，待 main 整合重現與清理）。**
+**F01b 關卡完成：6／6＝100%（精確來源雙軸 PASS、main 重現與清理完成）。**
 
 | 關卡 | 完成條件 | 狀態 |
 |---|---|---|
@@ -28,13 +28,13 @@
 | B3 | 最小初始化與五類角色隔離實作 | 完成：ca41da8 已含 reader 映射交易鎖、現行 SQL inspect 與失敗清理 |
 | B4 | 真實 DB 允許／拒絕／過期／重複／crash-window 與恢復驗收 | 完成：42／42＝31 項 F01b＋11 項回歸；含真實競態、helper 防線及 8 個 SIGKILL 切點 |
 | B5 | 精確來源的獨立安全／恢復／工程規範審查及必要修正 | 完成：ca41da8 Standards／Spec 安全恢復均 PASS，必要發現 0 |
-| B6 | main 整合重現、測試程序清理與完整交接 | 進行中：使用 main 的獨立工具／資料目錄重現 |
+| B6 | main 整合重現、測試程序清理與完整交接 | 完成：5ffeae0；main 42／42＋全部入口／built smoke；兩工作區 0 holders／socket／PID；9 workers 釋放 |
 
 ## F01a 開發環境準備
 
 這六項是本輪環境工作清單，並非額外產品節點；各項等權，完成須有實際證據。使用者已明確授權完整環境準備；一般可逆細節由代理自主處理。
 
-**本輪環境關卡完成：6／6＝100%。** 這是 F01a 工具環境的六項清單，並非所有未來平台／資料庫環境或產品完成率。
+**F01a 環境關卡完成：6／6＝100%。** 這是 F01a 工具環境的六項清單，並非所有未來平台／資料庫環境或產品完成率。
 
 | 關卡 | 完成條件 | 狀態 |
 |---|---|---|
@@ -52,7 +52,7 @@
 | 節點 | 交付內容 | 狀態／目前前提 |
 |---|---|---|
 | F00 | 介面與 D01–D07 修正 | 文件層級已關閉；不代表 validator 或 runtime 合格 |
-| F01 | 工具鏈、共享契約、乾淨資料庫基線 | F01a 已接受；F01b 正在獨立審查，整個 F01 尚未關閉 |
+| F01 | 工具鏈、共享契約、乾淨資料庫基線 | 已關閉：F01a／F01b 均獨立審查並在 main 重現；產品情境仍未執行 |
 | F02 | Electron／獨立 Supervisor 與原生啟停 | 未開始；依賴 F01 |
 | F03 | 正式 Account 身分證明 | 未開始；依賴 F01 |
 | F04 | 本地 owner／裝置／session admission | 未開始；依賴 F02、F03 |
@@ -91,10 +91,10 @@
 
 ## 代理、工作樹與 session
 
-- F01b：唯一作者在 `codex/f01b-baseline`，工作樹 `/Users/ckuo/orca/workspaces/euclas/f01b-baseline`；官方版本研究代理已完成並釋放，前置安全／恢復／介面 reviewer 已對 `db27174` 回報 PASS 並釋放；`80195ab` 首輪審查已完成並釋放 reviewers；同一作者已修正兩項發現，aab97ce 的兩個新 reviewers 正在重審。
-- Run：`run_031592cbc65a`；精確 Task／Dispatch、授權與證據位置見 [progress.md](progress.md)。共用契約、lockfile 與實作由同一作者負責；進度檔由協調者維護。
-- F01a：作者與 reviewers 均已釋放，來源 `309c0bb` 已審查及整合 main；工作樹與證據保留，作為本輪前提。
-- Session：繼續目前協調對話；作者與 reviewer 的新 context 已由協調者安排，不需要你另建 session。F01b 完成後會停下回報，不自動開始 F02。
+- F01b 精確來源 `ca41da8` 已本機整合 `5ffeae0`，27 個 feature 檔逐位元組一致；[作者證據](f01b-evidence.md)與[審查／main 重現](f01b-review.md)記錄全部修正、命令與限制。
+- Run `run_031592cbc65a` 的 9 個 workers 均釋放並保留 transcript；兩工作區已確認無測試鎖持有者、socket 或 postmaster PID 檔。保留作者 13 份私有失敗 fixture，main 0 份。
+- 保留 `codex/f01b-baseline` 工作樹 `/Users/ckuo/orca/workspaces/euclas/f01b-baseline` 及工具／失敗證據；F01a 工作樹與來源也保留。沒有 active writer。
+- Session：目前協調對話可繼續；下一個另行授權切片建議新的作者 context，由協調者安排。你不需要手動建立各代理 session。F01b 已停在交接點，未開始 F02。
 - 每次里程碑回報均包含成果、分子／分母、檢查與限制、下一步及 session 建議。[Session 規則與接手 prompt](prompts.md#session-policy)。
 
 ## 更新責任

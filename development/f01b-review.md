@@ -1,6 +1,6 @@
 # F01b independent review
 
-Coordinator record, 2026-10-30. This is a development foundation review; product scenarios remain `not_run`. Final source review and local integration are pending.
+Coordinator record, 2026-10-30. This is a development foundation review; product scenarios remain `not_run`. Accepted exact source ca41da8e7e0fd39ea61a74660cfeba5380c53b7f; local integration5ffeae063df31e2526ea77b8ad4809bf12967bb1 and independent main reproduction passed. F01b is complete; product scenarios remain not_run.
 
 ## Prerequisite security, recovery and interface review
 
@@ -14,7 +14,7 @@ Coordinator record, 2026-10-30. This is a development foundation review; product
 
 ## Final source review
 
-First final wave in progress: base `a74706ba986256bd08ccde27b1966561075d8f66`, frozen head `80195aba09087e4c751b883d721f21f9347ed701`, 27 changed files and five commits. HEAD and clean worktree independently confirmed. Author waits on question `msg_1536e213ebcd`; no PASS/integration yet.
+Historical first final wave (settled NEEDS CHANGES): base `a74706ba986256bd08ccde27b1966561075d8f66`, frozen head `80195aba09087e4c751b883d721f21f9347ed701`, 27 changed files and five commits. HEAD and clean worktree independently confirmed. Author waits on question `msg_1536e213ebcd`; no PASS/integration yet.
 
 ### Standards
 
@@ -72,3 +72,31 @@ Original base `a74706ba986256bd08ccde27b1966561075d8f66`, frozen clean head `ca4
 **PASS,0 necessary findings**, Task `task_759b644c1062`, Dispatch `ctx_6f4603fca245`, completion `msg_f3415f6e5faa`, 2026-10-30 18:31:41 UTC. Exact clean original-base/head checked at both ends; all27 files/seven commits and correction delta read. Confirmed apply/inspect hold protected authority+reader mappings through transaction and check full bindings before replay/stale/conflict; real dual-connection pg_locks regression requires42501, public inspection denies unavailable/revoked/mismatched SQL, startup lies within verified-owned cleanup, unknown PID no-signal/original receipt retry and all8 SIGKILL/WAL/descendant gate sources present, socket/PID/lock pre-fixture guard and independent child finally comply. Read-only checks independently verified canonical/two lifecycle equality,628 roots,622 original type structures unchanged, retained tool/libpq/launcher/archive hashes,13 failed fixture socket/PID absence and diff --check0.42/42 runtime, successful cuts/built smoke and zero holders remain author evidence. No tests/build/DB/signals/edits; coordinator main reproduction remains. Reviewer released, transcript captured.
 
 Final exact-source count: **Standards0 / Spec0**, both PASS for `ca41da8e7e0fd39ea61a74660cfeba5380c53b7f` only. Initial P1/P2 and later reader-race findings are resolved with retained red-green evidence, not discarded. Coordinator accepted B5 and answered original question `msg_62364a6839f7` PASS; author settlement/main integration/reproduction still pending.
+
+## Accepted local integration and independent main reproduction
+
+Coordinator accepted author worker_done `msg_211f1e2519c3` for Task `task_fe9142d65f4f` / Dispatch `ctx_81304d850c40`, then released the terminal with transcript captured. All nine Run workers are released; reclaimable list and coordinator inbox are empty. No author source edits followed final review.
+
+Main merged literal reviewed head `ca41da8e7e0fd39ea61a74660cfeba5380c53b7f` in local merge `5ffeae063df31e2526ea77b8ad4809bf12967bb1`. All27 feature files were independently byte-equal to that head before checks and remained unchanged after generation/build/tests. Machine receipt: `.tools/qualification/f01b-main-source.json`. Only coordinator-owned current documentation changes follow.
+
+Main tool/libpq hashes were revalidated against the previously qualified separate absolute-prefix install. `.tools/f01b-runs` was absent/non-symlink and exclusively created0700/empty before runtime; no existing target adopted. Two initial frozen/offline installs failed missing public trimmed metadata (supports-color/path-key). A full-only copy copied0 and did not solve the issue. Then36 missing public trimmed/full metadata files (3,640,336 bytes) were copied and SHA256-compared from this repository's authorized author cache; existing files, verification cache, package versions/artifacts and reviewed lock were unchanged. Third frozen/offline/scripts/pnpmfile-disabled install passed103-entry supply-chain policy/all3 workspace projects,0 downloads. Copy receipt: `.tools/qualification/f01b-main-metadata-copy.json`. No policy was bypassed.
+
+Use the exact isolated pnpm prefix in packages/contracts/README.md. Actual main results:
+
+| Command suffix | Exit | Result |
+|---|---:|---|
+| install --frozen-lockfile --ignore-scripts --ignore-pnpmfile --offline |0|All3 workspace projects,103 existing entries, no download/scripts |
+| contracts:generate |0|628 roots, tracked source unchanged;1.033s |
+| build |0|Contracts, native launcher, baseline ESM/declarations;2.133s |
+| contracts:check |0|No generated drift;0.850s |
+| typecheck |0|Strict TS;1.081s |
+| lint |0|Both packages, zero warnings;2.198s |
+| test |0|42/42 (31F01b+11F01a),0 fail/cancel/skip/todo;58,974.707ms tests,60.202s command |
+
+Detailed argv/settings/log paths/durations: `.tools/qualification/f01b-main-checks.json` and named logs beside it. Root test covers the same baseline:test suite; no separate alias run is claimed. These are actual main DB/native/recovery tests, including all8 SIGKILL cuts, real PG/WAL and current-rights/reader-race regression, not product scenario acceptance.
+
+Built public smoke executed `rtk proxy node --input-type=module -` from packages/baseline, imported actual `@euclas/baseline` exports, initialized via compiled cli.js, checked original operation/revision6, denied SQL-unavailable inspection, then used the owned live server to inspect the same verified generation6/receipt. Exit0; server stopped and only successful registered fixture bytes removed. Receipt: `.tools/qualification/f01b-main-built-smoke.json`.
+
+Final coordinator audit used exact registered namespaces/lock files, no global scan/signals/deletion: **13 retained failed fixtures across author/main,0 lock holders,0 socket entries,0 postmaster PID files**; main retains0 fixtures. Evidence `.tools/qualification/f01b-main-final-resource-audit.json`. Main tools543MiB+dependencies71MiB, author tools1,071,604KiB+dependencies71MiB, below combined5GiB; no additional public download in main. Retained author test fixtures contain only synthetic private test secrets. No task DB/initializer/native child remains.
+
+B1–B6 accepted6/6. F01 closes after accepted F01a+F01b; plan node closure2/28=7.1%, implementation1/27=3.7%. R1 remains0/101, roadmap0/17; all118 product scenarios not_run. Current coordinator can continue; a new writer context is recommended for a separately authorized next slice and arranged by coordinator. Stop here, no F02/Account/provider/Windows/installer/remote Git/publication or spend.

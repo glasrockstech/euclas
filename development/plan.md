@@ -1,6 +1,6 @@
 # Fresh delivery plan
 
-This is the current dependency plan. F00 document correction and the F01a tooling sub-slice are accepted; F01 remains incomplete pending F01b, and all product runtime acceptance is `not_run`. A schema/toolchain is not a completed app, DB or provider integration. Read [progress](progress.md) for actual authority before mutations.
+This is the current dependency plan. F00 and F01 are accepted locally: F01a tooling/contracts and F01b isolated PostgreSQL initialization/roles/recovery are independently reviewed and reproduced on main. All118 product runtime scenarios remain `not_run`. A schema/toolchain is not a completed app, DB or provider integration. Read [progress](progress.md) for actual authority before mutations.
 
 ## First outcome and execution order
 
@@ -52,15 +52,15 @@ R08 mobile base does not depend on completed plugins; R09 integrates against set
 
 F05 cannot start until its bootstrap/grant and supplied-source packets are published and independently reviewed with allowed/denied/stale/identical/conflicting/crash acceptance. F06a cannot treat an Artifact projection as source admission; isolated storage evidence is distinct from the integrated producing-Run proof required again in F08/F09. F10 consumes the Mac distribution subset of R02 early; R02 still owns full macOS/Windows release distribution and R12 rechecks it. These requirements add no cyclic package dependencies.
 
-## Accepted F01a; next bounded slice F01b
+## Accepted F01 foundation; next slice requires separate scope
 
-F01a is implemented and integrated locally after exact-source Standards/Spec review and main-checkout reproduction. [Implementation evidence](f01a-evidence.md), [review receipt](f01a-review.md) and [progress](progress.md) own actual pins/source/checks/limits. The [launch record](launch.md) preserves scope and qualification rationale; [overview](overview.zh-TW.md) reports node/scenario/environment counts, not effort estimates. Do not restart F01a as fresh work in a new session.
+F01a and F01b are implemented, independently reviewed at exact source and integrated/reproduced locally. [F01a evidence](f01a-evidence.md)/[review](f01a-review.md), [F01b packet](f01b.md)/[evidence](f01b-evidence.md)/[review and main reproduction](f01b-review.md), and [current progress](progress.md) own actual qualification and limits. Reuse this repository source/tooling; never import another project's source/history/data or restart accepted foundations.
 
-Next prepare F01b's bounded clean PostgreSQL/init/roles slice. Qualify an exact native PostgreSQL/tool tuple and redistribution/installation needs from official sources; name fresh owned disposable data paths, ports/processes, restricted owner/migration/application/storage/verifier roles, resource limits, cleanup and stop conditions before runtime. Define refusal of unknown/nonempty targets, initialization journal/staging/publication cuts and success/denied/stale/duplicate/crash acceptance. Reuse this repository's accepted contracts/toolchain; never import another project's source/history/test data.
+F01b reviewed source `ca41da8e7e0fd39ea61a74660cfeba5380c53b7f`, local integration `5ffeae063df31e2526ea77b8ad4809bf12967bb1`: exact PostgreSQL18.6/macOS development tuple, fresh registered private Unix-only targets, owner/migration/application/storage/verifier isolation, durable initialization journal/staging/publication and refusal of unknown/nonempty targets. Actual allowed/denied/stale/identical/conflicting/current-authorization/race/crash/recovery tests passed on the author and main;42/42 total tests include31 baseline cases and11 contract regressions, with8 real SIGKILL cuts. Three independent findings were reproduced/fixed and final Standards/Spec-security-recovery both PASS. Final exact-owned resource audits and worker release are complete.
 
-F01b runtime begins only under its applicable scope recorded in progress. Current F01a acceptance does not qualify SQL/RLS, initialization durability, JWT authenticity, native peer identity or provider entitlement. Do not broaden a clean baseline into full business-schema implementation. Publish any required interface gap before consumers and independently review security/recovery/exact final source before integration.
+This closes the F01 table outcome only. Full business-schema authorization, JWT authenticity, native peer/controller/application lifetime, clean packaged no-developer-tool installation, Windows, provider entitlement and product scenarios remain unqualified. T-PG-NATIVE/PREFLIGHT and R02 are not closed by this developer-built tuple; future upgrades preserve real identities/data and their separate safety obligations.
 
-F02 and Q lanes still wait for their declared prerequisites and authority. No real accounts/Email/model/provider calls, existing data reset, signing/release, billing or remote Git operation follows automatically from this local environment milestone.
+F02 is now dependency-ready but has not started or gained runtime authority. Stop at the founder's F01b handoff request. A later explicitly selected scope must first bound actual Electron/Supervisor/native resources, interface/peer/lifetime/recovery acceptance and the exact qualification tuple. Q lanes and Account/Email/provider/signing/release/billing/remote Git still require their applicable scope; templates and dependency readiness do not grant it. Recommend a fresh author context for the next slice, arranged by coordinator.
 
 ## Human prerequisites
 
