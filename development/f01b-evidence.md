@@ -1,0 +1,25 @@
+# F01b implementation evidence
+
+Date: 2026-10-30. Accepted base `a74706ba986256bd08ccde27b1966561075d8f66`, writer branch `codex/f01b-baseline`. [Packet](f01b.md) owns scope and planned acceptance. Coordinator owns independent review and integration. Product runtime scenarios remain `not_run`.
+
+## Prerequisite snapshot
+
+Packet/canonical-only head: `db2717419bb3a5cc0729eed126a68ebaa143274b`. Added five definitions to the existing runtime canonical owner; no parallel handwritten schemas. JSON parse/focused packet assertions and `rtk git diff --check` returned 0. No consumers or DB were implemented at that snapshot. A blocking Orca ask requests independent prerequisite review; PASS is still required before consumers.
+
+## Tool qualification while the gate is pending
+
+Official PostgreSQL 18.6 tar.bz2 downloaded from the exact packet URL: 22,632,314 bytes, SHA-256 `555610c24d53e4316da5b7d3fc25c279d96856d5e0e23ee308c328c5fa881d9f`, matches official `.sha256`. Both retained under `.tools/qualification`. Before extraction every archive entry was checked for a `postgresql-18.6` root, no traversal and only regular files/directories; no links/devices accepted. First inventory assertion incorrectly required a slash on the explicit root directory; it failed before extraction and was corrected. System Python lacks tarfile's newer `filter` parameter; after complete explicit inventory validation, extraction used the older API into the new owned source directory. No archive content was executed before hash/inventory/source inspection.
+
+Source `COPYRIGHT`, top-level `GNUmakefile.in`, configure option declarations and Darwin sysroot handling were inspected. Selected configure/build/install targets do not download dependencies or run global service installers. License: PostgreSQL License; no extra JS driver/native package dependency. Node standard library and selected psql will serve bounded SQL operations.
+
+Existing same-repository main `.tools/pnpm` files were copied and SHA-256 byte-compared; immutable store and metadata cache copied to separate worktree-owned paths. No node_modules or database sharing. Distinct empty user/global npm configs and isolated XDG config were created. Initial frozen offline install failed because the metadata cache had not been copied (`ERR_PNPM_NO_OFFLINE_META`); after copying that same-repository immutable cache the exact isolated command passed, 103 packages reused, 0 downloaded, lifecycle scripts and pnpmfile disabled:
+
+```sh
+rtk proxy env XDG_CONFIG_HOME=$PWD/.tools/xdg-config NPM_CONFIG_USERCONFIG=$PWD/.tools/npm-user.npmrc NPM_CONFIG_GLOBALCONFIG=$PWD/.tools/npm-global.npmrc .tools/pnpm/pnpm --state-dir .tools/pnpm-state --npmrc-auth-file .tools/npm-user.npmrc install --frozen-lockfile --ignore-scripts --ignore-pnpmfile --offline
+```
+
+macOS reports 27.0.1 build 26A434 arm64. `env -u SDKROOT DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer xcrun --sdk macosx --show-sdk-path/--show-sdk-version` selected the exact Xcode MacOSX27.2.sdk path in the packet and version 27.2. Explicit Xcode clang reports 21.0.0/clang-2100.4.1.1. The initial configure returned 77: its initial compiler probe precedes Darwin PG_SYSROOT application and ld could not find System. A minimal C stdin probe reproduced exit 1 without an explicit sysroot, then exit 0 with `-isysroot <exact SDK>`; this is a compiler-link correction, not disabled checks.
+
+The corrected process-only environment is PATH=/usr/bin:/bin:/usr/sbin:/sbin, DEVELOPER_DIR and CC as pinned, PG_SYSROOT as pinned, MACOSX_DEPLOYMENT_TARGET=27.0, LC_ALL=C, HOME set only inside the child to the private tool directory, and both CPPFLAGS/LDFLAGS=`-isysroot <exact SDK>`. Existing host HOME is never changed. Official configure is called with absolute `--prefix=<worktree>/.tools/postgres/install --without-icu --without-readline --without-zlib`; configure then returned 0. Full initial/corrected logs remain `.tools/qualification/postgres-configure-initial.log` and `postgres-configure.log`. Bounded `make -j2`/`make install` use the same environment and 600-second deadlines; their results will be recorded after completion.
+
+At this checkpoint `.tools` 498 MiB and root node_modules 71 MiB; public download known total 22,632,404 bytes (source and checksum), under 2 GiB/5 GiB ceilings. No database, TCP listener, global service/configuration change, Account/provider, remote Git or spend. No product/runtime acceptance is claimed.

@@ -11609,6 +11609,248 @@ export const resources: readonly ResourceInput[] = [
             "purpose"
           ],
           "additionalProperties": false
+        },
+        "baseline_initialize_request": {
+          "$comment": "F01b internal initialization seam; authority is supplied by the trusted development harness, not this shape. CP5 native peer admission remains F02.",
+          "$ref": "#/$defs/request/oneOf/1",
+          "properties": {
+            "controller_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "ownership_epoch": {
+              "$ref": "common.schema.json#/$defs/revision"
+            }
+          }
+        },
+        "baseline_receipt": {
+          "type": "object",
+          "properties": {
+            "receipt_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "request_hash": {
+              "$ref": "common.schema.json#/$defs/hash"
+            },
+            "operation_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "instance_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "controller_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "ownership_epoch": {
+              "$ref": "common.schema.json#/$defs/revision"
+            },
+            "data_location_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "data_root_identity_hash": {
+              "$ref": "common.schema.json#/$defs/hash"
+            },
+            "staging_identity_hash": {
+              "$ref": "common.schema.json#/$defs/hash"
+            },
+            "cluster_system_identifier": {
+              "type": "string",
+              "pattern": "^[0-9]{1,20}$"
+            },
+            "baseline_id": {
+              "const": "euclas-d92-v1"
+            },
+            "migration_manifest_hash": {
+              "$ref": "common.schema.json#/$defs/hash"
+            },
+            "revision": {
+              "$ref": "common.schema.json#/$defs/revision"
+            }
+          },
+          "required": [
+            "receipt_id",
+            "request_hash",
+            "operation_id",
+            "instance_id",
+            "controller_id",
+            "ownership_epoch",
+            "data_location_id",
+            "data_root_identity_hash",
+            "staging_identity_hash",
+            "cluster_system_identifier",
+            "baseline_id",
+            "migration_manifest_hash",
+            "revision"
+          ],
+          "additionalProperties": false
+        },
+        "baseline_state": {
+          "type": "object",
+          "properties": {
+            "request": {
+              "$ref": "#/$defs/baseline_initialize_request"
+            },
+            "journal": {
+              "$ref": "#/$defs/initialization_journal"
+            },
+            "staging_identity_hash": {
+              "oneOf": [
+                {
+                  "$ref": "common.schema.json#/$defs/hash"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "cluster_system_identifier": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "pattern": "^[0-9]{1,20}$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "receipt": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/baseline_receipt"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "request",
+            "journal",
+            "staging_identity_hash",
+            "cluster_system_identifier",
+            "receipt"
+          ],
+          "additionalProperties": false
+        },
+        "baseline_authority": {
+          "type": "object",
+          "properties": {
+            "instance_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "controller_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "ownership_epoch": {
+              "$ref": "common.schema.json#/$defs/revision"
+            },
+            "data_location_id": {
+              "$ref": "common.schema.json#/$defs/uuid"
+            },
+            "active": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "instance_id",
+            "controller_id",
+            "ownership_epoch",
+            "data_location_id",
+            "active"
+          ],
+          "additionalProperties": false
+        },
+        "baseline_environment": {
+          "type": "object",
+          "properties": {
+            "root_path": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^/[^\\u0000\\r\\n]*$"
+            },
+            "socket_path": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^/[^\\u0000\\r\\n]*$"
+            },
+            "tool_prefix": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^/[^\\u0000\\r\\n]*$"
+            },
+            "lock_path": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^/[^\\u0000\\r\\n]*$"
+            },
+            "secrets_path": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^/[^\\u0000\\r\\n]*$"
+            },
+            "authority_path": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 1024,
+              "pattern": "^/[^\\u0000\\r\\n]*$"
+            },
+            "root_identity_hash": {
+              "$ref": "common.schema.json#/$defs/hash"
+            },
+            "tool_hashes": {
+              "type": "object",
+              "properties": {
+                "postgres": {
+                  "$ref": "common.schema.json#/$defs/hash"
+                },
+                "initdb": {
+                  "$ref": "common.schema.json#/$defs/hash"
+                },
+                "pg_ctl": {
+                  "$ref": "common.schema.json#/$defs/hash"
+                },
+                "psql": {
+                  "$ref": "common.schema.json#/$defs/hash"
+                },
+                "pg_controldata": {
+                  "$ref": "common.schema.json#/$defs/hash"
+                },
+                "pg_dump": {
+                  "$ref": "common.schema.json#/$defs/hash"
+                },
+                "pg_restore": {
+                  "$ref": "common.schema.json#/$defs/hash"
+                }
+              },
+              "required": [
+                "postgres",
+                "initdb",
+                "pg_ctl",
+                "psql",
+                "pg_controldata",
+                "pg_dump",
+                "pg_restore"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "root_path",
+            "socket_path",
+            "tool_prefix",
+            "lock_path",
+            "secrets_path",
+            "authority_path",
+            "root_identity_hash",
+            "tool_hashes"
+          ],
+          "additionalProperties": false
         }
       }
     }
@@ -16018,6 +16260,11 @@ export const contractNames: readonly (keyof ContractTypes)[] = [
   "https://schemas.euclas.invalid/contracts/records.schema.json#/$defs/run",
   "https://schemas.euclas.invalid/contracts/records.schema.json#/$defs/scope",
   "https://schemas.euclas.invalid/contracts/rich-document.schema.json",
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_authority",
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_environment",
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_initialize_request",
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_receipt",
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_state",
   "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/initialization_journal",
   "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/limits",
   "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/maintenance_permit_claims",

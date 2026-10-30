@@ -479,7 +479,12 @@ export type Schema0364 = [
       }
   )[]
 ];
-export type Schema0374 =
+export type Schema0367 = Schema0368 & {
+  controller_id?: Schema0034;
+  ownership_epoch?: Schema0092;
+  [k: string]: unknown;
+};
+export type Schema0380 =
   | {
       protocol_version: 1;
       request_id: Schema0034;
@@ -524,7 +529,7 @@ export type Schema0374 =
       command: "start";
       payload: {
         operation_id: Schema0034;
-        version_set: Schema0375;
+        version_set: Schema0381;
       };
       authorization_permit: null;
     }
@@ -583,16 +588,16 @@ export type Schema0374 =
       };
       authorization_permit: Schema0065;
     };
-export type Schema0376 =
+export type Schema0382 =
   | {
       protocol_version: 1;
       request_id: Schema0034;
       kind: "success";
       receipt: Schema0163 | null;
-      status: Schema0377;
+      status: Schema0383;
       stop_state: "not_requested" | "stop_requested" | "stopped";
       intent_id: Schema0034 | null;
-      reattach_challenge: Schema0370 | null;
+      reattach_challenge: Schema0376 | null;
     }
   | {
       protocol_version: 1;
@@ -600,27 +605,23 @@ export type Schema0376 =
       kind: "error";
       error: Schema0004;
     };
-export type Schema0411 = string;
-export type Schema0412 = string;
-export type Schema0413 = string;
-export type Schema0414 = string;
 export type Schema0417 = string;
 export type Schema0418 = string;
 export type Schema0419 = string;
-export type Schema0421 = string;
-export type Schema0422 = string;
+export type Schema0420 = string;
 export type Schema0423 = string;
-export type Schema0424 = number;
-export type Schema0426 = string;
+export type Schema0424 = string;
+export type Schema0425 = string;
 export type Schema0427 = string;
 export type Schema0428 = string;
 export type Schema0429 = string;
-export type Schema0430 = string;
+export type Schema0430 = number;
+export type Schema0432 = string;
 export type Schema0433 = string;
 export type Schema0434 = string;
 export type Schema0435 = string;
 export type Schema0436 = string;
-export type Schema0437 = string;
+export type Schema0439 = string;
 export type Schema0440 = string;
 export type Schema0441 = string;
 export type Schema0442 = string;
@@ -628,20 +629,20 @@ export type Schema0443 = string;
 export type Schema0446 = string;
 export type Schema0447 = string;
 export type Schema0448 = string;
-export type Schema0450 = string;
-export type Schema0451 = string;
+export type Schema0449 = string;
 export type Schema0452 = string;
-export type Schema0453 = number;
-export type Schema0455 = string;
+export type Schema0453 = string;
+export type Schema0454 = string;
 export type Schema0456 = string;
 export type Schema0457 = string;
 export type Schema0458 = string;
-export type Schema0459 = string;
+export type Schema0459 = number;
+export type Schema0461 = string;
 export type Schema0462 = string;
 export type Schema0463 = string;
 export type Schema0464 = string;
 export type Schema0465 = string;
-export type Schema0466 = string;
+export type Schema0468 = string;
 export type Schema0469 = string;
 export type Schema0470 = string;
 export type Schema0471 = string;
@@ -649,35 +650,35 @@ export type Schema0472 = string;
 export type Schema0475 = string;
 export type Schema0476 = string;
 export type Schema0477 = string;
-export type Schema0479 = string;
-export type Schema0480 = string;
+export type Schema0478 = string;
 export type Schema0481 = string;
-export type Schema0482 = number;
-export type Schema0484 = string;
+export type Schema0482 = string;
+export type Schema0483 = string;
 export type Schema0485 = string;
 export type Schema0486 = string;
 export type Schema0487 = string;
-export type Schema0488 = string;
+export type Schema0488 = number;
+export type Schema0490 = string;
 export type Schema0491 = string;
 export type Schema0492 = string;
 export type Schema0493 = string;
 export type Schema0494 = string;
-export type Schema0495 = string;
+export type Schema0497 = string;
 export type Schema0498 = string;
 export type Schema0499 = string;
 export type Schema0500 = string;
 export type Schema0501 = string;
-export type Schema0502 = string;
-export type Schema0513 = string;
-export type Schema0514 = string;
-export type Schema0515 = string;
-export type Schema0516 = string;
-export type Schema0517 = string;
+export type Schema0504 = string;
+export type Schema0505 = string;
+export type Schema0506 = string;
+export type Schema0507 = string;
+export type Schema0508 = string;
+export type Schema0519 = string;
 export type Schema0520 = string;
 export type Schema0521 = string;
 export type Schema0522 = string;
 export type Schema0523 = string;
-export type Schema0524 = string;
+export type Schema0526 = string;
 export type Schema0527 = string;
 export type Schema0528 = string;
 export type Schema0529 = string;
@@ -689,65 +690,69 @@ export type Schema0536 = string;
 export type Schema0539 = string;
 export type Schema0540 = string;
 export type Schema0541 = string;
-export type Schema0543 = string;
-export type Schema0544 = string;
+export type Schema0542 = string;
 export type Schema0545 = string;
 export type Schema0546 = string;
 export type Schema0547 = string;
+export type Schema0549 = string;
 export type Schema0550 = string;
 export type Schema0551 = string;
 export type Schema0552 = string;
 export type Schema0553 = string;
-export type Schema0554 = string;
+export type Schema0556 = string;
 export type Schema0557 = string;
 export type Schema0558 = string;
 export type Schema0559 = string;
 export type Schema0560 = string;
-export type Schema0561 = string;
+export type Schema0563 = string;
 export type Schema0564 = string;
 export type Schema0565 = string;
 export type Schema0566 = string;
 export type Schema0567 = string;
-export type Schema0568 = string;
+export type Schema0570 = string;
 export type Schema0571 = string;
 export type Schema0572 = string;
 export type Schema0573 = string;
 export type Schema0574 = string;
-export type Schema0575 = string;
+export type Schema0577 = string;
 export type Schema0578 = string;
 export type Schema0579 = string;
 export type Schema0580 = string;
-export type Schema0581 = number;
-export type Schema0583 = string;
+export type Schema0581 = string;
 export type Schema0584 = string;
 export type Schema0585 = string;
 export type Schema0586 = string;
-export type Schema0587 = string;
+export type Schema0587 = number;
+export type Schema0589 = string;
 export type Schema0590 = string;
 export type Schema0591 = string;
 export type Schema0592 = string;
 export type Schema0593 = string;
-export type Schema0594 = string;
+export type Schema0596 = string;
 export type Schema0597 = string;
 export type Schema0598 = string;
 export type Schema0599 = string;
 export type Schema0600 = string;
-export type Schema0601 = string;
+export type Schema0603 = string;
 export type Schema0604 = string;
 export type Schema0605 = string;
 export type Schema0606 = string;
 export type Schema0607 = string;
-export type Schema0608 = string;
+export type Schema0610 = string;
 export type Schema0611 = string;
 export type Schema0612 = string;
 export type Schema0613 = string;
 export type Schema0614 = string;
-export type Schema0615 = string;
+export type Schema0617 = string;
 export type Schema0618 = string;
 export type Schema0619 = string;
 export type Schema0620 = string;
 export type Schema0621 = string;
-export type Schema0622 = string;
+export type Schema0624 = string;
+export type Schema0625 = string;
+export type Schema0626 = string;
+export type Schema0627 = string;
+export type Schema0628 = string;
 
 export interface ContractTypes {
   "https://schemas.euclas.invalid/contracts/account.openapi.json#/paths/~1.well-known~1openid-configuration/get/responses/200/content/application~1json/schema": Schema0001;
@@ -1110,148 +1115,153 @@ export interface ContractTypes {
   "https://schemas.euclas.invalid/contracts/records.schema.json#/$defs/run": Schema0353;
   "https://schemas.euclas.invalid/contracts/records.schema.json#/$defs/scope": Schema0350;
   "https://schemas.euclas.invalid/contracts/rich-document.schema.json": Schema0363;
-  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/initialization_journal": Schema0365;
-  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/limits": Schema0366;
-  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/maintenance_permit_claims": Schema0367;
-  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/maintenance_permit_header": Schema0368;
-  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/peer_binding": Schema0369;
-  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/reattach_challenge": Schema0370;
-  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/reattach_claims": Schema0371;
-  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/reattach_header": Schema0372;
-  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/relaunch_intent": Schema0373;
-  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/request": Schema0374;
-  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/response": Schema0376;
-  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/runtime_status": Schema0377;
-  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/version_set": Schema0375;
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_authority": Schema0365;
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_environment": Schema0366;
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_initialize_request": Schema0367;
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_receipt": Schema0369;
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_state": Schema0370;
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/initialization_journal": Schema0371;
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/limits": Schema0372;
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/maintenance_permit_claims": Schema0373;
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/maintenance_permit_header": Schema0374;
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/peer_binding": Schema0375;
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/reattach_challenge": Schema0376;
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/reattach_claims": Schema0377;
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/reattach_header": Schema0378;
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/relaunch_intent": Schema0379;
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/request": Schema0380;
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/response": Schema0382;
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/runtime_status": Schema0383;
+  "https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/version_set": Schema0381;
   "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/CommandResponse": Schema0163;
-  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/Criterion": Schema0379;
+  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/Criterion": Schema0385;
   "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/Error": Schema0004;
-  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/EvidenceCommandResponse": Schema0380;
-  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/EvidenceInput": Schema0381;
-  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/GoalsCommand": Schema0382;
-  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/ProjectsCommand": Schema0383;
-  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/ResponsibilitiesByidPauseCommand": Schema0384;
-  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/ResponsibilitiesByidResumeCommand": Schema0385;
-  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/ResponsibilitiesByidReviewCommand": Schema0386;
-  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/ResponsibilitiesCommand": Schema0387;
+  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/EvidenceCommandResponse": Schema0386;
+  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/EvidenceInput": Schema0387;
+  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/GoalsCommand": Schema0388;
+  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/ProjectsCommand": Schema0389;
+  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/ResponsibilitiesByidPauseCommand": Schema0390;
+  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/ResponsibilitiesByidResumeCommand": Schema0391;
+  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/ResponsibilitiesByidReviewCommand": Schema0392;
+  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/ResponsibilitiesCommand": Schema0393;
   "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/ReviewRule": Schema0359;
   "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/Scope": Schema0350;
-  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/WorkEvidenceCommand": Schema0389;
-  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/WorkItemsByidAcceptCommand": Schema0390;
-  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/WorkItemsByidCancelCommand": Schema0391;
-  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/WorkItemsByidDependenciesCommand": Schema0392;
-  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/WorkItemsByidRejectCommand": Schema0393;
-  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/WorkItemsByidReopenCommand": Schema0394;
-  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/WorkItemsByidReviseCommand": Schema0395;
-  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/WorkItemsByidStartCommand": Schema0396;
-  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/WorkItemsByidSubmitCommand": Schema0397;
-  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/WorkItemsByidVerifyCommand": Schema0398;
-  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/WorkItemsCommand": Schema0399;
-  "https://schemas.euclas.invalid/contracts/team-setup.schema.json": Schema0400;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/components/schemas/GoalTransitionCommand": Schema0401;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/components/schemas/ProjectTransitionCommand": Schema0402;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/components/schemas/ResponsibilityTransitionCommand": Schema0403;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/components/schemas/ReviewAdmission": Schema0404;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/components/schemas/ReviewResponse": Schema0405;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/components/schemas/WorkCommitCommand": Schema0406;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/components/schemas/WorkDetail": Schema0407;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/components/schemas/WorkEvent": Schema0408;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/components/schemas/WorkHistory": Schema0409;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/components/schemas/WorkProposalCommand": Schema0410;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals/post/parameters/0/schema": Schema0411;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals/post/parameters/1/schema": Schema0412;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals/post/parameters/2/schema": Schema0413;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals/post/parameters/3/schema": Schema0414;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals/post/requestBody/content/application~1json/schema": Schema0382;
+  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/WorkEvidenceCommand": Schema0395;
+  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/WorkItemsByidAcceptCommand": Schema0396;
+  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/WorkItemsByidCancelCommand": Schema0397;
+  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/WorkItemsByidDependenciesCommand": Schema0398;
+  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/WorkItemsByidRejectCommand": Schema0399;
+  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/WorkItemsByidReopenCommand": Schema0400;
+  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/WorkItemsByidReviseCommand": Schema0401;
+  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/WorkItemsByidStartCommand": Schema0402;
+  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/WorkItemsByidSubmitCommand": Schema0403;
+  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/WorkItemsByidVerifyCommand": Schema0404;
+  "https://schemas.euclas.invalid/contracts/shared-command.openapi.json#/components/schemas/WorkItemsCommand": Schema0405;
+  "https://schemas.euclas.invalid/contracts/team-setup.schema.json": Schema0406;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/components/schemas/GoalTransitionCommand": Schema0407;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/components/schemas/ProjectTransitionCommand": Schema0408;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/components/schemas/ResponsibilityTransitionCommand": Schema0409;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/components/schemas/ReviewAdmission": Schema0410;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/components/schemas/ReviewResponse": Schema0411;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/components/schemas/WorkCommitCommand": Schema0412;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/components/schemas/WorkDetail": Schema0413;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/components/schemas/WorkEvent": Schema0414;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/components/schemas/WorkHistory": Schema0415;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/components/schemas/WorkProposalCommand": Schema0416;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals/post/parameters/0/schema": Schema0417;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals/post/parameters/1/schema": Schema0418;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals/post/parameters/2/schema": Schema0419;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals/post/parameters/3/schema": Schema0420;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals/post/requestBody/content/application~1json/schema": Schema0388;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals/post/responses/200/content/application~1json/schema": Schema0163;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}/get/parameters/0/schema": Schema0417;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}/get/parameters/1/schema": Schema0418;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}/get/parameters/2/schema": Schema0419;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}/get/responses/200/content/application~1json/schema": Schema0407;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1history/get/parameters/0/schema": Schema0421;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1history/get/parameters/1/schema": Schema0422;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1history/get/parameters/2/schema": Schema0423;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1history/get/parameters/3/schema": Schema0424;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1history/get/responses/200/content/application~1json/schema": Schema0409;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1revise/post/parameters/0/schema": Schema0426;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1revise/post/parameters/1/schema": Schema0427;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1revise/post/parameters/2/schema": Schema0428;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1revise/post/parameters/3/schema": Schema0429;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1revise/post/parameters/4/schema": Schema0430;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1revise/post/requestBody/content/application~1json/schema": Schema0382;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}/get/parameters/0/schema": Schema0423;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}/get/parameters/1/schema": Schema0424;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}/get/parameters/2/schema": Schema0425;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}/get/responses/200/content/application~1json/schema": Schema0413;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1history/get/parameters/0/schema": Schema0427;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1history/get/parameters/1/schema": Schema0428;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1history/get/parameters/2/schema": Schema0429;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1history/get/parameters/3/schema": Schema0430;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1history/get/responses/200/content/application~1json/schema": Schema0415;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1revise/post/parameters/0/schema": Schema0432;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1revise/post/parameters/1/schema": Schema0433;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1revise/post/parameters/2/schema": Schema0434;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1revise/post/parameters/3/schema": Schema0435;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1revise/post/parameters/4/schema": Schema0436;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1revise/post/requestBody/content/application~1json/schema": Schema0388;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1revise/post/responses/200/content/application~1json/schema": Schema0163;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1transition/post/parameters/0/schema": Schema0433;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1transition/post/parameters/1/schema": Schema0434;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1transition/post/parameters/2/schema": Schema0435;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1transition/post/parameters/3/schema": Schema0436;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1transition/post/parameters/4/schema": Schema0437;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1transition/post/requestBody/content/application~1json/schema": Schema0401;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1transition/post/parameters/0/schema": Schema0439;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1transition/post/parameters/1/schema": Schema0440;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1transition/post/parameters/2/schema": Schema0441;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1transition/post/parameters/3/schema": Schema0442;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1transition/post/parameters/4/schema": Schema0443;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1transition/post/requestBody/content/application~1json/schema": Schema0407;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1goals~1{id}~1transition/post/responses/200/content/application~1json/schema": Schema0163;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects/post/parameters/0/schema": Schema0440;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects/post/parameters/1/schema": Schema0441;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects/post/parameters/2/schema": Schema0442;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects/post/parameters/3/schema": Schema0443;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects/post/requestBody/content/application~1json/schema": Schema0383;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects/post/parameters/0/schema": Schema0446;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects/post/parameters/1/schema": Schema0447;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects/post/parameters/2/schema": Schema0448;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects/post/parameters/3/schema": Schema0449;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects/post/requestBody/content/application~1json/schema": Schema0389;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects/post/responses/200/content/application~1json/schema": Schema0163;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}/get/parameters/0/schema": Schema0446;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}/get/parameters/1/schema": Schema0447;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}/get/parameters/2/schema": Schema0448;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}/get/responses/200/content/application~1json/schema": Schema0407;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1history/get/parameters/0/schema": Schema0450;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1history/get/parameters/1/schema": Schema0451;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1history/get/parameters/2/schema": Schema0452;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1history/get/parameters/3/schema": Schema0453;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1history/get/responses/200/content/application~1json/schema": Schema0409;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1revise/post/parameters/0/schema": Schema0455;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1revise/post/parameters/1/schema": Schema0456;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1revise/post/parameters/2/schema": Schema0457;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1revise/post/parameters/3/schema": Schema0458;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1revise/post/parameters/4/schema": Schema0459;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1revise/post/requestBody/content/application~1json/schema": Schema0383;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}/get/parameters/0/schema": Schema0452;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}/get/parameters/1/schema": Schema0453;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}/get/parameters/2/schema": Schema0454;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}/get/responses/200/content/application~1json/schema": Schema0413;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1history/get/parameters/0/schema": Schema0456;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1history/get/parameters/1/schema": Schema0457;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1history/get/parameters/2/schema": Schema0458;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1history/get/parameters/3/schema": Schema0459;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1history/get/responses/200/content/application~1json/schema": Schema0415;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1revise/post/parameters/0/schema": Schema0461;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1revise/post/parameters/1/schema": Schema0462;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1revise/post/parameters/2/schema": Schema0463;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1revise/post/parameters/3/schema": Schema0464;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1revise/post/parameters/4/schema": Schema0465;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1revise/post/requestBody/content/application~1json/schema": Schema0389;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1revise/post/responses/200/content/application~1json/schema": Schema0163;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1transition/post/parameters/0/schema": Schema0462;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1transition/post/parameters/1/schema": Schema0463;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1transition/post/parameters/2/schema": Schema0464;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1transition/post/parameters/3/schema": Schema0465;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1transition/post/parameters/4/schema": Schema0466;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1transition/post/requestBody/content/application~1json/schema": Schema0402;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1transition/post/parameters/0/schema": Schema0468;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1transition/post/parameters/1/schema": Schema0469;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1transition/post/parameters/2/schema": Schema0470;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1transition/post/parameters/3/schema": Schema0471;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1transition/post/parameters/4/schema": Schema0472;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1transition/post/requestBody/content/application~1json/schema": Schema0408;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1projects~1{id}~1transition/post/responses/200/content/application~1json/schema": Schema0163;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities/post/parameters/0/schema": Schema0469;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities/post/parameters/1/schema": Schema0470;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities/post/parameters/2/schema": Schema0471;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities/post/parameters/3/schema": Schema0472;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities/post/requestBody/content/application~1json/schema": Schema0387;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities/post/parameters/0/schema": Schema0475;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities/post/parameters/1/schema": Schema0476;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities/post/parameters/2/schema": Schema0477;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities/post/parameters/3/schema": Schema0478;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities/post/requestBody/content/application~1json/schema": Schema0393;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities/post/responses/200/content/application~1json/schema": Schema0163;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}/get/parameters/0/schema": Schema0475;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}/get/parameters/1/schema": Schema0476;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}/get/parameters/2/schema": Schema0477;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}/get/responses/200/content/application~1json/schema": Schema0407;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1history/get/parameters/0/schema": Schema0479;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1history/get/parameters/1/schema": Schema0480;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1history/get/parameters/2/schema": Schema0481;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1history/get/parameters/3/schema": Schema0482;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1history/get/responses/200/content/application~1json/schema": Schema0409;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1pause/post/parameters/0/schema": Schema0484;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1pause/post/parameters/1/schema": Schema0485;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1pause/post/parameters/2/schema": Schema0486;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1pause/post/parameters/3/schema": Schema0487;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1pause/post/parameters/4/schema": Schema0488;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1pause/post/requestBody/content/application~1json/schema": Schema0384;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}/get/parameters/0/schema": Schema0481;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}/get/parameters/1/schema": Schema0482;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}/get/parameters/2/schema": Schema0483;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}/get/responses/200/content/application~1json/schema": Schema0413;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1history/get/parameters/0/schema": Schema0485;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1history/get/parameters/1/schema": Schema0486;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1history/get/parameters/2/schema": Schema0487;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1history/get/parameters/3/schema": Schema0488;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1history/get/responses/200/content/application~1json/schema": Schema0415;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1pause/post/parameters/0/schema": Schema0490;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1pause/post/parameters/1/schema": Schema0491;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1pause/post/parameters/2/schema": Schema0492;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1pause/post/parameters/3/schema": Schema0493;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1pause/post/parameters/4/schema": Schema0494;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1pause/post/requestBody/content/application~1json/schema": Schema0390;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1pause/post/responses/200/content/application~1json/schema": Schema0163;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1resume/post/parameters/0/schema": Schema0491;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1resume/post/parameters/1/schema": Schema0492;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1resume/post/parameters/2/schema": Schema0493;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1resume/post/parameters/3/schema": Schema0494;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1resume/post/parameters/4/schema": Schema0495;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1resume/post/requestBody/content/application~1json/schema": Schema0385;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1resume/post/parameters/0/schema": Schema0497;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1resume/post/parameters/1/schema": Schema0498;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1resume/post/parameters/2/schema": Schema0499;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1resume/post/parameters/3/schema": Schema0500;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1resume/post/parameters/4/schema": Schema0501;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1resume/post/requestBody/content/application~1json/schema": Schema0391;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1resume/post/responses/200/content/application~1json/schema": Schema0163;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1review/post/parameters/0/schema": Schema0498;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1review/post/parameters/1/schema": Schema0499;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1review/post/parameters/2/schema": Schema0500;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1review/post/parameters/3/schema": Schema0501;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1review/post/parameters/4/schema": Schema0502;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1review/post/requestBody/content/application~1json/schema": Schema0386;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1review/post/responses/200/content/application~1json/schema": Schema0405;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1review/post/parameters/0/schema": Schema0504;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1review/post/parameters/1/schema": Schema0505;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1review/post/parameters/2/schema": Schema0506;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1review/post/parameters/3/schema": Schema0507;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1review/post/parameters/4/schema": Schema0508;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1review/post/requestBody/content/application~1json/schema": Schema0392;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1review/post/responses/200/content/application~1json/schema": Schema0411;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1review/post/responses/401/content/application~1json/schema": Schema0004;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1review/post/responses/403/content/application~1json/schema": Schema0004;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1review/post/responses/404/content/application~1json/schema": Schema0004;
@@ -1260,118 +1270,118 @@ export interface ContractTypes {
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1review/post/responses/422/content/application~1json/schema": Schema0004;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1review/post/responses/429/content/application~1json/schema": Schema0004;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1review/post/responses/503/content/application~1json/schema": Schema0004;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1revise/post/parameters/0/schema": Schema0513;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1revise/post/parameters/1/schema": Schema0514;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1revise/post/parameters/2/schema": Schema0515;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1revise/post/parameters/3/schema": Schema0516;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1revise/post/parameters/4/schema": Schema0517;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1revise/post/requestBody/content/application~1json/schema": Schema0387;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1revise/post/parameters/0/schema": Schema0519;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1revise/post/parameters/1/schema": Schema0520;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1revise/post/parameters/2/schema": Schema0521;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1revise/post/parameters/3/schema": Schema0522;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1revise/post/parameters/4/schema": Schema0523;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1revise/post/requestBody/content/application~1json/schema": Schema0393;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1revise/post/responses/200/content/application~1json/schema": Schema0163;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1transition/post/parameters/0/schema": Schema0520;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1transition/post/parameters/1/schema": Schema0521;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1transition/post/parameters/2/schema": Schema0522;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1transition/post/parameters/3/schema": Schema0523;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1transition/post/parameters/4/schema": Schema0524;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1transition/post/requestBody/content/application~1json/schema": Schema0403;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1transition/post/parameters/0/schema": Schema0526;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1transition/post/parameters/1/schema": Schema0527;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1transition/post/parameters/2/schema": Schema0528;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1transition/post/parameters/3/schema": Schema0529;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1transition/post/parameters/4/schema": Schema0530;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1transition/post/requestBody/content/application~1json/schema": Schema0409;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1responsibilities~1{id}~1transition/post/responses/200/content/application~1json/schema": Schema0163;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items/post/parameters/0/schema": Schema0527;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items/post/parameters/1/schema": Schema0528;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items/post/parameters/2/schema": Schema0529;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items/post/parameters/3/schema": Schema0530;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items/post/requestBody/content/application~1json/schema": Schema0399;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items/post/parameters/0/schema": Schema0533;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items/post/parameters/1/schema": Schema0534;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items/post/parameters/2/schema": Schema0535;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items/post/parameters/3/schema": Schema0536;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items/post/requestBody/content/application~1json/schema": Schema0405;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items/post/responses/200/content/application~1json/schema": Schema0163;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1proposals/post/parameters/0/schema": Schema0533;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1proposals/post/parameters/1/schema": Schema0534;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1proposals/post/parameters/2/schema": Schema0535;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1proposals/post/parameters/3/schema": Schema0536;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1proposals/post/requestBody/content/application~1json/schema": Schema0410;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1proposals/post/parameters/0/schema": Schema0539;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1proposals/post/parameters/1/schema": Schema0540;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1proposals/post/parameters/2/schema": Schema0541;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1proposals/post/parameters/3/schema": Schema0542;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1proposals/post/requestBody/content/application~1json/schema": Schema0416;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1proposals/post/responses/200/content/application~1json/schema": Schema0163;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}/get/parameters/0/schema": Schema0539;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}/get/parameters/1/schema": Schema0540;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}/get/parameters/2/schema": Schema0541;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}/get/responses/200/content/application~1json/schema": Schema0407;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1accept/post/parameters/0/schema": Schema0543;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1accept/post/parameters/1/schema": Schema0544;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1accept/post/parameters/2/schema": Schema0545;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1accept/post/parameters/3/schema": Schema0546;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1accept/post/parameters/4/schema": Schema0547;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1accept/post/requestBody/content/application~1json/schema": Schema0390;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}/get/parameters/0/schema": Schema0545;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}/get/parameters/1/schema": Schema0546;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}/get/parameters/2/schema": Schema0547;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}/get/responses/200/content/application~1json/schema": Schema0413;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1accept/post/parameters/0/schema": Schema0549;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1accept/post/parameters/1/schema": Schema0550;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1accept/post/parameters/2/schema": Schema0551;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1accept/post/parameters/3/schema": Schema0552;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1accept/post/parameters/4/schema": Schema0553;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1accept/post/requestBody/content/application~1json/schema": Schema0396;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1accept/post/responses/200/content/application~1json/schema": Schema0163;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1cancel/post/parameters/0/schema": Schema0550;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1cancel/post/parameters/1/schema": Schema0551;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1cancel/post/parameters/2/schema": Schema0552;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1cancel/post/parameters/3/schema": Schema0553;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1cancel/post/parameters/4/schema": Schema0554;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1cancel/post/requestBody/content/application~1json/schema": Schema0391;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1cancel/post/parameters/0/schema": Schema0556;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1cancel/post/parameters/1/schema": Schema0557;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1cancel/post/parameters/2/schema": Schema0558;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1cancel/post/parameters/3/schema": Schema0559;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1cancel/post/parameters/4/schema": Schema0560;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1cancel/post/requestBody/content/application~1json/schema": Schema0397;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1cancel/post/responses/200/content/application~1json/schema": Schema0163;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1commit/post/parameters/0/schema": Schema0557;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1commit/post/parameters/1/schema": Schema0558;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1commit/post/parameters/2/schema": Schema0559;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1commit/post/parameters/3/schema": Schema0560;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1commit/post/parameters/4/schema": Schema0561;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1commit/post/requestBody/content/application~1json/schema": Schema0406;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1commit/post/parameters/0/schema": Schema0563;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1commit/post/parameters/1/schema": Schema0564;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1commit/post/parameters/2/schema": Schema0565;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1commit/post/parameters/3/schema": Schema0566;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1commit/post/parameters/4/schema": Schema0567;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1commit/post/requestBody/content/application~1json/schema": Schema0412;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1commit/post/responses/200/content/application~1json/schema": Schema0163;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1dependencies/post/parameters/0/schema": Schema0564;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1dependencies/post/parameters/1/schema": Schema0565;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1dependencies/post/parameters/2/schema": Schema0566;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1dependencies/post/parameters/3/schema": Schema0567;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1dependencies/post/parameters/4/schema": Schema0568;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1dependencies/post/requestBody/content/application~1json/schema": Schema0392;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1dependencies/post/parameters/0/schema": Schema0570;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1dependencies/post/parameters/1/schema": Schema0571;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1dependencies/post/parameters/2/schema": Schema0572;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1dependencies/post/parameters/3/schema": Schema0573;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1dependencies/post/parameters/4/schema": Schema0574;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1dependencies/post/requestBody/content/application~1json/schema": Schema0398;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1dependencies/post/responses/200/content/application~1json/schema": Schema0163;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1evidence/post/parameters/0/schema": Schema0571;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1evidence/post/parameters/1/schema": Schema0572;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1evidence/post/parameters/2/schema": Schema0573;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1evidence/post/parameters/3/schema": Schema0574;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1evidence/post/parameters/4/schema": Schema0575;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1evidence/post/requestBody/content/application~1json/schema": Schema0389;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1evidence/post/responses/200/content/application~1json/schema": Schema0380;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1history/get/parameters/0/schema": Schema0578;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1history/get/parameters/1/schema": Schema0579;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1history/get/parameters/2/schema": Schema0580;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1history/get/parameters/3/schema": Schema0581;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1history/get/responses/200/content/application~1json/schema": Schema0409;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reject/post/parameters/0/schema": Schema0583;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reject/post/parameters/1/schema": Schema0584;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reject/post/parameters/2/schema": Schema0585;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reject/post/parameters/3/schema": Schema0586;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reject/post/parameters/4/schema": Schema0587;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reject/post/requestBody/content/application~1json/schema": Schema0393;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1evidence/post/parameters/0/schema": Schema0577;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1evidence/post/parameters/1/schema": Schema0578;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1evidence/post/parameters/2/schema": Schema0579;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1evidence/post/parameters/3/schema": Schema0580;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1evidence/post/parameters/4/schema": Schema0581;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1evidence/post/requestBody/content/application~1json/schema": Schema0395;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1evidence/post/responses/200/content/application~1json/schema": Schema0386;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1history/get/parameters/0/schema": Schema0584;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1history/get/parameters/1/schema": Schema0585;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1history/get/parameters/2/schema": Schema0586;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1history/get/parameters/3/schema": Schema0587;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1history/get/responses/200/content/application~1json/schema": Schema0415;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reject/post/parameters/0/schema": Schema0589;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reject/post/parameters/1/schema": Schema0590;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reject/post/parameters/2/schema": Schema0591;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reject/post/parameters/3/schema": Schema0592;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reject/post/parameters/4/schema": Schema0593;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reject/post/requestBody/content/application~1json/schema": Schema0399;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reject/post/responses/200/content/application~1json/schema": Schema0163;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reopen/post/parameters/0/schema": Schema0590;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reopen/post/parameters/1/schema": Schema0591;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reopen/post/parameters/2/schema": Schema0592;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reopen/post/parameters/3/schema": Schema0593;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reopen/post/parameters/4/schema": Schema0594;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reopen/post/requestBody/content/application~1json/schema": Schema0394;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reopen/post/parameters/0/schema": Schema0596;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reopen/post/parameters/1/schema": Schema0597;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reopen/post/parameters/2/schema": Schema0598;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reopen/post/parameters/3/schema": Schema0599;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reopen/post/parameters/4/schema": Schema0600;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reopen/post/requestBody/content/application~1json/schema": Schema0400;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1reopen/post/responses/200/content/application~1json/schema": Schema0163;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1revise/post/parameters/0/schema": Schema0597;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1revise/post/parameters/1/schema": Schema0598;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1revise/post/parameters/2/schema": Schema0599;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1revise/post/parameters/3/schema": Schema0600;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1revise/post/parameters/4/schema": Schema0601;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1revise/post/requestBody/content/application~1json/schema": Schema0395;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1revise/post/parameters/0/schema": Schema0603;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1revise/post/parameters/1/schema": Schema0604;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1revise/post/parameters/2/schema": Schema0605;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1revise/post/parameters/3/schema": Schema0606;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1revise/post/parameters/4/schema": Schema0607;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1revise/post/requestBody/content/application~1json/schema": Schema0401;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1revise/post/responses/200/content/application~1json/schema": Schema0163;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1start/post/parameters/0/schema": Schema0604;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1start/post/parameters/1/schema": Schema0605;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1start/post/parameters/2/schema": Schema0606;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1start/post/parameters/3/schema": Schema0607;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1start/post/parameters/4/schema": Schema0608;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1start/post/requestBody/content/application~1json/schema": Schema0396;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1start/post/parameters/0/schema": Schema0610;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1start/post/parameters/1/schema": Schema0611;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1start/post/parameters/2/schema": Schema0612;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1start/post/parameters/3/schema": Schema0613;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1start/post/parameters/4/schema": Schema0614;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1start/post/requestBody/content/application~1json/schema": Schema0402;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1start/post/responses/200/content/application~1json/schema": Schema0163;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1submit/post/parameters/0/schema": Schema0611;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1submit/post/parameters/1/schema": Schema0612;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1submit/post/parameters/2/schema": Schema0613;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1submit/post/parameters/3/schema": Schema0614;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1submit/post/parameters/4/schema": Schema0615;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1submit/post/requestBody/content/application~1json/schema": Schema0397;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1submit/post/parameters/0/schema": Schema0617;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1submit/post/parameters/1/schema": Schema0618;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1submit/post/parameters/2/schema": Schema0619;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1submit/post/parameters/3/schema": Schema0620;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1submit/post/parameters/4/schema": Schema0621;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1submit/post/requestBody/content/application~1json/schema": Schema0403;
   "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1submit/post/responses/200/content/application~1json/schema": Schema0163;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1verify/post/parameters/0/schema": Schema0618;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1verify/post/parameters/1/schema": Schema0619;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1verify/post/parameters/2/schema": Schema0620;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1verify/post/parameters/3/schema": Schema0621;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1verify/post/parameters/4/schema": Schema0622;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1verify/post/requestBody/content/application~1json/schema": Schema0398;
-  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1verify/post/responses/200/content/application~1json/schema": Schema0380;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1verify/post/parameters/0/schema": Schema0624;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1verify/post/parameters/1/schema": Schema0625;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1verify/post/parameters/2/schema": Schema0626;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1verify/post/parameters/3/schema": Schema0627;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1verify/post/parameters/4/schema": Schema0628;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1verify/post/requestBody/content/application~1json/schema": Schema0404;
+  "https://schemas.euclas.invalid/contracts/work.openapi.json#/paths/~1work-items~1{id}~1verify/post/responses/200/content/application~1json/schema": Schema0386;
 }
 export interface Schema0001 {
   issuer: string;
@@ -3541,6 +3551,72 @@ export interface Schema0363 {
   ];
 }
 export interface Schema0365 {
+  instance_id: Schema0034;
+  controller_id: Schema0034;
+  ownership_epoch: Schema0092;
+  data_location_id: Schema0034;
+  active: boolean;
+}
+export interface Schema0366 {
+  root_path: string;
+  socket_path: string;
+  tool_prefix: string;
+  lock_path: string;
+  secrets_path: string;
+  authority_path: string;
+  root_identity_hash: Schema0183;
+  tool_hashes: {
+    postgres: Schema0183;
+    initdb: Schema0183;
+    pg_ctl: Schema0183;
+    psql: Schema0183;
+    pg_controldata: Schema0183;
+    pg_dump: Schema0183;
+    pg_restore: Schema0183;
+  };
+}
+export interface Schema0368 {
+  protocol_version: 1;
+  request_id: Schema0034;
+  instance_id: Schema0034;
+  controller_id: Schema0034 | null;
+  ownership_epoch: Schema0137;
+  expected_revision: Schema0137;
+  idempotency_key: Schema0034;
+  nonce: Schema0017;
+  command: "initialize";
+  payload: {
+    operation_id: Schema0034;
+    instance_id: Schema0034;
+    data_location_id: Schema0034;
+    baseline_id: "euclas-d92-v1";
+    migration_manifest_hash: Schema0183;
+  };
+  authorization_permit: null;
+}
+export interface Schema0369 {
+  receipt_id: Schema0034;
+  request_hash: Schema0183;
+  operation_id: Schema0034;
+  instance_id: Schema0034;
+  controller_id: Schema0034;
+  ownership_epoch: Schema0092;
+  data_location_id: Schema0034;
+  data_root_identity_hash: Schema0183;
+  staging_identity_hash: Schema0183;
+  cluster_system_identifier: string;
+  baseline_id: "euclas-d92-v1";
+  migration_manifest_hash: Schema0183;
+  revision: Schema0092;
+}
+export interface Schema0370 {
+  request: Schema0367;
+  journal: Schema0371;
+  staging_identity_hash: Schema0183 | null;
+  cluster_system_identifier: string | null;
+  receipt: Schema0369 | null;
+}
+export interface Schema0371 {
   operation_id: Schema0034;
   instance_id: Schema0034;
   controller_id: Schema0034;
@@ -3555,7 +3631,7 @@ export interface Schema0365 {
   receipt_id: Schema0034 | null;
   updated_at: Schema0040;
 }
-export interface Schema0366 {
+export interface Schema0372 {
   protocol_version: 1;
   max_frame_bytes: 262144;
   nonce_validity_seconds: 60;
@@ -3564,7 +3640,7 @@ export interface Schema0366 {
   heartbeat_interval_seconds: 5;
   peer_loss_fence_seconds: 15;
 }
-export interface Schema0367 {
+export interface Schema0373 {
   iss: Schema0034;
   aud: Schema0034;
   sub: Schema0034;
@@ -3584,12 +3660,12 @@ export interface Schema0367 {
   action_digest: Schema0183;
   purpose: "prepare_update_relaunch" | "reattach";
 }
-export interface Schema0368 {
+export interface Schema0374 {
   typ: "euclas-maintenance-permit+jwt";
   alg: "ES256";
   kid: string;
 }
-export interface Schema0369 {
+export interface Schema0375 {
   client_id: Schema0034;
   client_role: "desktop_main" | "core" | "worker" | "trusted_updater";
   instance_id: Schema0034;
@@ -3602,7 +3678,7 @@ export interface Schema0369 {
   device_id: Schema0034 | null;
   actor_session_id: Schema0034 | null;
 }
-export interface Schema0370 {
+export interface Schema0376 {
   intent_id: Schema0034;
   controller_id: Schema0034;
   ownership_epoch: Schema0092;
@@ -3611,7 +3687,7 @@ export interface Schema0370 {
   stop_generation: Schema0137;
   expires_at: Schema0040;
 }
-export interface Schema0371 {
+export interface Schema0377 {
   intent_id: Schema0034;
   request_id: Schema0034;
   replacement_client_id: Schema0034;
@@ -3622,12 +3698,12 @@ export interface Schema0371 {
   stop_generation: Schema0137;
   issued_at: Schema0040;
 }
-export interface Schema0372 {
+export interface Schema0378 {
   typ: "euclas-reattach+jwt";
   alg: "ES256";
   kid: string;
 }
-export interface Schema0373 {
+export interface Schema0379 {
   id: Schema0034;
   revision: Schema0092;
   instance_id: Schema0034;
@@ -3651,7 +3727,7 @@ export interface Schema0373 {
   replacement_client_id: Schema0034;
   replacement_certificate_thumbprint: Schema0183;
 }
-export interface Schema0375 {
+export interface Schema0381 {
   ui_manifest_hash: Schema0183;
   core_protocol_version: 1;
   supervisor_protocol_version: 1;
@@ -3784,7 +3860,7 @@ export interface Schema0375 {
         Schema0183
       ];
 }
-export interface Schema0377 {
+export interface Schema0383 {
   instance_id: Schema0034;
   controller_id: Schema0034;
   ownership_epoch: Schema0092;
@@ -3792,7 +3868,7 @@ export interface Schema0377 {
   state: "stopped" | "starting" | "ready" | "recovering" | "maintenance" | "needs_attention" | "stopping";
   app_lifetime: "open" | "authorized_update_relaunch" | "closed";
   stop_generation: Schema0137;
-  version_set: Schema0375;
+  version_set: Schema0381;
   database_ready: boolean;
   core_ready: boolean;
   identity_ready: boolean;
@@ -3812,7 +3888,7 @@ export interface Schema0377 {
    */
   live_ui_client_ids: [] | [Schema0034] | [Schema0034, Schema0034];
 }
-export interface Schema0379 {
+export interface Schema0385 {
   id: string;
   description: string;
   verifier: "deterministic" | "independent_review" | "human_judgment";
@@ -3822,7 +3898,7 @@ export interface Schema0379 {
 /**
  * Exact Result-bound evidence receipt. revision is the new aggregate revision; evidence_ids is the cumulative current registered evidence set for this Result, including earlier records, in stable order. Same-key authorized replay returns the original IDs/revision without reissuance. Later additions use a new command and expected revision. No other Result or inaccessible evidence is included.
  */
-export interface Schema0380 {
+export interface Schema0386 {
   command_id: string;
   resource_id: string;
   revision: number;
@@ -3835,7 +3911,7 @@ export interface Schema0380 {
    */
   evidence_ids: string[];
 }
-export interface Schema0381 {
+export interface Schema0387 {
   criterion_id: string;
   result_revision: number;
   artifact_version_ids: string[];
@@ -3845,7 +3921,7 @@ export interface Schema0381 {
   environment_ref: string;
   commit_hash: string | null;
 }
-export interface Schema0382 {
+export interface Schema0388 {
   expected_revision: number;
   owner_position_id: string;
   outcome: string;
@@ -3853,27 +3929,27 @@ export interface Schema0382 {
   horizon: string;
   constraints: string[];
 }
-export interface Schema0383 {
+export interface Schema0389 {
   expected_revision: number;
   outcome: string;
   owner_position_id: string;
   responsibility_ids: string[];
   horizon: string;
 }
-export interface Schema0384 {
+export interface Schema0390 {
   expected_revision: number;
   reason: string;
 }
-export interface Schema0385 {
+export interface Schema0391 {
   expected_revision: number;
   review_rule: Schema0359 | null;
 }
-export interface Schema0386 {
+export interface Schema0392 {
   expected_revision: number;
   scheduled_instant: string | null;
   manual: boolean;
 }
-export interface Schema0387 {
+export interface Schema0393 {
   expected_revision: number;
   desired_condition: string;
   owner_position_id: string;
@@ -3884,71 +3960,71 @@ export interface Schema0387 {
 /**
  * Record trusted evidence against an already frozen Result while Work is executing or verifying; does not advance Work state. Current work.verify authority required.
  */
-export interface Schema0389 {
+export interface Schema0395 {
   expected_revision: number;
   result_revision: number;
   /**
    * @minItems 1
    * @maxItems 100
    */
-  evidence: [Schema0381, ...Schema0381[]];
+  evidence: [Schema0387, ...Schema0387[]];
 }
-export interface Schema0390 {
+export interface Schema0396 {
   expected_revision: number;
   result_revision: number;
   criteria_revision: number;
   evidence_ids: string[];
 }
-export interface Schema0391 {
+export interface Schema0397 {
   expected_revision: number;
   reason: string;
 }
-export interface Schema0392 {
+export interface Schema0398 {
   expected_revision: number;
   predecessor_ids: string[];
 }
-export interface Schema0393 {
+export interface Schema0399 {
   expected_revision: number;
   result_revision: number;
   findings: string;
 }
-export interface Schema0394 {
+export interface Schema0400 {
   expected_revision: number;
   reason: string;
   scope: Schema0350;
 }
-export interface Schema0395 {
+export interface Schema0401 {
   expected_revision: number;
   scope: Schema0350;
-  criteria: Schema0379[];
+  criteria: Schema0385[];
   change_reason: string;
 }
-export interface Schema0396 {
+export interface Schema0402 {
   expected_revision: number;
   work_revision: number;
   executor_profile_id: string;
 }
-export interface Schema0397 {
+export interface Schema0403 {
   expected_revision: number;
   work_revision: number;
   result_revision: number;
   artifact_version_ids: string[];
   evidence_ids: string[];
 }
-export interface Schema0398 {
+export interface Schema0404 {
   expected_revision: number;
   result_revision: number;
-  evidence: Schema0381[];
+  evidence: Schema0387[];
   outcome: "pass" | "fail";
 }
-export interface Schema0399 {
+export interface Schema0405 {
   expected_revision: number;
   title: string;
   scope: Schema0350;
   /**
    * @minItems 1
    */
-  criteria: [Schema0379, ...Schema0379[]];
+  criteria: [Schema0385, ...Schema0385[]];
   owner_position_id: string;
   source_message_ids: string[];
   project_id: string | null;
@@ -3960,7 +4036,7 @@ export interface Schema0399 {
 /**
  * Versioned Artifact content. Cross-field semantics, approved profiles and authority checked before atomic commit; schedule objects use the ReviewRule contract in shared-command.openapi.json.
  */
-export interface Schema0400 {
+export interface Schema0406 {
   schema_version: 1;
   source_message_ids: string[];
   scenario_id: "UC-01" | "UC-02" | "UC-03" | "UC-04" | "UC-05" | "UC-06" | "UC-07" | "UC-08" | "UC-09" | "UC-10";
@@ -3994,7 +4070,7 @@ export interface Schema0400 {
     /**
      * @minItems 1
      */
-    criteria: [Schema0379, ...Schema0379[]];
+    criteria: [Schema0385, ...Schema0385[]];
     scope: Schema0350;
   };
   requested_access: {
@@ -4008,60 +4084,60 @@ export interface Schema0400 {
     locale: string;
   };
 }
-export interface Schema0401 {
+export interface Schema0407 {
   expected_revision: number;
   to: "active" | "achieved" | "abandoned";
   reason: string;
   impact_digest: string;
   acknowledge_unresolved: boolean;
 }
-export interface Schema0402 {
+export interface Schema0408 {
   expected_revision: number;
   to: "active" | "completed" | "cancelled";
   reason: string;
   impact_digest: string;
   acknowledge_unresolved: boolean;
 }
-export interface Schema0403 {
+export interface Schema0409 {
   expected_revision: number;
   to: "paused" | "active" | "retired";
   reason: string;
   impact_digest: string;
   acknowledge_unresolved: boolean;
 }
-export interface Schema0404 {
+export interface Schema0410 {
   occurrence_id: string;
   status: "pending";
   scheduled_instant: string | null;
   missed_cycles: number;
 }
-export interface Schema0405 {
+export interface Schema0411 {
   command_id: string;
   resource_id: string;
   revision: number;
   status: string;
   event_ids: string[];
   request_id: string;
-  review_admission: Schema0404;
+  review_admission: Schema0410;
 }
-export interface Schema0406 {
+export interface Schema0412 {
   expected_revision: number;
   work_revision: number;
 }
-export interface Schema0407 {
+export interface Schema0413 {
   record: Schema0348 | Schema0356 | Schema0357 | Schema0358;
   allowed_actions: string[];
   related_links: string[];
   impact_digest: string | null;
 }
-export interface Schema0408 {
+export interface Schema0414 {
   record_type: "work" | "goal" | "project" | "responsibility";
   work_revision: number | null;
   criteria_revision: number | null;
   execution_epoch: number | null;
   correlation_id: string;
 }
-export interface Schema0409 {
+export interface Schema0415 {
   /**
    * @maxItems 100
    */
@@ -4071,7 +4147,7 @@ export interface Schema0409 {
   }[];
   next_cursor: number | null;
 }
-export interface Schema0410 {
-  work: Schema0399;
+export interface Schema0416 {
+  work: Schema0405;
   status: "draft" | "clarifying";
 }
