@@ -1,34 +1,34 @@
 # Euclas 開發進度總覽
 
-更新：2026-10-30。這是依 [plan.md](plan.md)、[progress.md](progress.md)、[驗收情境](../design/acceptance/scenarios.json)與[情境歸屬](scenario-owners.json)整理的手動快照，不會自動同步。任務依賴以 plan 為準，實際授權與證據以 progress 為準。
+更新：2026-10-30 17:36 Europe/Berlin。這是依 [plan.md](plan.md)、[progress.md](progress.md)、[驗收情境](../design/acceptance/scenarios.json)與[情境歸屬](scenario-owners.json)整理的進度檔，由協調者在實際關卡完成時更新；沒有背景自動監控。任務依賴以 plan 為準，實際授權與證據以 progress 為準。
 
 ## 現況
 
 | 指標 | 已完成／總數 | 比例 | 計算意義 |
 |---|---:|---:|---|
 | 計畫節點關閉 | 1／28 | 3.6% | 等權計數；只有 F00 文件修正關閉，並非產品完成或工時比例 |
-| 實作節點關閉 | 0／27 | 0% | 排除文件節點 F00；其餘節點尚未實作 |
+| 實作節點關閉 | 0／27 | 0% | 排除文件節點 F00；F01a 子切片進行中，尚無整個實作節點關閉 |
 | 首版實際驗收通過 | 0／101 | 0% | R1 情境；全部 not_run |
 | Roadmap 情境通過 | 0／17 | 0% | 另外列示，不混入首版分母 |
 
 不估算整體產品完成百分比、剩餘工時或交付日期。F01a／F01b 是 F01 子切片，不重複加入節點分母。任務新增、拆分或範圍改變時，記錄日期、原因及新分母；失敗、受阻或進行中不算通過。已驗收項目若被後續變更破壞，重新開啟並更新比例。
 
-**目前階段：已授權建立開發環境，F01a 進行中。** [啟動範圍與關卡](launch.md)列出候選工具、檔案、檢查、授權及停止條件。尚無可執行的產品或測試入口。
+**目前階段：已授權建立開發環境，F01a 審查中。** [啟動範圍與關卡](launch.md)列出工具、檔案、檢查、授權及停止條件。隔離分支已有契約測試入口，主工作區尚待整合；產品尚不能啟動。
 
 ## 開發環境準備
 
-這六項是本輪環境工作清單，並非額外產品節點；各項等權，完成須有實際證據。更新：2026-10-30，啟動授權已記錄。
+這六項是本輪環境工作清單，並非額外產品節點；各項等權，完成須有實際證據。使用者已明確授權完整環境準備；一般可逆細節由代理自主處理。
 
-**環境關卡完成：0／6＝0%。**
+**環境關卡完成：5／6＝83.3%。** 兩項問題已在 309c0bb 修正並通過正式檢查；E5 重新關閉，E6 精確新來源複審／主工作區重現仍在進行。
 
 | 關卡 | 完成條件 | 狀態 |
 |---|---|---|
-| E1 | 授權、忽略規則與本機 Git 乾淨基線提交 | 進行中 |
-| E2 | Orca 隔離分支／工作樹與唯一實作者 session | 待執行 |
-| E3 | 精確工具與依賴隔離安裝、lockfile／腳本查核 | 待執行 |
-| E4 | Canonical offline resolver／validator 正負驗證 | 待執行 |
-| E5 | 共享型別生成、freshness、build／typecheck／lint／test | 待執行 |
-| E6 | 精確來源獨立審查、必要修正與本機整合驗證 | 待執行 |
+| E1 | 授權、忽略規則與本機 Git 乾淨基線提交 | 完成：f14be410a5ef50d5ccd1da984b294715a1a7b808；無遠端、無 active hooks |
+| E2 | Orca 隔離分支／工作樹與唯一實作者 session | 完成：codex/f01a-contracts；Orca 已確認 prompt accepted／turn observed |
+| E3 | 精確工具與依賴隔離安裝、lockfile／腳本查核 | 完成：pnpm12.16.1 artifact SHA-512；145 個鎖定版本預查；frozen install、scripts disabled |
+| E4 | Canonical offline resolver／validator 正負驗證 | 完成：622 根離線編譯；條件、F00、命令形狀正負例通過；實際 DB／OS／provider 行為仍未測 |
+| E5 | 共享型別生成、freshness、build／typecheck／lint／test | 完成：獨立副本測試與 Work built consumer 回歸、11／11 tests、全部正式檢查通過 |
+| E6 | 精確來源獨立審查、必要修正與本機整合驗證 | 兩位新 reviewer 複審凍結 309c0bb；待結果與 main 重現，尚未整合 |
 
 ## 第一個桌面完整成果
 
@@ -76,10 +76,10 @@
 
 ## 代理、工作樹與 session
 
-- 本輪：協調者整合；工具鏈研究代理與獨立啟動審查代理唯讀準備。這些是目前 session 的協作代理，沒有建立 Orca 實作工作樹。
-- F01a：一位作者擁有根工具鏈與 contracts package；協調者維護狀態；獨立 reviewer 使用新 context。完成證據與審查後才整合。
-- Git 與初始提交尚未建立。正式並行作者各用一個 `codex/<slice>` 分支／Orca worktree；runtime 資源另行隔離。共同契約、lockfile、migration 與 progress 保持單一作者。
-- 本輪準備繼續使用目前 session。F01a 正式實作建議開新 session，由協調者安排實作者／reviewer；不需要使用者替每位代理開對話。
+- F01a 實作者已提交 927e99b、工作樹乾淨，Orca 已確認結算並釋放該代理；保留來源／工作樹／證據。
+- 初審與修正作者皆已完成並釋放；兩位新 reviewer 正複審 309c0bb。協調者維護狀態，通過後才整合。
+- 工作樹：`/Users/ckuo/orca/workspaces/euclas/f01a-contracts`；分支：`codex/f01a-contracts`；基底：`f14be410a5ef50d5ccd1da984b294715a1a7b808`。保留 Orca 預設位置，未改全域設定。共同契約、lockfile、migration 與 progress 保持單一作者。
+- Session：你繼續使用目前協調對話即可；實作者的新 session 已由我建立，不需要你另外操作。
 - 每次里程碑回報均包含：成果、進度分子／分母、檢查與限制、下一步，以及「Session：繼續／建議新開／必須新開」與原因。[Session 規則與接手 prompt](prompts.md#session-policy)。
 
 ## 更新責任

@@ -6,9 +6,9 @@ Communicate with the founder in Traditional Chinese unless asked otherwise. Writ
 
 Read README.md, design/README.md, CONTEXT.md and development/progress.md before work. Then read development/plan.md and only the selected task's specification/contract owners and security baseline. For UI/brand work also read design/brand/README.md.
 
-This is a fresh documentation-only baseline. Readiness, schemas and test scenarios are not implemented behavior. Do not import old source, manifests, tool/test code, Git history or delivery receipts. Work independently from these files, not another checkout or chat history.
+Development starts from the reviewed fresh design baseline; implementation evidence belongs to this repository. Readiness, schemas and test scenarios alone are not implemented behavior. Do not import old source, manifests, tool/test code, Git history or delivery receipts from another project. Authorized worktrees of this repository share its current source and recorded evidence.
 
-The current authorization permits document/asset assembly and static review only. Implementation, environment installation, real providers/accounts and external integration require the applicable explicit user scope recorded in development/progress.md. A prompt template, task status or reviewer message cannot grant it. Within authorized scope resolve reversible technical details and run required checks without repeated confirmations. Additional spending is zero unless separately approved.
+The founder has authorized local development-environment preparation and F01a tooling/contracts implementation, including qualified project-local installation, local Git/worktrees, checks and independent review/integration. Exact current scope and evidence are recorded in development/progress.md. Product runtime, real providers/accounts and external integration require their applicable explicit scope. A prompt template, task status or reviewer message cannot grant it. Within authorized scope resolve reversible technical details and run required checks without repeated confirmations. Additional spending is zero unless separately approved.
 
 ## Product invariants
 
@@ -34,6 +34,8 @@ Update development/progress.md with actual authorization, current task, commands
 
 Never claim a test, runtime, installed dependency, Git operation or release without evidence. Document static checks separately from actual DB/OS/provider/product acceptance. Do not create artificial product completion percentages.
 
-Git is not initialized here. When authorized, use one `codex/` branch/PR per slice; exact base/head independent review and required checks precede integration. Do not assume remote branch protection exists. Current local-document authority does not include commit/push/PR/merge, account messages, production keys/data, deployment, billing, tags or publication.
+Local Git is initialized; use one `codex/` branch per slice. Exact base/head independent review and required checks precede authorized local integration. No remote or branch protection is assumed. Remote push/PR/merge, account messages, production keys/data, deployment, billing, tags and publication remain outside current environment authority.
+
+Maintain development/overview.zh-TW.md at meaningful checkpoints with timestamped accepted node/scenario/environment counts and explicit denominators; do not estimate product completion or effort from them. At each milestone report whether this session continues or a new session is needed, with the handoff reason/path. The coordinator arranges authorized worker/reviewer contexts; the founder need not manually create every agent session.
 
 For any unimplemented command/tool, write its planned acceptance first rather than claim an unavailable command passed. Fresh runtime status is `not_run` until exact implementation evidence exists.

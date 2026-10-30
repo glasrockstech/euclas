@@ -6,7 +6,7 @@ Prepared: 2026-10-30. Status: local development-environment/F01a scope authorize
 
 Qualify offline canonical contract resolution/validation and reproducible generated TypeScript exports in the smallest workspace. The first acceptance is a working contract consumer and meaningful negative checks, not an Electron window or a real Account/provider.
 
-F00 document correction is closed. F01a remains unstarted, and F01 is not complete until separately authorized F01b database qualification also passes. No downstream task starts automatically.
+F00 document correction is closed. F01a is implemented on its isolated branch and undergoing independent review; F01 is not complete until separately authorized F01b database qualification also passes. No downstream task starts automatically.
 
 ## Host preflight actually observed
 
@@ -38,6 +38,8 @@ These are qualification candidates, not installed/supported claims. Check exact 
 | ESLint | 10.9.1 | Actual lint checks; [tagged manifest](https://raw.githubusercontent.com/eslint/eslint/v10.9.1/package.json) |
 | typescript-eslint | 8.68.0 | Type-aware safety rules; [tagged manifest](https://raw.githubusercontent.com/typescript-eslint/typescript-eslint/v8.68.0/packages/typescript-eslint/package.json), [support policy](https://typescript-eslint.io/users/dependency-versions/) |
 | Test runner | Node 26.13.0 built-in node:test / node:assert/strict | [Official documentation](https://nodejs.org/api/test.html); no separate runner dependency |
+
+Implementation qualification update: the installed generator's ref-parser11.9.3 declarations failed strict exactOptionalPropertyTypes checks. After public artifact/engine/license/script/integrity inspection, the writer qualified a narrowly scoped json-schema-to-typescript ref-parser override to16.0.5 (MIT, Node>=22.19, no install lifecycle scripts), reran frozen script-disabled installation and passed generation/typecheck/typed lint. openapi-typescript is no longer a selected dependency: the same mechanical offline schema projection covers its required current surface. See the final implementation evidence for exact commands and final pins; the candidate table above preserves the initial qualification choices rather than asserting all candidates shipped.
 
 The OpenAPI generator declares TypeScript ^5.x and the selected linter supports TypeScript <6.1.0; TS5.9.3 is deliberate. Peer ranges and host compatibility are necessary, not sufficient. Upstream licenses: TypeScript Apache-2.0; the listed npm tools/types otherwise report MIT; Node carries its own license and third-party notices. Transitive/published-artifact rights remain an installation preflight gate. Product license/publication is a separate decision.
 
@@ -113,7 +115,7 @@ Use Orca's version-matched CLI with explicit workspace, branch and accepted base
 
 The coordinator can supervise worker ownership/status through Orca after launch. Prepare tasks against exact inputs before starting agents; folder workspace support does not grant Git or implementation authority. One writer plus one reviewer is sufficient for F01a. Add two writing lanes only at the ready points in the existing plan.
 
-Current preparation stays in this session. After approval, recommend a fresh F01a implementer session using [the launch handoff](prompts.md#f01a-launch-handoff); the coordinator can arrange it, so the founder need not manually recreate context. The coordinator conversation may remain open. The independent reviewer always receives a fresh context and exact source.
+The coordinator remains in this session. A fresh F01a structured implementer session is already running in the isolated Orca worktree recorded in progress; the founder need not manually recreate context. The independent reviewers receive fresh contexts and exact source after the writer freezes its final head.
 
 ## Approval scope and stop
 
