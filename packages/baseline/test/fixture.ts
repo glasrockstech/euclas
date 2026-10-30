@@ -2,11 +2,18 @@ import { mkdtemp, mkdir, writeFile, lstat, realpath, readdir, rm } from 'node:fs
 import { randomUUID, randomBytes, createHash } from 'node:crypto';
 import { resolve, join } from 'node:path';
 import { readFile } from 'node:fs/promises';
+import { spawnSync } from 'node:child_process';
 
 export const hash = (bytes: string | Buffer) => `sha256:${createHash('sha256').update(bytes).digest('hex')}`;
 
 export async function fixture() {
   await mkdir('.tools/f01b-runs', { recursive: true, mode: 0o700 });
+  for (const entry of await readdir('.tools/f01b-runs')) {
+    const previousLock = resolve('.tools/f01b-runs', entry, 'lock');
+    try { await lstat(previousLock); }
+    catch (error) { if (error instanceof Error && 'code' in error && error.code === 'ENOENT') continue; throw error; }
+    assertNoLockHolders(previousLock);
+  }
   const parent = await mkdtemp(resolve('.tools/f01b-runs/r-'));
   const root = join(parent, '資料 baseline');
   const socket = join(parent, 's');
@@ -38,9 +45,16 @@ export async function fixture() {
   return { parent, root, socket, secrets, authority, environment, request,
     cleanup: async (passed = false) => {
       assertEmptySocket(await readdir(socket));
+      try { await lstat(environment.lock_path); assertNoLockHolders(environment.lock_path); }
+      catch (error) { if (!(error instanceof Error && 'code' in error && error.code === 'ENOENT')) throw error; }
       if (passed) await rm(parent, { recursive: true });
       else console.log(`Retained fixture: ${parent}`);
     } };
+}
+
+function assertNoLockHolders(path: string) {
+  const holders = spawnSync('/usr/sbin/lsof', ['-t', path], { env: { PATH: '/usr/bin:/bin', LC_ALL: 'C' }, encoding: 'utf8', timeout: 10000 });
+  if (holders.error || holders.status !== 1 || holders.stdout.trim() !== '') throw new Error('Previous owned fixture still has a lock holder; suite expansion blocked');
 }
 
 function assertEmptySocket(entries: string[]) {

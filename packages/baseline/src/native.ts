@@ -4,10 +4,14 @@ import { join, basename } from 'node:path';
 import { hash, directory } from './files.ts';
 import type { Environment } from './types.ts';
 
+let retainLock = false;
+export function retainNativeLock() { retainLock = true; }
+
 export function run(executable: string, args: string[], input = '', passwordFile?: string) {
   const env: NodeJS.ProcessEnv = { PATH: '/usr/bin:/bin', LC_ALL: 'C' };
   if (passwordFile) env.PGPASSFILE = passwordFile;
-  const result = spawnSync(executable, args, { input, encoding: 'utf8', env, timeout: 60000, maxBuffer: 262144 });
+  const result = spawnSync(executable, args, { input, encoding: 'utf8', env, timeout: 60000, maxBuffer: 262144,
+    stdio: retainLock ? ['pipe', 'pipe', 'pipe', 3] : 'pipe' });
   if (result.error || result.status !== 0) {
     const state = /ERROR:\s+([0-9A-Z]{5})/.exec(result.stderr)?.[1];
     throw new Error(state ? `sql_${state.toLowerCase()}` : `native_${basename(executable)}_failed`);

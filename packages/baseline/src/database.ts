@@ -32,6 +32,9 @@ export async function bootstrap(environment: Environment, state: State, authorit
   if (exists !== 'f' || sql(environment, 'euclas_bootstrap', "SELECT count(*) FROM pg_roles WHERE rolname NOT LIKE 'pg_%'") !== '1') {
     throw new Error('unknown_cluster');
   }
+  if (sql(environment, 'euclas_bootstrap', "SELECT (SELECT array_agg(datname::text ORDER BY datname) FROM pg_database)=ARRAY['postgres','template0','template1'] AND NOT EXISTS(SELECT 1 FROM pg_namespace WHERE nspname NOT IN ('pg_catalog','pg_toast','information_schema','public')) AND NOT EXISTS(SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='public') AND (SELECT array_agg(extname::text ORDER BY extname) FROM pg_extension)=ARRAY['plpgsql']") !== 't') {
+    throw new Error('unknown_cluster');
+  }
   let roles = '';
   for (const name of ['migration', 'application', 'storage', 'verifier']) {
     const secret = admit('https://schemas.euclas.invalid/contracts/common.schema.json#/$defs/opaque_secret',
@@ -47,8 +50,10 @@ export async function verifyCluster(environment: Environment, state: State): Pro
   if (await identity(join(environment.root_path, 'staging'), state.request.payload.data_location_id) !== state.staging_identity_hash ||
     (await privateBytes(join(environment.root_path, 'staging/PG_VERSION'))).toString('utf8').trim() !== '18' ||
     systemIdentifier(environment) !== state.cluster_system_identifier) throw new Error('cluster_mismatch');
-  const controls: unknown = JSON.parse(sql(environment, 'euclas_migration',
-    "SELECT baseline.inspect() WHERE current_setting('listen_addresses')='' AND current_setting('fsync')='on' AND (SELECT count(*) FROM pg_roles WHERE rolname IN ('euclas_owner','euclas_migration','euclas_application','euclas_storage','euclas_verifier') AND NOT rolsuper AND NOT rolcreatedb AND NOT rolcreaterole AND NOT rolinherit AND NOT rolreplication AND NOT rolbypassrls)=5"));
+  const bytes = sql(environment, 'euclas_migration',
+    "SELECT baseline.inspect() WHERE current_setting('listen_addresses')='' AND current_setting('fsync')='on' AND (SELECT count(*) FROM pg_roles WHERE rolname IN ('euclas_owner','euclas_migration','euclas_application','euclas_storage','euclas_verifier') AND NOT rolsuper AND NOT rolcreatedb AND NOT rolcreaterole AND NOT rolinherit AND NOT rolreplication AND NOT rolbypassrls)=5");
+  if (!bytes || bytes === 'null') throw new Error('missing_sql_receipt');
+  const controls: unknown = JSON.parse(bytes);
   const receipt = admit('https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_receipt', controls);
   if (!state.receipt) throw new Error('verification_failed');
   if (receipt.receipt_id !== state.receipt.receipt_id || receipt.request_hash !== state.receipt.request_hash) throw new Error('verification_failed');

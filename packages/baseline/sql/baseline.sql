@@ -87,6 +87,13 @@ BEGIN
     OR (p_request->>'request_id')::uuid IS NULL OR (p_request->>'idempotency_key')::uuid IS NULL
     OR jsonb_typeof(p_request->'ownership_epoch') IS DISTINCT FROM 'number'
     OR jsonb_typeof(p_request->'expected_revision') IS DISTINCT FROM 'number'
+    OR jsonb_typeof(p_request->'nonce') IS DISTINCT FROM 'string'
+    OR EXISTS(SELECT 1 FROM jsonb_each(p_request) e WHERE e.key IN ('request_id','instance_id','controller_id','idempotency_key')
+      AND (jsonb_typeof(e.value)<>'string' OR e.value#>>'{}' !~ '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'))
+    OR EXISTS(SELECT 1 FROM jsonb_each(payload) e WHERE e.key IN ('operation_id','instance_id','data_location_id')
+      AND (jsonb_typeof(e.value)<>'string' OR e.value#>>'{}' !~ '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'))
+    OR EXISTS(SELECT 1 FROM jsonb_each(p_receipt) e WHERE e.key IN ('receipt_id','operation_id','instance_id','controller_id','data_location_id')
+      AND (jsonb_typeof(e.value)<>'string' OR e.value#>>'{}' !~ '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'))
     OR p_expected IS NULL OR p_expected<0 OR p_expected>9007199254740991
     OR (payload->>'operation_id')::uuid IS NULL
     OR (p_request->>'expected_revision')::bigint IS DISTINCT FROM p_expected

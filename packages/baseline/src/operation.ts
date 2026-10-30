@@ -1,7 +1,7 @@
 import { mkdir, readdir } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
 import { join } from 'node:path';
-import { context, stateAt, hash, identity, durable, json, canonical } from './files.ts';
+import { context, stateAt, hash, identity, durable, json, canonical, clusterTree } from './files.ts';
 import { qualify, run } from './native.ts';
 import { manifestHash, systemIdentifier, start, stop, bootstrap, apply, verifyCluster, assertStopped } from './database.ts';
 import { admit } from './types.ts';
@@ -63,10 +63,12 @@ export async function execute(input: unknown, configuration: unknown, checkpoint
         `--pwfile=${join(environment.secrets_path, 'euclas_bootstrap.password')}`, '--auth-local=scram-sha-256',
         '--auth-host=reject', '--no-locale', '--encoding=UTF8', '--data-checksums']);
     }
+    await clusterTree(staging);
     current.cluster_system_identifier = systemIdentifier(environment);
     checkpoint('after_initdb');
     await save('database_initialized', 3);
   }
+  await clusterTree(staging);
   if (!current.cluster_system_identifier || systemIdentifier(environment) !== current.cluster_system_identifier) throw new Error('cluster_mismatch');
   if (!current.receipt) {
     if (!current.journal.receipt_id) throw new Error('missing_receipt_intent');
@@ -83,6 +85,9 @@ export async function execute(input: unknown, configuration: unknown, checkpoint
   try {
     await bootstrap(environment, current, authority);
     await context(input, configuration);
+    if (current.journal.generation >= 4) {
+      if (canonical(await verifyCluster(environment, current)) !== canonical(current.receipt)) throw new Error('sql_receipt_mismatch');
+    }
     checkpoint('before_sql_commit');
     const result = apply(environment, current);
     if (canonical(result) !== canonical(current.receipt)) throw new Error('sql_receipt_mismatch');
@@ -90,6 +95,7 @@ export async function execute(input: unknown, configuration: unknown, checkpoint
     if (current.journal.generation < 4) await save('schema_applied', 4);
     const verified = await verifyCluster(environment, current);
     if (canonical(verified) !== canonical(current.receipt)) throw new Error('sql_receipt_mismatch');
+    await clusterTree(staging);
     const markerPath = join(environment.root_path, 'installation.json');
     const entries = await readdir(environment.root_path);
     await context(input, configuration);

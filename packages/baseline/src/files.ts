@@ -16,6 +16,7 @@ export function canonical(value: unknown): string {
 }
 
 export async function directory(path: string) {
+  // shortcut: pathname checks trust the same-user harness; qualify descriptor-relative native access in F02.
   if (resolve(path) !== path || await realpath(path) !== path) throw new Error('unsafe_path');
   let part = parse(path).root;
   for (const name of path.slice(part.length).split('/')) {
@@ -30,6 +31,23 @@ export async function directory(path: string) {
 export async function identity(path: string, location: string) {
   const info = await directory(path);
   return hash(JSON.stringify([await realpath(path), info.dev, info.ino, location]));
+}
+
+export async function clusterTree(root: string) {
+  let count = 0;
+  let size = 0;
+  const visit = async (path: string): Promise<void> => {
+    const info = await lstat(path);
+    count++;
+    size += info.size;
+    if (count > 4096 || size > 536870912 || info.uid !== process.getuid?.() || (info.mode & 0o077) !== 0 ||
+      (!info.isDirectory() && (!info.isFile() || info.nlink !== 1))) throw new Error('unsafe_cluster_tree');
+    if (info.isDirectory()) {
+      if (await realpath(path) !== path) throw new Error('unsafe_cluster_tree');
+      for (const name of await readdir(path)) await visit(join(path, name));
+    }
+  };
+  await visit(root);
 }
 
 export async function privateBytes(path: string) {

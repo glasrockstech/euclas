@@ -1,6 +1,7 @@
 import { fstatSync, lstatSync, writeSync } from 'node:fs';
 import { execute } from './operation.ts';
 import { admit } from './types.ts';
+import { retainNativeLock } from './native.ts';
 
 try {
   let input = '';
@@ -19,6 +20,7 @@ try {
   const lock = fstatSync(3);
   const target = lstatSync(environment.lock_path);
   if (!lock.isFile() || lock.ino !== target.ino || lock.dev !== target.dev) throw new Error('missing_lock');
+  retainNativeLock();
   const receipt = await execute(request, environment, name => {
     if (name === cut) {
       writeSync(1, `${JSON.stringify(cut)}\n`);
