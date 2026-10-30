@@ -1,12 +1,12 @@
 # F01a development launch packet
 
-Prepared: 2026-10-30. Status: local development-environment/F01a scope authorized by the founder; execution in progress. [plan.md](plan.md) remains the single dependency plan. This packet expands only F01a and the local Git prerequisite for worktrees. Actual authority belongs to [progress.md](progress.md); a prompt, candidate version or task card cannot grant it. The founder's subsequent full environment permission permits evidence-backed reversible tool/version corrections; qualify and record exact replacements before installation rather than request repeated approval.
+Prepared: 2026-10-30. Status: F01a accepted and integrated locally after independent review and main-checkout reproduction. [plan.md](plan.md) remains the single dependency plan; its next bounded slice is F01b. This record preserves F01a scope/qualification, not a request to rebuild it. Actual authority belongs to [progress.md](progress.md). The founder's full environment permission permits evidence-backed reversible tool/version corrections within scope, without repeated approval.
 
 ## Outcome and boundary
 
 Qualify offline canonical contract resolution/validation and reproducible generated TypeScript exports in the smallest workspace. The first acceptance is a working contract consumer and meaningful negative checks, not an Electron window or a real Account/provider.
 
-F00 document correction is closed. F01a is implemented on its isolated branch and undergoing independent review; F01 is not complete until separately authorized F01b database qualification also passes. No downstream task starts automatically.
+F00 document correction and F01a are closed at their respective document/tooling levels. F01 remains incomplete until F01b database qualification passes under its applicable runtime scope. No downstream task starts automatically.
 
 ## Host preflight actually observed
 
@@ -18,7 +18,7 @@ F00 document correction is closed. F01a is implemented on its isolated branch an
 | pnpm / just | mise shims exist, but `mise which pnpm` and `mise which just` both returned exit 1: not active |
 | Orca | CLI 1.4.245; version-matched CLI/orchestration guides readable; prior successful current-workspace query reported empty branch/head |
 
-No dependency artifact, transitive license/script inventory, binary checksum, installer or full tool combination was qualified. Existing host Node can be reused if its pinned tuple passes; do not reinstall or change global defaults merely because the packet exists.
+At that pre-installation checkpoint no dependency artifact/inventory/full tuple was qualified. Subsequent artifact/script/strict-tool qualification and main reproduction are recorded in [implementation evidence](f01a-evidence.md) and progress. Existing pinned Node was reused; no global defaults changed.
 
 ## Exact candidate tuple
 
@@ -88,9 +88,9 @@ Resolve the workspace lockfile with lifecycle scripts disabled, inspect resolved
 
 Cleanup is limited to newly created task-owned staging/cache/build files; preserve source, lockfile, failed evidence and uncommitted changes. Keep accepted worktrees until integration is verified. A partial install is not a completed environment; do not delete unknown paths or other projects.
 
-## Planned command entry points — all not_run
+## Qualified command entry points
 
-Create these scripts only as their behavior becomes implemented. `pnpm` below denotes the verified task-local executable, not the currently inactive mise shim. Initial lock resolution and subsequent frozen install are distinct steps.
+These scripts now exist and passed in both the isolated worktree and main. `<qualified-local-pnpm>` below denotes the verified native executable with the isolated configuration prefix in [the package guide](../packages/contracts/README.md), not the inactive mise shim. Initial lock resolution and subsequent frozen installation remain distinct; use the committed lockfile for reproduction.
 
 ```text
 rtk proxy <qualified-local-pnpm> install --lockfile-only --ignore-scripts
@@ -115,7 +115,7 @@ Use Orca's version-matched CLI with explicit workspace, branch and accepted base
 
 The coordinator can supervise worker ownership/status through Orca after launch. Prepare tasks against exact inputs before starting agents; folder workspace support does not grant Git or implementation authority. One writer plus one reviewer is sufficient for F01a. Add two writing lanes only at the ready points in the existing plan.
 
-The coordinator remains in this session. A fresh F01a structured implementer session is already running in the isolated Orca worktree recorded in progress; the founder need not manually recreate context. The independent reviewers receive fresh contexts and exact source after the writer freezes its final head.
+F01a implementer, correction and independent reviewer contexts have completed and been released, with transcripts captured and the worktree retained. The coordinator remains in this session. For the next selected slice, use the updated handoff in prompts; the founder need not manually recreate every agent context.
 
 ## Approval scope and stop
 

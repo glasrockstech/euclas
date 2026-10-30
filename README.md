@@ -2,7 +2,7 @@
 
 Euclas 是讓一般人透過持續性的數位人建立與運作組織的產品，適用公司、家庭、個人工作與俱樂部。開發者可深入使用程式、Git 與 Terminal；一般使用者不必理解這些工具。
 
-本專案從乾淨設計基線起步，保留現行設計、宣告式介面規格、驗收要求、品牌資產與開發指引。目前已建立本機 Git 與 Orca 隔離工作樹，正在修正及審查 F01a 契約工具環境；產品應用與產品 runtime 驗收尚未開始。
+本專案從乾淨設計基線起步，保留現行設計、宣告式介面規格、驗收要求、品牌資產與開發指引。F01a 契約工具環境已通過獨立審查並整合至本機 main；產品應用與產品 runtime 驗收尚未開始。
 
 ## 開始閱讀
 
@@ -12,11 +12,11 @@ Euclas 是讓一般人透過持續性的數位人建立與運作組織的產品�
 4. [開發方法](development/methodology.md)、[交付計畫](development/plan.md)與[目前狀態](development/progress.md)。
 5. 在這個目錄開新 session，使用[啟動 prompt](development/prompts.md)。新 session 不需要舊對話或另一個專案目錄。
 
-查看[開發進度總覽](development/overview.zh-TW.md)的完整任務與實際驗收比例；開始 F01a 前閱讀[啟動範圍與關卡](development/launch.md)。比例是有證據的節點／情境計數，不是產品完成或工時估算。
+查看[開發進度總覽](development/overview.zh-TW.md)的完整任務與實際驗收比例；[F01a 環境紀錄](development/launch.md)保留啟動範圍與關卡。比例是有證據的節點／情境計數，不是產品完成或工時估算。
 
 ## 現在能做什麼
 
-目前可閱讀文件及查看進度。F01a 分支已有鎖定工具鏈、契約生成、測試與 build 入口，尚待審查修正及整合到主工作區；可用命令以 [progress](development/progress.md) 的實際來源與檢查證據為準。產品尚不能啟動，沒有產品 `dev` 或 `setup` 命令。
+目前可在本目錄執行 `contracts:generate`、`contracts:check`、`typecheck`、`lint`、`test` 與 `build`：使用已驗證的 `.tools/pnpm/pnpm` 及[套件指南](packages/contracts/README.md)列出的隔離設定前綴。主工作區已實際通過全部入口、11個測試與 built package smoke；[實作證據](development/f01a-evidence.md)及[獨立審查](development/f01a-review.md)記錄限制。產品尚不能啟動，沒有產品 `dev` 或 `setup` 命令。
 
 技術方向：TypeScript、Node.js LTS、pnpm workspace、`just`；Electron 桌面及獨立 Supervisor；React Native／Expo 原生手機；PostgreSQL 為業務狀態權威。精確版本與原生組合須實測後鎖定，未選用 Expo 託管建置／推播服務。
 
@@ -24,7 +24,8 @@ Euclas 是讓一般人透過持續性的數位人建立與運作組織的產品�
 
 - `design/`：現行規格、需求索引、宣告式契約、驗收及品牌 SVG／tokens。
 - `development/`：方法、任務依賴、測試策略、狀態與接手指引。
-- `packages/contracts/` 與根工具鏈已在 F01a 分支建立，主工作區待整合；尚無產品應用、業務執行資料、憑證、模型或資料庫。
+- `packages/contracts/` 與根工具鏈：離線 canonical 驗證、生成型別、嚴格檢查及測試。
+- `.tools/`、`node_modules/` 與 build 輸出為本機忽略資料；尚無產品應用、業務執行資料、憑證、模型或資料庫。
 
 原始依據是創辦人已確認的產品規劃與介面設計，經整併形成獨立基準；不包含原有實作、Git 歷史、過期方案或舊交付證據。文件中的規則與情境描述預期行為，不表示已實現。
 

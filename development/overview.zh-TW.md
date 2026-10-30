@@ -1,34 +1,34 @@
 # Euclas 開發進度總覽
 
-更新：2026-10-30 17:36 Europe/Berlin。這是依 [plan.md](plan.md)、[progress.md](progress.md)、[驗收情境](../design/acceptance/scenarios.json)與[情境歸屬](scenario-owners.json)整理的進度檔，由協調者在實際關卡完成時更新；沒有背景自動監控。任務依賴以 plan 為準，實際授權與證據以 progress 為準。
+更新：2026-10-30 17:45 Europe/Berlin。這是依 [plan.md](plan.md)、[progress.md](progress.md)、[驗收情境](../design/acceptance/scenarios.json)與[情境歸屬](scenario-owners.json)整理的進度檔，由協調者在實際關卡完成時更新；沒有背景自動監控。任務依賴以 plan 為準，實際授權與證據以 progress 為準。
 
 ## 現況
 
 | 指標 | 已完成／總數 | 比例 | 計算意義 |
 |---|---:|---:|---|
 | 計畫節點關閉 | 1／28 | 3.6% | 等權計數；只有 F00 文件修正關閉，並非產品完成或工時比例 |
-| 實作節點關閉 | 0／27 | 0% | 排除文件節點 F00；F01a 子切片進行中，尚無整個實作節點關閉 |
+| 實作節點關閉 | 0／27 | 0% | F01a 子切片已接受；F01 仍待 F01b，尚無整個實作節點關閉 |
 | 首版實際驗收通過 | 0／101 | 0% | R1 情境；全部 not_run |
 | Roadmap 情境通過 | 0／17 | 0% | 另外列示，不混入首版分母 |
 
 不估算整體產品完成百分比、剩餘工時或交付日期。F01a／F01b 是 F01 子切片，不重複加入節點分母。任務新增、拆分或範圍改變時，記錄日期、原因及新分母；失敗、受阻或進行中不算通過。已驗收項目若被後續變更破壞，重新開啟並更新比例。
 
-**目前階段：已授權建立開發環境，F01a 審查中。** [啟動範圍與關卡](launch.md)列出工具、檔案、檢查、授權及停止條件。隔離分支已有契約測試入口，主工作區尚待整合；產品尚不能啟動。
+**目前階段：F01a 工具環境已接受並整合 main。** [啟動紀錄](launch.md)、[實作證據](f01a-evidence.md)與[獨立審查](f01a-review.md)保留工具／檢查／限制。主工作區已有契約測試與 build 入口；產品尚不能啟動。下一個切片是 F01b 準備，依 plan／progress 選擇適用範圍，不重做 F01a。
 
-## 開發環境準備
+## F01a 開發環境準備
 
 這六項是本輪環境工作清單，並非額外產品節點；各項等權，完成須有實際證據。使用者已明確授權完整環境準備；一般可逆細節由代理自主處理。
 
-**環境關卡完成：5／6＝83.3%。** 兩項問題已在 309c0bb 修正並通過正式檢查；E5 重新關閉，E6 精確新來源複審／主工作區重現仍在進行。
+**本輪環境關卡完成：6／6＝100%。** 這是 F01a 工具環境的六項清單，並非所有未來平台／資料庫環境或產品完成率。
 
 | 關卡 | 完成條件 | 狀態 |
 |---|---|---|
 | E1 | 授權、忽略規則與本機 Git 乾淨基線提交 | 完成：f14be410a5ef50d5ccd1da984b294715a1a7b808；無遠端、無 active hooks |
 | E2 | Orca 隔離分支／工作樹與唯一實作者 session | 完成：codex/f01a-contracts；Orca 已確認 prompt accepted／turn observed |
-| E3 | 精確工具與依賴隔離安裝、lockfile／腳本查核 | 完成：pnpm12.16.1 artifact SHA-512；145 個鎖定版本預查；frozen install、scripts disabled |
+| E3 | 精確工具與依賴隔離安裝、lockfile／腳本查核 | 完成：pnpm12.16.1 artifact SHA-512；最終118版本盤點；main frozen install103個套件、scripts disabled |
 | E4 | Canonical offline resolver／validator 正負驗證 | 完成：622 根離線編譯；條件、F00、命令形狀正負例通過；實際 DB／OS／provider 行為仍未測 |
 | E5 | 共享型別生成、freshness、build／typecheck／lint／test | 完成：獨立副本測試與 Work built consumer 回歸、11／11 tests、全部正式檢查通過 |
-| E6 | 精確來源獨立審查、必要修正與本機整合驗證 | 兩位新 reviewer 複審凍結 309c0bb；待結果與 main 重現，尚未整合 |
+| E6 | 精確來源獨立審查、必要修正與本機整合驗證 | 完成：Standards／Spec PASS；main 全部入口／11測試／公開 ESM smoke 通過；合併 8a9b43a |
 
 ## 第一個桌面完整成果
 
@@ -37,7 +37,7 @@
 | 節點 | 交付內容 | 狀態／目前前提 |
 |---|---|---|
 | F00 | 介面與 D01–D07 修正 | 文件層級已關閉；不代表 validator 或 runtime 合格 |
-| F01 | 工具鏈、共享契約、乾淨資料庫基線 | F01a 環境建立中；F01b 尚未開始且另有 runtime 授權／驗收 |
+| F01 | 工具鏈、共享契約、乾淨資料庫基線 | F01a 已接受；F01b 未開始，整個 F01 尚未關閉 |
 | F02 | Electron／獨立 Supervisor 與原生啟停 | 未開始；依賴 F01 |
 | F03 | 正式 Account 身分證明 | 未開始；依賴 F01 |
 | F04 | 本地 owner／裝置／session admission | 未開始；依賴 F02、F03 |
@@ -76,10 +76,10 @@
 
 ## 代理、工作樹與 session
 
-- F01a 實作者已提交 927e99b、工作樹乾淨，Orca 已確認結算並釋放該代理；保留來源／工作樹／證據。
-- 初審與修正作者皆已完成並釋放；兩位新 reviewer 正複審 309c0bb。協調者維護狀態，通過後才整合。
+- 實作者、修正作者與兩輪 reviewer 均已完成並釋放，保留來源／工作樹／證據；最終來源 309c0bb 經 Standards／Spec PASS，已本機整合至 main。
+- 主工作區 `/Volumes/data/glasrocks/products/euclas` 已獨立 frozen 安裝與重現全部正式入口；22個實作檔與審查來源逐位元組相同。
 - 工作樹：`/Users/ckuo/orca/workspaces/euclas/f01a-contracts`；分支：`codex/f01a-contracts`；基底：`f14be410a5ef50d5ccd1da984b294715a1a7b808`。保留 Orca 預設位置，未改全域設定。共同契約、lockfile、migration 與 progress 保持單一作者。
-- Session：你繼續使用目前協調對話即可；實作者的新 session 已由我建立，不需要你另外操作。
+- Session：你可以繼續目前協調對話；本輪代理已結束。下一個實作切片建議使用新的作者 context，由協調者按適用授權安排，不需要你手動建立每位代理。
 - 每次里程碑回報均包含：成果、進度分子／分母、檢查與限制、下一步，以及「Session：繼續／建議新開／必須新開」與原因。[Session 規則與接手 prompt](prompts.md#session-policy)。
 
 ## 更新責任

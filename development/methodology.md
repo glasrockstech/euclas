@@ -26,6 +26,6 @@ Batch human-only prerequisites per milestone (test devices, consented source, pr
 
 ## Toolchain and environment
 
-Direction: TypeScript strict on pinned compatible Node LTS/pnpm, workspaces behind just; PostgreSQL business data; Electron and React Native/Expo. Exact pins/framework/native tooling must be selected from current official sources and qualified for the first task. A future installation proposal states exact versions, license, scripts/downloads/resources, commands, cleanup and cost. No tool or dependency has been installed here.
+Direction: TypeScript strict on pinned compatible Node LTS/pnpm, workspaces behind just when real recipes exist; PostgreSQL business data; Electron and React Native/Expo. F01a's exact contract toolchain is qualified and installed locally; see progress and the package guide for actual commands/results. Other framework/native tools remain unqualified. Each later installation scope states exact versions, license, scripts/downloads/resources, commands, cleanup and cost; installed availability alone never qualifies a different tuple.
 
 Implement small reproducible setup/dev/check/test/build commands as needed; document their actual behavior. Do not list commands as runnable before they exist. Future CI uses declared OS/module matrices, deterministic contract generation and focused test gates; included quota/no added spend unless authorized. CI/build results are not native packaging or real-user acceptance.

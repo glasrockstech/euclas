@@ -1,6 +1,6 @@
 # Fresh delivery plan
 
-This is the current dependency plan for new implementation. All product tasks are planned and all runtime acceptance is `not_run`. A published schema or assembled document package is not a completed app, DB or provider integration. Read [progress](progress.md) for actual authority before mutations.
+This is the current dependency plan. F00 document correction and the F01a tooling sub-slice are accepted; F01 remains incomplete pending F01b, and all product runtime acceptance is `not_run`. A schema/toolchain is not a completed app, DB or provider integration. Read [progress](progress.md) for actual authority before mutations.
 
 ## First outcome and execution order
 
@@ -10,7 +10,7 @@ Task dependencies below are completion prerequisites, not authorization. CP1–C
 
 | Task | Depends | Required outcome |
 |---|---|---|
-| F00 Interface readiness | — | Close D01–D07 in canonical owners: offline schema identities, Result/evidence order, complete runtime states, one retry policy, Desktop coalescing, clean-baseline authority and explicit first-slice packet/distribution prerequisites. Static closure and independent review only; F01a resolver/tool equivalence remains unexecuted |
+| F00 Interface readiness | — | Close D01–D07 in canonical owners: offline schema identities, Result/evidence order, complete runtime states, one retry policy, Desktop coalescing, clean-baseline authority and explicit first-slice packet/distribution prerequisites. F00 is static closure only; subsequent F01a resolver/tool qualification has its separate actual evidence |
 | F01 Workspace and clean baseline | F00 | Generated shared contracts compile and validate equivalently; exact qualified toolchain; fresh isolated baseline refuses unknown/nonempty targets, restricts roles and journals initialization. Split F01a/F01b below |
 | F02 Visible app-bound host | F01 | Actual Electron/Supervisor private runtime/readiness and one controller; manual quit/duplicate launch/sleep/failures cannot leave an authorized hidden dispatcher |
 | F03 Actual Account proof | F01 | Email-code stable identity, standard device-bound exchange, bounded attempts/replay/race/recovery/offline controls; real delivery separately consented |
@@ -52,15 +52,15 @@ R08 mobile base does not depend on completed plugins; R09 integrates against set
 
 F05 cannot start until its bootstrap/grant and supplied-source packets are published and independently reviewed with allowed/denied/stale/identical/conflicting/crash acceptance. F06a cannot treat an Artifact projection as source admission; isolated storage evidence is distinct from the integrated producing-Run proof required again in F08/F09. F10 consumes the Mac distribution subset of R02 early; R02 still owns full macOS/Windows release distribution and R12 rechecks it. These requirements add no cyclic package dependencies.
 
-## Next bounded implementation proposal: F01a only
+## Accepted F01a; next bounded slice F01b
 
-The concrete [F01a launch packet](launch.md) expands this slice's candidate pins, writable areas, qualification checks, local Git/worktree prerequisite and approval boundary. It does not alter this dependency plan. The founder-facing [progress overview](overview.zh-TW.md) reports evidence-backed node/scenario counts separately from effort or product completion estimates.
+F01a is implemented and integrated locally after exact-source Standards/Spec review and main-checkout reproduction. [Implementation evidence](f01a-evidence.md), [review receipt](f01a-review.md) and [progress](progress.md) own actual pins/source/checks/limits. The [launch record](launch.md) preserves scope and qualification rationale; [overview](overview.zh-TW.md) reports node/scenario/environment counts, not effort estimates. Do not restart F01a as fresh work in a new session.
 
-This is prepared for the next user decision, not current authorization. In the new root implement only the smallest coherent workspace/toolchain and generated shared-contract type/validation entry, with focused equivalence/freshness tests. Proposed paths: root workspace/build/check configuration, a `packages/contracts/` public entry and narrowly scoped generation/tests. Create only files/dependencies required for that behavior. No copy of old source, validators, tests, manifests or lockfiles.
+Next prepare F01b's bounded clean PostgreSQL/init/roles slice. Qualify an exact native PostgreSQL/tool tuple and redistribution/installation needs from official sources; name fresh owned disposable data paths, ports/processes, restricted owner/migration/application/storage/verifier roles, resource limits, cleanup and stop conditions before runtime. Define refusal of unknown/nonempty targets, initialization journal/staging/publication cuts and success/denied/stale/duplicate/crash acceptance. Reuse this repository's accepted contracts/toolchain; never import another project's source/history/test data.
 
-Select a compatible exact Node LTS/pnpm/TypeScript and maintained canonical-schema validator/generator toolchain (Zod only if generated equivalence is proven) from official sources; write precise install/resource/script scope before any installation. Check available machine tools read-only; existing availability is not a compatibility claim. Qualify the offline resource registry and actual 2020-12/OpenAPI resolver, including cross-file/self-reference positive/negative cases, before generation. Once approved, lint/build/typecheck and permitted/denied/stale/duplicate fixture checks must run on the exact pinned tools. No JWT authenticity, DB/native or product runtime claim from a shape validator.
+F01b runtime begins only under its applicable scope recorded in progress. Current F01a acceptance does not qualify SQL/RLS, initialization durability, JWT authenticity, native peer identity or provider entitlement. Do not broaden a clean baseline into full business-schema implementation. Publish any required interface gap before consumers and independently review security/recovery/exact final source before integration.
 
-F01a excludes DB/VM/Electron/engine/provider processes, real accounts/Email/model calls, credentials, data reset, signing/release, billing and remote Git actions. Independent review covers the exact final source/diff. Stop after generated shared exports and focused checks; then propose F01b clean SQL/init/roles and owned disposable DB crash tests with explicit runtime authority. F02 and Q lanes do not start automatically.
+F02 and Q lanes still wait for their declared prerequisites and authority. No real accounts/Email/model/provider calls, existing data reset, signing/release, billing or remote Git operation follows automatically from this local environment milestone.
 
 ## Human prerequisites
 

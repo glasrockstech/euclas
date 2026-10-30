@@ -14,7 +14,7 @@ For current overall progress read [overview.zh-TW.md](overview.zh-TW.md). Report
 
 ## F01a launch handoff
 
-Use after the concrete scope in [launch.md](launch.md) has been reviewed. This prompt itself grants no installation, Git or implementation authority.
+F01a is already accepted on main. Use this only for an explicitly selected reproduction/repair task, not as the default next development launch. The [launch record](launch.md) and progress own its actual source/scope. This prompt grants no new authority.
 
 ```text
 工作目錄：/Volumes/data/glasrocks/products/euclas
@@ -36,13 +36,13 @@ Use after the concrete scope in [launch.md](launch.md) has been reviewed. This p
 先讀 README.md、AGENTS.md、CONTEXT.md、design/README.md、development/progress.md，再讀 design/overview.zh-TW.md、design/decisions.md、development/methodology.md 與 development/plan.md。
 按選定任務讀 requirements.json 指到的 GR 段落、相關驗收情境、security 與契約；不要一次載入全部需求，也不要重新訪談已定案的產品／框架方向。
 
-這裡只有現行設計與開發指引，沒有舊碼或 Git 歷史。不得從其他目錄匯入舊程式、測試、工具或進度證據，也不能依賴舊聊天。所有產品功能及 runtime 驗收從未實作／未執行開始。
+這個 repository 已有乾淨本機 Git、F01a 工具鏈／共享契約及其實際測試與審查證據；可重用本 repo 及授權 worktree 的現行來源，不從其他專案匯入舊程式、測試、工具或進度。產品 runtime 情境仍全部 not_run，不能把 F01a schema/tool 檢查當產品驗收。
 
 保留第一個完整切片：桌面登入→持續性助理接任務→實際合格執行→產生持久文件→正式驗證／真人確認→重開讀回同一版本。完整首版的 Windows、真人、原生手機、Plugin、聊天、雙 harness／本地雲端資格及長工作更新都保留。
 
-先核對本機現況與 progress 授權，直接處理 plan.md 的 F01a，不重做整份規劃。若尚未有實作／安裝權限，交付一份具體而小的 F01a 範圍：要建立的檔案、相容精確工具版本、必要下載／資源、測試、停止條件與一個授權問題。若我另已明確授權該範圍，完成它、跑檢查並做獨立審查，不再重問相同權限。
+先核對本機現況與 progress 授權，按 plan.md 接續下一個 dependency-ready 切片；目前是 F01b 的最小乾淨 SQL/init/roles 與 disposable DB 資格準備。不要重做已接受的 F01a 或整份規劃。已有授權不重問；先完成可逆、唯讀的版本／資源／介面／驗收準備，實際操作遵守 progress 的適用範圍，只有確實需要使用者介入才提出一個具體問題。
 
-一個共享區域一個 writer。遵守安全、恢復、allowed/denied/stale/duplicate/crash 驗收；不降低測試、不捏造完成、不自動接續 DB／Electron／供應商實驗。額外支出0，不讀憑證、不對外呼叫或做 Git發布／整合，除非另有對應明確授權。更新 progress，並用繁中說明實際成果與仍未驗證的部分。
+一個共享區域一個 writer。遵守安全、恢復、allowed/denied/stale/duplicate/crash 驗收；不降低測試、不捏造完成。既有本機環境與 Git 權限依 progress 延用；DB／Electron／供應商實驗、對外帳號動作與發布各依實際 scope，不因模板存在而開始。額外支出0，不讀憑證。更新 progress 與 overview 的實際比例，並用繁中說明成果／限制及 Session：繼續、建議新開或必須新開，附交接理由與路徑。
 ```
 
 ## Authorized implementation continuation
