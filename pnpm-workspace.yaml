@@ -6,3 +6,5 @@ storeDir: .tools/pnpm-store
 cacheDir: .tools/pnpm-cache
 registry: https://registry.npmjs.org/
 engineStrict: true
+overrides:
+  json-schema-to-typescript>@apidevtools/json-schema-ref-parser: 16.0.5

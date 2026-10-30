@@ -26,6 +26,7 @@ await test('offline registry resolves active IDs, cross/self refs and ref siblin
     assert.equal(registry.validate('https://example.invalid/root.json', value).valid, false);
   }
   assert.throws(() => registry.validate('https://unknown.invalid/missing.json', {}), /Unknown/);
+  assert.throws(() => registry.validate('https://json-schema.org/draft/2020-12/schema', {}), /Unknown/);
   assert.throws(() => createRegistry([{ id: 'https://example.invalid/bad.json', document: { $ref: 'https://unknown.invalid/missing.json' } }]), /resolve|Unknown/);
 });
 
@@ -40,6 +41,8 @@ await test('all canonical Schema Object roots compile offline; OpenAPI and lifec
   assert.throws(() => createRegistry([{ id: 'https://example.invalid/old', document: { $schema: 'http://json-schema.org/draft-07/schema#' } }]), /dialect/);
   assert.throws(() => createRegistry([{ id: 'https://example.invalid/typo', document: { type: 'string', maxLenght: 3 } }]), /unknown keyword/);
   assert.throws(() => createRegistry([{ id: 'https://example.invalid/oas', document: { openapi: '3.0.3' } }]), /dialect/);
+  assert.throws(() => createRegistry([{ id: 'https://example.invalid/async', document: { $async: true, type: 'string' } }]), /keyword/);
+  assert.throws(() => createRegistry([{ id: 'https://example.invalid/oas', document: { openapi: '3.1.0', components: { schemas: { Old: { type: 'string', nullable: true } } } } }]), /keyword/);
 });
 
 await test('OpenAPI 3.1 Schema Objects keep ref siblings, composition, exclusive alternatives and formats', () => {
@@ -60,4 +63,8 @@ await test('OpenAPI 3.1 Schema Objects keep ref siblings, composition, exclusive
   assert.equal(valid('Time', '2026-13-90T00:00:00Z'), false);
   assert.equal(valid('Closed', { code: 'ok' }), true);
   assert.equal(valid('Closed', { code: 'ok', extra: true }), false);
+  assert.equal(valid('Closed', new Date()), false);
+  const cyclic: { code: string; next?: unknown } = { code: 'ok' };
+  cyclic.next = cyclic;
+  assert.equal(valid('Closed', cyclic), false);
 });

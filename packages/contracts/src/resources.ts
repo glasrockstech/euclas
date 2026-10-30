@@ -4,6 +4,29 @@ import type { Json, JsonObject, ResourceInput } from './registry.ts';
 export const namespace = 'https://schemas.euclas.invalid/contracts/';
 export const dialect = 'https://json-schema.org/draft/2020-12/schema';
 export const escapePointer = (text: string): string => text.replaceAll('~', '~0').replaceAll('/', '~1');
+const schemaMaps = new Set(['properties', 'patternProperties', '$defs', 'definitions', 'dependentSchemas']);
+const schemaArrays = new Set(['allOf', 'anyOf', 'oneOf', 'prefixItems']);
+const schemaValues = new Set(['items', 'additionalProperties', 'unevaluatedProperties', 'contains',
+  'propertyNames', 'not', 'if', 'then', 'else', 'unevaluatedItems']);
+const supportedKeywords = new Set([
+  '$id', '$schema', '$ref', '$comment', 'title', 'description', 'default', 'examples', 'deprecated',
+  'readOnly', 'writeOnly', 'type', 'const', 'enum', 'required', 'format', 'pattern',
+  'minimum', 'maximum', 'exclusiveMinimum', 'exclusiveMaximum', 'multipleOf',
+  'minLength', 'maxLength', 'minItems', 'maxItems', 'uniqueItems', 'minContains', 'maxContains',
+  'minProperties', 'maxProperties', 'dependentRequired', ...schemaMaps, ...schemaArrays, ...schemaValues,
+]);
+
+export function assertSupportedSchema(schema: Json): void {
+  if (typeof schema === 'boolean') return;
+  if (!isObject(schema)) throw new Error('Expected Schema Object or boolean');
+  if (schema.$schema !== undefined && schema.$schema !== dialect) throw new Error('Unsupported schema dialect');
+  for (const [key, value] of Object.entries(schema)) {
+    if (!supportedKeywords.has(key)) throw new Error(`Unsupported or unknown keyword: ${key}`);
+    if (schemaMaps.has(key) && isObject(value)) Object.values(value).forEach(assertSupportedSchema);
+    else if (schemaArrays.has(key) && Array.isArray(value)) value.forEach(assertSupportedSchema);
+    else if (schemaValues.has(key)) assertSupportedSchema(value);
+  }
+}
 
 export function schemaRoots({ id, document }: ResourceInput): string[] {
   if (!isObject(document)) throw new Error(`Expected JSON object: ${id}`);
@@ -36,8 +59,10 @@ export function pointerValue(document: Json, pointer: string): Json {
   if (!pointer.startsWith('/')) throw new Error(`Unsupported fragment: ${pointer}`);
   let value = document;
   for (const token of pointer.slice(1).split('/')) {
+    if (/~(?:[^01]|$)/.test(token)) throw new Error(`Invalid pointer: ${pointer}`);
     const key = token.replaceAll('~1', '/').replaceAll('~0', '~');
-    const next = Array.isArray(value) ? value[Number(key)] : isObject(value) ? value[key] : undefined;
+    const next = Array.isArray(value) && /^(0|[1-9][0-9]*)$/.test(key) ? value[Number(key)] :
+      isObject(value) && Object.hasOwn(value, key) ? value[key] : undefined;
     if (next === undefined) throw new Error(`Unknown pointer: ${pointer}`);
     value = next;
   }
@@ -53,14 +78,16 @@ export function openApiContainer(input: ResourceInput): JsonObject {
     const tokens = pointer.slice(1).split('/').map(token => token.replaceAll('~1', '/').replaceAll('~0', '~'));
     let target = container;
     for (const token of tokens.slice(0, -1)) {
-      target[token] ??= {};
+      if (!Object.hasOwn(target, token)) Object.defineProperty(target, token, { value: {}, enumerable: true, writable: true, configurable: true });
       const child = target[token];
       if (!isObject(child)) throw new Error(`Conflicting Schema Object pointer: ${root}`);
       target = child;
     }
     const last = tokens.at(-1);
     if (last === undefined) throw new Error(`Missing Schema Object pointer: ${root}`);
-    target[last] = pointerValue(input.document, pointer);
+    const schema = pointerValue(input.document, pointer);
+    assertSupportedSchema(schema);
+    Object.defineProperty(target, last, { value: schema, enumerable: true, writable: true, configurable: true });
   }
   return container;
 }
