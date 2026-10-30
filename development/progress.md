@@ -9,8 +9,14 @@
 - 基底 `e8f21ab01b5f1883a7c45cbef581332b2d577cd9`；工作樹 `/Users/ckuo/orca/workspaces/euclas/f02-plan`；唯一作者分支 `codex/f02-plan`。
 - Orca Run `run_965596ce1c6d`; Task `task_8007ecd7668d`; Dispatch `ctx_30ae761d1461`. 作者只改 Markdown；協調者負責來源研究、獨立 read-only reviewers 與最終遠端操作。
 - 允許：本機規劃文件／提交、Orca contexts、唯讀來源／版本及靜態 JSON／連結／owner／diff 檢查。支出0。禁止安裝／build／runtime／package／DB 測試、原生狀態改變、既有 DB／帳號／provider／憑證存取、全域服務、canonical JSON／source／manifest／script 變更與產品啟動；作者不做遠端 mutation。
-- 規劃關卡：P1 授權／工作樹 **PASS**（50539e6 checkpoint）；P2 owners／官方來源與資格限制 **PASS**；P3 封包／切片／矩陣與靜態檢查 **PASS**；P4 精確來源獨立安全／復原審查 **pending**；P5 push／draft PR／交接 **pending**（協調者負責）。目前3／5；這是規劃關卡，非產品驗收。
-- 已接受計數不變：plan2/28=7.1%、implementation1/27=3.7%、R1 0/101、roadmap0/17；F02 runtime `not_run`。本作者 session 繼續規劃／審查；實作須另行明確授權，建議新的作者 context。[Packet](f02.md)／[planning evidence](f02-evidence.md)／[下次 prompt](prompts.md#f02-plan-only-handoff)。
+- 規劃關卡：P1 授權／工作樹 **PASS**（50539e6 checkpoint）；P2 owners／官方來源與資格限制 **PASS**；P3 封包／切片／矩陣與靜態檢查 **PASS**；P4 精確來源獨立安全／復原審查 **PASS**（兩軸0必要發現）；P5 push／draft PR／交接 **pending**（協調者負責）。目前4／5＝80%；這是規劃關卡，非產品驗收。
+- 已接受計數不變：plan2/28=7.1%、implementation1/27=3.7%、R1 0/101、roadmap0/17；F02 runtime `not_run`。本作者 session 保留，僅更新審查／遠端實際收據與同切片交接；實作須另行明確授權，建議新的作者 context。[Packet](f02.md)／[planning evidence](f02-evidence.md)／[下次 prompt](prompts.md#f02-plan-only-handoff)。
+
+## F02 精確來源審查與 metadata checkpoint
+
+技術封包凍結 `7217f24ab1110b48bdb56d532e2645e452487b3f`，base `e8f21ab01b5f1883a7c45cbef581332b2d577cd9`。安全 Task `task_d0a9f15763b8`／Dispatch `ctx_30df725633b8`／收據 `msg_42822bd94422`；復原 Task `task_debdcda1d037`／Dispatch `ctx_f8c5d1407f65`／收據 `msg_51eaa92278d0`，各 PASS、0必要發現。協調者已確認 reviewers 釋放並保留 transcript；兩軸獨立確認精確起訖、7個 Markdown 差異與靜態檢查，沒有 runtime 驗收。完整英文收據見 [evidence](f02-evidence.md#independent-exact-source-review-receipts)。
+
+後續僅更新審查／進度／交接 metadata；`development/f02.md` 技術封包維持逐位元組不變，不能把本次技術審查寫成對尚未存在的原生實作或其他 source 的接受。P5 仍 pending；協調者負責實際驗證遠端、分支 push／draft PR，作者在新的 blocking ask 等待真實收據後才更新 P5。沒有授權 main merge 或實作。
 
 ## Remote repository bootstrap authorization
 

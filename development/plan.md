@@ -69,7 +69,7 @@ This is the sole active task checklist; F02.1–6 refine the existing F02 node, 
 - [x] P1: Record explicit planning authority, exact base/worktree and sole writer; checkpoint `50539e6`.
 - [x] P2: Close normative owner mapping and official source/candidate/OS-API facts with qualification limits.
 - [x] P3: Complete minimum packet, ordered bounded increments, canonical-owner gates and full command/fault matrix; static document checks only.
-- [ ] P4: Freeze exact source and obtain independent security/recovery PASS, fixing/reviewing any changed head.
+- [x] P4: Exact technical head `7217f24ab1110b48bdb56d532e2645e452487b3f` independently reviewed: security PASS and recovery PASS, zero necessary findings; [receipts](f02-evidence.md#independent-exact-source-review-receipts). Later metadata-only commits do not change that technical acceptance scope.
 - [ ] P5: Coordinator verifies actual public remote visibility, pushes only `codex/f02-plan`, creates draft PR and records exact remote head/URL/handoff; no main merge.
 
 Recommended first implementation request: **F02.1 native protected-key TLS qualification**, two owned native peers on a declared Mac candidate tuple, no Electron window/DB/CP5 mutating endpoint/dispatcher. Prove actual nonexportable per-component key use through pinned TLS1.3 mTLS, protected inherited bootstrap/live binary-role binding and real denial/crash/cleanup behavior. Missing entitlement/signing profile, key-to-TLS bridge or same-user isolation blocks the candidate; no PEM/fixture UUID substitute. This experiment requires separate implementation/resource authorization; the candidate APIs are not qualified.

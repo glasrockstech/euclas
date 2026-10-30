@@ -74,11 +74,13 @@ F02 planning worktree: `/Users/ckuo/orca/workspaces/euclas/f02-plan`, branch `co
 Recommended next prompt (a proposal, **not current authorization**):
 
 ```text
-請接續 Euclas F02.1 的原生 protected-key TLS 最小資格增量。沿用已接受 F01a／F01b，先讀規劃分支 development/f02.md、f02-evidence.md、progress.md、plan.md 與 owners；由協調者安排新的唯一作者 context 與精確來源獨立安全／復原審查。
+請開始 Euclas F02.1 原生 protected-key TLS 最小資格增量。以這份 F02 規劃 draft PR 的最終 head（由 development/progress.md 與遠端 PR 收據核對）建立新的 codex/f02.1 分支／Orca 工作樹，不 merge main。先讀 README.md、AGENTS.md、design/README.md、CONTEXT.md、development/progress.md、plan.md、f02.md、f02-evidence.md 及其 owners；沿用已接受 F01a／F01b，由協調者安排新的唯一作者及精確來源獨立安全／復原審查。
 
-先把該增量需要的精確 native API／工具／簽章權限與候選 artifact、來源／授權、下載／儲存／時間／私有 synthetic key namespace／清理邊界及 canonical 前置更新整理成可審閱的最小實作授權範圍；既有 PLAN ONLY 不包含安裝、App／DB 啟動、keychain／signing 操作或產品實作。依我在本次 prompt 另行明確批准的資源與動作執行；尚未批准的動作不做。
+我授權本增量內的唯讀版本／官方來源資格查核、精確版本／來源／授權／artifact／腳本／資源完成資格查核後的專案內必要最小安裝與 native 編譯／測試、兩個 exact-owned 原生 probe、全新專用 synthetic key namespace 的建立／使用／精確清理、真實 pinned TLS1.3 mTLS／拒絕／重播／crash 測試、必要的既有 canonical owner 前置更新及生成等價檢查、Orca 唯一作者／獨立審查與本機 Git。沿用 f02.md 的私有資源／時間／磁碟／記憶體／清理上限，額外支出0。一般可逆範圍內細節自行解決，不重複確認。
 
-核心驗收是兩個 exact-owned 原生 peer 實際使用受保護不可匯出元件金鑰完成 pinned TLS1.3 mTLS、受保護 inherited bootstrap 與 live binary／role 綁定，包含拒絕／重播／crash／清理證據。缺少 entitlement／profile 或 native key-to-TLS 路徑就記錄具體 blocker，不降級成 PEM、fixture UUID、同 UID 或 fake Account／Actor／session／maintenance permit。不啟動 DB、dispatcher、provider 或下一切片，額外支出0。繁中回報實際檢查／限制、分子分母、下一步 prompt 與 Session 建議。
+不讀取／重用／刪除既有 keychain items、身分或 DB；不操作 Apple／GitHub／其他帳號，不改全域 security 設定或 signing 身分；不啟動 Electron 產品、DB、provider、dispatcher 或下一切片，不遠端 push／merge。不因這個增量而取得 Account／Actor／session／maintenance 權限。實際 native key-to-TLS／元件隔離／inherited bootstrap 與 live binary-role 證據缺一不可，不降級成 PEM、fixture UUID 或同 UID 驗證。
+
+若平台在這個既定範圍內無法提供所需 entitlement／profile，先完成其餘安全可逆準備，以具體官方證據及已完成／未執行項目列出真正 blocker；只有需要創辦人處理的外部身分／付費動作才提問，不以未通過 adapter 啟動後續 consumer。完成此增量即交接，繁中回報實際來源／命令／限制、分子分母、下一步可複製 prompt 與 Session 建議。
 ```
 
 Session: **new session recommended** for implementation after its explicit authorization; use the current planning author only for this packet's exact-head review fixes. Preserve branch/source/receipts and pass the actual final reviewed SHA/draft PR URL from progress, never assume the base/checkpoint is the final review head.

@@ -1,6 +1,6 @@
 # Euclas 開發進度總覽
 
-更新：2026-10-30 21:00 Europe/Berlin（F02 規劃分支 freeze checkpoint）。這是依 [plan.md](plan.md)、[progress.md](progress.md)、[驗收情境](../design/acceptance/scenarios.json)與[情境歸屬](scenario-owners.json)整理的進度檔，由協調者在實際關卡完成時更新；沒有背景自動監控。任務依賴以 plan 為準，實際授權與證據以 progress 為準。
+更新：2026-10-30 21:06 Europe/Berlin（F02 技術封包獨立審查 checkpoint）。這是依 [plan.md](plan.md)、[progress.md](progress.md)、[驗收情境](../design/acceptance/scenarios.json)與[情境歸屬](scenario-owners.json)整理的進度檔，由協調者在實際關卡完成時更新；沒有背景自動監控。任務依賴以 plan 為準，實際授權與證據以 progress 為準。
 
 ## 現況
 
@@ -19,17 +19,17 @@
 
 創辦人本輪只授權規劃、唯讀來源／版本查核、獨立安全／復原審查及協調者最終分支 push／draft PR；未授權安裝、啟動或實作。分支 `codex/f02-plan`、工作樹 `/Users/ckuo/orca/workspaces/euclas/f02-plan`、base `e8f21ab01b5f1883a7c45cbef581332b2d577cd9`；在此分支查看 [packet](f02.md)、[evidence](f02-evidence.md)與 [progress](progress.md)，不必先合併 main。
 
-**規劃已完成 3／5 關卡**；不增加上述 2／28、1／27、0／101、0／17，F02 runtime 仍 `not_run`。
+**規劃已完成 4／5＝80% 關卡**；不增加上述 2／28、1／27、0／101、0／17，F02 runtime 仍 `not_run`。
 
 | 關卡 | 完成條件 | 狀態 |
 |---|---|---|
 | P1 | 本輪明確授權、精確 base／工作樹／唯一作者 | PASS：50539e6 已提交授權 checkpoint |
 | P2 | 既有 owners 與官方版本／原生 API 來源及資格限制 | PASS：官方來源／候選版本／原生機制與資格限制已整併 |
 | P3 | 最小首切片、後續順序、命令／狀態／故障矩陣 | PASS：最小首切片、六命令／狀態／故障矩陣及靜態檢查完成 |
-| P4 | 最終精確來源獨立安全／復原審查 | pending：本次提交後凍結，協調者安排精確來源審查 |
+| P4 | 最終精確來源獨立安全／復原審查 | PASS：技術 head7217f24；獨立安全／復原各0必要發現；後續僅 metadata |
 | P5 | 協調者驗證遠端、push 分支／draft PR、交接 | pending：作者不執行遠端操作 |
 
-Session：本作者 context 繼續完成規劃及同切片審查修正；實作建議新 context，且須另行明確授權。下一步建議 prompt 見 [handoff](prompts.md#f02-plan-only-handoff)。
+Session：本作者 context 保留，等待協調者 push／draft PR 真實收據後完成 metadata 交接；實作建議新 context，且須另行明確授權。下一步建議 prompt 見 [handoff](prompts.md#f02-plan-only-handoff)。
 
 ## F01b 資料庫基線
 
