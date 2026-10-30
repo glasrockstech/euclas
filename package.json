@@ -5,12 +5,13 @@
   "packageManager": "pnpm@12.16.1",
   "engines": { "node": "26.13.0", "pnpm": "12.16.1" },
   "scripts": {
-    "build": "tsc -p packages/contracts/tsconfig.build.json",
+    "build": "tsc -p packages/contracts/tsconfig.build.json && node packages/baseline/scripts/build-native.ts && tsc -p packages/baseline/tsconfig.build.json",
     "contracts:generate": "node packages/contracts/scripts/generate.ts",
     "contracts:check": "node packages/contracts/scripts/generate.ts --check",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint packages/contracts --max-warnings 0",
-    "test": "node --test packages/contracts/test/*.test.ts"
+    "lint": "eslint packages/contracts packages/baseline --max-warnings 0",
+    "test": "node node_modules/typescript/bin/tsc -p packages/contracts/tsconfig.build.json && node packages/baseline/scripts/build-native.ts && node --test --test-concurrency=1 packages/contracts/test/*.test.ts packages/baseline/test/*.test.ts",
+    "baseline:test": "node node_modules/typescript/bin/tsc -p packages/contracts/tsconfig.build.json && node packages/baseline/scripts/build-native.ts && node --test --test-concurrency=1 packages/baseline/test/*.test.ts"
   },
   "devDependencies": {
     "@types/node": "26.6.6",

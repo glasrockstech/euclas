@@ -4,7 +4,7 @@ export default tseslint.config(
   { ignores: ['**/dist/**', '**/node_modules/**', '.tools/**'] },
   ...tseslint.configs.strictTypeChecked,
   {
-    files: ['packages/contracts/**/*.ts'],
+    files: ['packages/contracts/**/*.ts', 'packages/baseline/**/*.ts'],
     languageOptions: { parserOptions: { project: './tsconfig.json', tsconfigRootDir: import.meta.dirname } },
     linterOptions: { noInlineConfig: true, reportUnusedDisableDirectives: 'error' },
     rules: {
