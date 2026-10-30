@@ -50,7 +50,7 @@ F01b is accepted at source `ca41da8e7e0fd39ea61a74660cfeba5380c53b7f`, integrate
 
 保留第一個完整切片：桌面登入→持續性助理接任務→實際合格執行→產生持久文件→正式驗證／真人確認→重開讀回同一版本。完整首版的 Windows、真人、原生手機、Plugin、聊天、雙 harness／本地雲端資格及長工作更新都保留。
 
-先核對本機現況與 progress 授權，按 plan.md 接續下一個 dependency-ready 切片；F01 已關閉；F02 只是 dependency-ready，尚未開始或取得實作授權。先核對本輪是否已明確選定並授權新切片；沒有就只作必要唯讀準備並回報，不因模板存在而啟動 runtime。不要重做已接受的 F01a／F01b 或整份規劃。已有授權不重問；先完成可逆、唯讀的版本／資源／介面／驗收準備，實際操作遵守 progress 的適用範圍，只有確實需要使用者介入才提出一個具體問題。
+先核對本機現況與 progress 授權，按 plan.md 接續下一個 dependency-ready 切片；F01 已關閉；F02 目前僅 PLAN ONLY 規劃獲授權；請讀 development/f02.md、f02-evidence.md 與 progress 的規劃分支關卡，尚未取得實作授權。先核對本輪是否已明確選定並授權新切片；沒有就只作必要唯讀準備並回報，不因模板存在而啟動 runtime。不要重做已接受的 F01a／F01b 或整份規劃。已有授權不重問；先完成可逆、唯讀的版本／資源／介面／驗收準備，實際操作遵守 progress 的適用範圍，只有確實需要使用者介入才提出一個具體問題。
 
 一個共享區域一個 writer。遵守安全、恢復、allowed/denied/stale/duplicate/crash 驗收；不降低測試、不捏造完成。既有本機環境與 Git 權限依 progress 延用；DB／Electron／供應商實驗、對外帳號動作與發布各依實際 scope，不因模板存在而開始。額外支出0，不讀憑證。更新 progress 與 overview 的實際比例，並用繁中說明成果／限制及 Session：繼續、建議新開或必須新開，附交接理由與路徑。
 ```
@@ -66,3 +66,19 @@ F01b is accepted at source `ca41da8e7e0fd39ea61a74660cfeba5380c53b7f`, integrate
 ```text
 唯讀審查指定切片／差異及其真實需求、契約、相關程式與檢查證據。找安全、恢復、權限、版本／副作用、需求遺漏與不實完成宣稱。報告可重現問題及精確位置；不修改、不降低驗收、不擴大實作或自行整合。靜態檢查不是產品 runtime 驗收。
 ```
+
+## F02 plan-only handoff
+
+F02 planning worktree: `/Users/ckuo/orca/workspaces/euclas/f02-plan`, branch `codex/f02-plan`, base `e8f21ab01b5f1883a7c45cbef581332b2d577cd9`. Read [packet](f02.md), [planning evidence](f02-evidence.md), [progress](progress.md) and [overview](overview.zh-TW.md) on that branch without requiring a main merge. The coordinator owns exact-head independent security/recovery review, actual remote visibility verification, authorized branch push/draft PR and final remote receipt. Review/PR approval does not grant implementation or main integration.
+
+Recommended next prompt (a proposal, **not current authorization**):
+
+```text
+請接續 Euclas F02.1 的原生 protected-key TLS 最小資格增量。沿用已接受 F01a／F01b，先讀規劃分支 development/f02.md、f02-evidence.md、progress.md、plan.md 與 owners；由協調者安排新的唯一作者 context 與精確來源獨立安全／復原審查。
+
+先把該增量需要的精確 native API／工具／簽章權限與候選 artifact、來源／授權、下載／儲存／時間／私有 synthetic key namespace／清理邊界及 canonical 前置更新整理成可審閱的最小實作授權範圍；既有 PLAN ONLY 不包含安裝、App／DB 啟動、keychain／signing 操作或產品實作。依我在本次 prompt 另行明確批准的資源與動作執行；尚未批准的動作不做。
+
+核心驗收是兩個 exact-owned 原生 peer 實際使用受保護不可匯出元件金鑰完成 pinned TLS1.3 mTLS、受保護 inherited bootstrap 與 live binary／role 綁定，包含拒絕／重播／crash／清理證據。缺少 entitlement／profile 或 native key-to-TLS 路徑就記錄具體 blocker，不降級成 PEM、fixture UUID、同 UID 或 fake Account／Actor／session／maintenance permit。不啟動 DB、dispatcher、provider 或下一切片，額外支出0。繁中回報實際檢查／限制、分子分母、下一步 prompt 與 Session 建議。
+```
+
+Session: **new session recommended** for implementation after its explicit authorization; use the current planning author only for this packet's exact-head review fixes. Preserve branch/source/receipts and pass the actual final reviewed SHA/draft PR URL from progress, never assume the base/checkpoint is the final review head.

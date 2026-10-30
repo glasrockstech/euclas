@@ -34,6 +34,6 @@ Euclas 是讓一般人透過持續性的數位人建立與運作組織的產品�
 
 產品／公司：Euclas／Glasrocks；創辦人負責產品方向及重大範圍、安全、費用與發布決定。完整開源優先、寬鬆授權方向已確認；確切 LICENSE、依賴／素材權利與產品發布仍待確認。原始碼已依創辦人授權同步至 [GitHub](https://github.com/glasrockstech/euclas)，目前為公開 repository，創辦人會另行切換私有；尚未發布產品或承諾維運服務。
 
-已完成授權範圍內的 F01a／F01b，本輪在交接點停止。後續產品切片、真實帳號／Email／模型呼叫與外部操作依 [progress](development/progress.md) 的另行適用授權執行；未自動開始 F02。
+已完成授權範圍內的 F01a／F01b。目前僅在 `codex/f02-plan` 分支規劃 [F02 原生 host 切片](development/f02.md)，包含獨立安全／復原審查及協調者最終 push／draft PR；[規劃證據](development/f02-evidence.md)與 [progress](development/progress.md) 記錄精確來源及限制。未授權 F02 實作、安裝或啟動，產品 runtime 仍 not_run；真實帳號／Email／模型／外部操作各依另行適用授權。
 
 `/Volumes/data` 是主要工作磁碟。Git 歷史已同步 GitHub；工具、測試資料庫及未追蹤資料不在 Git 副本內，尚未建立產品執行狀態的備份／還原能力。

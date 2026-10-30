@@ -60,7 +60,25 @@ F01b reviewed source `ca41da8e7e0fd39ea61a74660cfeba5380c53b7f`, local integrati
 
 This closes the F01 table outcome only. Full business-schema authorization, JWT authenticity, native peer/controller/application lifetime, clean packaged no-developer-tool installation, Windows, provider entitlement and product scenarios remain unqualified. T-PG-NATIVE/PREFLIGHT and R02 are not closed by this developer-built tuple; future upgrades preserve real identities/data and their separate safety obligations.
 
-F02 is now dependency-ready but has not started or gained runtime authority. Stop at the founder's F01b handoff request. A later explicitly selected scope must first bound actual Electron/Supervisor/native resources, interface/peer/lifetime/recovery acceptance and the exact qualification tuple. Q lanes and Account/Email/provider/signing/release/billing/remote Git still require their applicable scope; templates and dependency readiness do not grant it. Recommend a fresh author context for the next slice, arranged by coordinator.
+F02 planning is now explicitly authorized on `codex/f02-plan`, base `e8f21ab01b5f1883a7c45cbef581332b2d577cd9`; no implementation/runtime authority follows. The founder authorized local Markdown planning, read-only source/version checks, independent security/recovery review and coordinator-owned push/draft PR only. See [current progress](progress.md) for exact limits and [packet](f02.md) for enforcing owners, canonical gaps, command/state/fault acceptance and candidate source facts. Q lanes, Account/Email/provider, signing credentials, release, spending and implementation remain separately gated.
+
+### F02 planning and implementation sequence
+
+This is the sole active task checklist; F02.1–6 refine the existing F02 node, adding no top-level node or competing plan. Detailed acceptance and proposed owned areas are in the packet. All implementation/native commands remain `not_run`.
+
+- [x] P1: Record explicit planning authority, exact base/worktree and sole writer; checkpoint `50539e6`.
+- [x] P2: Close normative owner mapping and official source/candidate/OS-API facts with qualification limits.
+- [x] P3: Complete minimum packet, ordered bounded increments, canonical-owner gates and full command/fault matrix; static document checks only.
+- [ ] P4: Freeze exact source and obtain independent security/recovery PASS, fixing/reviewing any changed head.
+- [ ] P5: Coordinator verifies actual public remote visibility, pushes only `codex/f02-plan`, creates draft PR and records exact remote head/URL/handoff; no main merge.
+
+Recommended first implementation request: **F02.1 native protected-key TLS qualification**, two owned native peers on a declared Mac candidate tuple, no Electron window/DB/CP5 mutating endpoint/dispatcher. Prove actual nonexportable per-component key use through pinned TLS1.3 mTLS, protected inherited bootstrap/live binary-role binding and real denial/crash/cleanup behavior. Missing entitlement/signing profile, key-to-TLS bridge or same-user isolation blocks the candidate; no PEM/fixture UUID substitute. This experiment requires separate implementation/resource authorization; the candidate APIs are not qualified.
+
+Ordered later work: F02.2 native Instance lock/current peer/bootstrap/inspect → independent checkpoint A → F02.3 actual visible Electron + separate Supervisor + protected F01b adapter/pre-sign-in diagnosis → F02.4 stop/crash/sleep/response-loss recovery → independent checkpoint B → F02.5 Windows native proof and the same command/fault tests → F02.6 exact-source closure and integration handoff. Resolve canonical gaps in their existing owners before dependent consumers. Keep F01b trusted fixture unchanged until its product adapter is explicitly designed/reviewed; fixture authority is never CP5 authentication.
+
+F02 base exit is native app-bounded pre-sign-in behavior; no fake Account/Actor/session/harness/provider readiness. Prepare/reattach deny unavailable human maintenance authority until F03/F04. F10 still requires actual same-controller ready-new-UI-before-old-exit continuity with real ongoing work, signed R02 components and F03/F04 authority; R10 owns broader upgrades. This avoids adding an F02→F04/F10 dependency cycle while preserving full update acceptance. Windows remains an initial-release target; the native Schannel candidate requires Windows11+ qualification, not an inferred Electron Windows10 support promise. R02 retains clean signed no-developer-tool distribution on each declared Mac/Windows tuple.
+
+Current author session continues through packet/review fixes. Recommend a fresh author context only for separately authorized F02.1, arranged by coordinator; the founder need not create reviewers or select reversible engineering details.
 
 ## Human prerequisites
 

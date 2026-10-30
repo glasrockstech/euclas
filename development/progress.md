@@ -1,16 +1,16 @@
 # Current development state
 
-Date: 2026-10-30 Europe/Berlin. **F02 planning authorized and in progress on `codex/f02-plan`; F01 remains accepted.** Product app runtime and all118 product scenarios remain `not_run`. No F02 implementation is authorized.
+日期：2026-10-30 Europe/Berlin。**F02 規劃已授權，於 `codex/f02-plan` 進行；F01 維持接受。** 產品 runtime 與全部118個情境仍 `not_run`；未授權 F02 實作。
 
 ## Current F02 planning authorization and checkpoint
 
 創辦人明確授權 F02 **PLAN ONLY**：沿用已接受 F01a／F01b，準備最小 Electron／獨立 Supervisor／私有 IPC／單一 controller／退出與 crash recovery 切片封包、分解及驗收，安排精確來源獨立安全／復原審查，完成後由協調者驗證公開遠端狀態、push `codex/f02-plan` 並建立 draft PR。此授權僅在規劃及該分支 PR 範圍取代舊 F02／遠端排除；不授權實作或 main 整合。
 
-- Base `e8f21ab01b5f1883a7c45cbef581332b2d577cd9`; worktree `/Users/ckuo/orca/workspaces/euclas/f02-plan`; sole writer branch `codex/f02-plan`.
+- 基底 `e8f21ab01b5f1883a7c45cbef581332b2d577cd9`；工作樹 `/Users/ckuo/orca/workspaces/euclas/f02-plan`；唯一作者分支 `codex/f02-plan`。
 - Orca Run `run_965596ce1c6d`; Task `task_8007ecd7668d`; Dispatch `ctx_30ae761d1461`. 作者只改 Markdown；協調者負責來源研究、獨立 read-only reviewers 與最終遠端操作。
-- Allowed: local planning documents/commits, Orca contexts, read-only source/version checks and static JSON/link/owner/diff checks. Spending zero. No install/build/runtime/package/DB tests, native state change, existing DB/account/provider/credential access, global services, canonical JSON/source/manifests/scripts changes or product start. No author remote mutation.
-- Planning gates: P1 authorization/worktree **PASS** (clean branch at base); P2 owners/source facts **in progress**; P3 packet/slices/matrix **pending**; P4 exact-source independent security/recovery review **pending**; P5 pushed draft PR/handoff **pending**, coordinator-owned. These are planning gates, not product acceptance.
-- Accepted counts unchanged: plan2/28=7.1%, implementation1/27=3.7%, R1 0/101, roadmap0/17. F02 runtime `not_run`. Current author session continues through planning/review; implementation requires fresh explicit authorization and a new author context. Packet/evidence links will be added at freeze.
+- 允許：本機規劃文件／提交、Orca contexts、唯讀來源／版本及靜態 JSON／連結／owner／diff 檢查。支出0。禁止安裝／build／runtime／package／DB 測試、原生狀態改變、既有 DB／帳號／provider／憑證存取、全域服務、canonical JSON／source／manifest／script 變更與產品啟動；作者不做遠端 mutation。
+- 規劃關卡：P1 授權／工作樹 **PASS**（50539e6 checkpoint）；P2 owners／官方來源與資格限制 **PASS**；P3 封包／切片／矩陣與靜態檢查 **PASS**；P4 精確來源獨立安全／復原審查 **pending**；P5 push／draft PR／交接 **pending**（協調者負責）。目前3／5；這是規劃關卡，非產品驗收。
+- 已接受計數不變：plan2/28=7.1%、implementation1/27=3.7%、R1 0/101、roadmap0/17；F02 runtime `not_run`。本作者 session 繼續規劃／審查；實作須另行明確授權，建議新的作者 context。[Packet](f02.md)／[planning evidence](f02-evidence.md)／[下次 prompt](prompts.md#f02-plan-only-handoff)。
 
 ## Remote repository bootstrap authorization
 
@@ -34,7 +34,7 @@ Qualified development tuple: macOS27.0.1 arm64, Node26.13.0/native pnpm12.16.1, 
 
 Unique mode0700/0600 `.tools/f01b-runs/<id>` fixtures used fresh SCRAM, private Unix sockets (filename port55461), TCP disabled and bounded resources. Final coordinator exact-owned audit:13 retained failed author fixtures,0 main fixtures,0 holders/sockets/postmaster PID files across both workspaces; no task native children remain. Failed/unknown bytes and original keys were retained. Main tools543MiB+deps71MiB, author tools1071604KiB+deps71MiB, below5GiB combined; known source/checksum download22632404 bytes, historical registry metadata HTTP total not measured. Main added no network download. No general cleanup/reset/adoption operation exists.
 
-Orca Run `run_031592cbc65a`; sole author Task `task_fe9142d65f4f`/Dispatch `ctx_81304d850c40`, branch `codex/f01b-baseline`, worktree `/Users/ckuo/orca/workspaces/euclas/f01b-baseline`. All9 workers settled/released, transcripts captured, reclaimable list/inbox empty. Worktree/source/tools/failure evidence retained. Coordinator owns main status/plan/entry/review records; there is no active writer.
+Orca Run `run_031592cbc65a`; sole author Task `task_fe9142d65f4f`/Dispatch `ctx_81304d850c40`, branch `codex/f01b-baseline`, worktree `/Users/ckuo/orca/workspaces/euclas/f01b-baseline`. All9 workers settled/released, transcripts captured, reclaimable list/inbox empty. Worktree/source/tools/failure evidence retained. F01b has no active writer; the current F02 planning writer is registered above.
 
 ## Progress and next session
 
@@ -42,4 +42,4 @@ Orca Run `run_031592cbc65a`; sole author Task `task_fe9142d65f4f`/Dispatch `ctx_
 
 Current coordinator session can continue. For a separately selected/authorized next slice, recommend a new author context arranged by coordinator; founder need not manually create agent sessions. Read [plan](plan.md) and [handoff prompts](prompts.md). No F02 or provider/account work starts automatically. Communicate Traditional Chinese; normative technical documents/code docs English. Founder preference: always include one recommended copyable next prompt and an explicit session recommendation in replies; proposed prompts grant no authority until selected. Historical checkpoints: [F01b](history/f01b-progress-2026-10-30.md), [F01a](history/f01a-progress-2026-10-30.md); they are not current authority.
 
-Remote handoff: future functional slices use a codex/ branch, local required checks and exact-source independent review, then PR before main integration under that slice's explicit remote authority. Existing F01a/F01b are already merged; no retrospective empty PR is created. GitHub CI/branch protection has not been configured by this task. Product/node/scenario counts remain unchanged; no F02 starts. Current coordinator can continue; a fresh F02 author context is arranged only when that next scope is selected.
+Remote handoff: future functional slices use a codex/ branch, local required checks and exact-source independent review, then PR before main integration under that slice's explicit remote authority. Existing F01a/F01b are already merged; no retrospective empty PR is created. GitHub CI/branch protection has not been configured by this task. Product/node/scenario counts remain unchanged; only F02 planning is active under the bounded authority above. Current coordinator can continue; a fresh F02 implementation context is arranged only after explicit new authorization.

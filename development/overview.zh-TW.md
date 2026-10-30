@@ -1,6 +1,6 @@
 # Euclas 開發進度總覽
 
-更新：2026-10-30 20:33 Europe/Berlin。這是依 [plan.md](plan.md)、[progress.md](progress.md)、[驗收情境](../design/acceptance/scenarios.json)與[情境歸屬](scenario-owners.json)整理的進度檔，由協調者在實際關卡完成時更新；沒有背景自動監控。任務依賴以 plan 為準，實際授權與證據以 progress 為準。
+更新：2026-10-30 21:00 Europe/Berlin（F02 規劃分支 freeze checkpoint）。這是依 [plan.md](plan.md)、[progress.md](progress.md)、[驗收情境](../design/acceptance/scenarios.json)與[情境歸屬](scenario-owners.json)整理的進度檔，由協調者在實際關卡完成時更新；沒有背景自動監控。任務依賴以 plan 為準，實際授權與證據以 progress 為準。
 
 ## 現況
 
@@ -13,7 +13,23 @@
 
 不估算整體產品完成百分比、剩餘工時或交付日期。F01a／F01b 是 F01 子切片，不重複加入節點分母。任務新增、拆分或範圍改變時，記錄日期、原因及新分母；失敗、受阻或進行中不算通過。已驗收項目若被後續變更破壞，重新開啟並更新比例。
 
-**目前階段：F01b 已完成並整合 main；F01 已關閉。** F01a 工具環境已接受並整合 main；[實作證據](f01a-evidence.md)與[獨立審查](f01a-review.md)保留工具／檢查／限制。沿用現有契約測試與 build，不重做 F01a；產品尚不能啟動。
+**目前階段：F02 PLAN ONLY 規劃中；F01 已關閉並保持接受。** F01a 工具環境已接受並整合 main；[實作證據](f01a-evidence.md)與[獨立審查](f01a-review.md)保留工具／檢查／限制。沿用現有契約測試與 build，不重做 F01a；產品尚不能啟動。
+
+## F02 規劃關卡（非產品完成率）
+
+創辦人本輪只授權規劃、唯讀來源／版本查核、獨立安全／復原審查及協調者最終分支 push／draft PR；未授權安裝、啟動或實作。分支 `codex/f02-plan`、工作樹 `/Users/ckuo/orca/workspaces/euclas/f02-plan`、base `e8f21ab01b5f1883a7c45cbef581332b2d577cd9`；在此分支查看 [packet](f02.md)、[evidence](f02-evidence.md)與 [progress](progress.md)，不必先合併 main。
+
+**規劃已完成 3／5 關卡**；不增加上述 2／28、1／27、0／101、0／17，F02 runtime 仍 `not_run`。
+
+| 關卡 | 完成條件 | 狀態 |
+|---|---|---|
+| P1 | 本輪明確授權、精確 base／工作樹／唯一作者 | PASS：50539e6 已提交授權 checkpoint |
+| P2 | 既有 owners 與官方版本／原生 API 來源及資格限制 | PASS：官方來源／候選版本／原生機制與資格限制已整併 |
+| P3 | 最小首切片、後續順序、命令／狀態／故障矩陣 | PASS：最小首切片、六命令／狀態／故障矩陣及靜態檢查完成 |
+| P4 | 最終精確來源獨立安全／復原審查 | pending：本次提交後凍結，協調者安排精確來源審查 |
+| P5 | 協調者驗證遠端、push 分支／draft PR、交接 | pending：作者不執行遠端操作 |
+
+Session：本作者 context 繼續完成規劃及同切片審查修正；實作建議新 context，且須另行明確授權。下一步建議 prompt 見 [handoff](prompts.md#f02-plan-only-handoff)。
 
 ## F01b 資料庫基線
 
@@ -53,7 +69,7 @@
 |---|---|---|
 | F00 | 介面與 D01–D07 修正 | 文件層級已關閉；不代表 validator 或 runtime 合格 |
 | F01 | 工具鏈、共享契約、乾淨資料庫基線 | 已關閉：F01a／F01b 均獨立審查並在 main 重現；產品情境仍未執行 |
-| F02 | Electron／獨立 Supervisor 與原生啟停 | 未開始；依賴 F01 |
+| F02 | Electron／獨立 Supervisor 與原生啟停 | 規劃中；實作未開始、runtime not_run；依賴 F01 |
 | F03 | 正式 Account 身分證明 | 未開始；依賴 F01 |
 | F04 | 本地 owner／裝置／session admission | 未開始；依賴 F02、F03 |
 | F05 | 持續性助理與正式工作 | 未開始；依賴 F04，CP2 bootstrap／CP4 source packet 另須先審查 |
@@ -95,8 +111,8 @@ Git 遠端：[glasrockstech/euclas](https://github.com/glasrockstech/euclas)。�
 
 - F01b 精確來源 `ca41da8` 已本機整合 `5ffeae0`，27 個 feature 檔逐位元組一致；[作者證據](f01b-evidence.md)與[審查／main 重現](f01b-review.md)記錄全部修正、命令與限制。
 - Run `run_031592cbc65a` 的 9 個 workers 均釋放並保留 transcript；兩工作區已確認無測試鎖持有者、socket 或 postmaster PID 檔。保留作者 13 份私有失敗 fixture，main 0 份。
-- 保留 `codex/f01b-baseline` 工作樹 `/Users/ckuo/orca/workspaces/euclas/f01b-baseline` 及工具／失敗證據；F01a 工作樹與來源也保留。沒有 active writer。
-- Session：目前協調對話可繼續；下一個另行授權切片建議新的作者 context，由協調者安排。你不需要手動建立各代理 session。F01b 已停在交接點，未開始 F02。
+- 保留 `codex/f01b-baseline` 工作樹 `/Users/ckuo/orca/workspaces/euclas/f01b-baseline` 及工具／失敗證據；F01a 工作樹與來源也保留。目前 F02 規劃由上述工作樹唯一作者負責。
+- Session：目前協調對話可繼續；下一個另行授權切片建議新的作者 context，由協調者安排。你不需要手動建立各代理 session。F01b 已停在交接點；本輪僅開始 F02 規劃，未開始實作。
 - 每次里程碑回報均包含成果、分子／分母、檢查與限制、下一步及 session 建議。[Session 規則與接手 prompt](prompts.md#session-policy)。
 
 ## 更新責任
