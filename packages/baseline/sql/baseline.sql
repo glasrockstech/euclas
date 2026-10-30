@@ -60,7 +60,7 @@ DECLARE
 BEGIN
   IF session_user <> 'euclas_migration' THEN RAISE EXCEPTION 'denied' USING ERRCODE='42501'; END IF;
   SELECT auth.* INTO a FROM baseline.authority auth JOIN baseline.reader r USING(instance_id)
-    WHERE r.login=session_user FOR UPDATE OF auth;
+    WHERE r.login=session_user FOR UPDATE OF auth,r;
   IF NOT FOUND OR NOT a.active THEN RAISE EXCEPTION 'denied' USING ERRCODE='42501'; END IF;
   IF jsonb_typeof(p_request) IS DISTINCT FROM 'object' OR jsonb_typeof(payload) IS DISTINCT FROM 'object'
     OR jsonb_typeof(p_receipt) IS DISTINCT FROM 'object'

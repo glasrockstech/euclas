@@ -5,17 +5,26 @@ import { readFile } from 'node:fs/promises';
 import { spawnSync } from 'node:child_process';
 
 export const hash = (bytes: string | Buffer) => `sha256:${createHash('sha256').update(bytes).digest('hex')}`;
+const rootName = '資料 baseline';
 
 export async function fixture() {
   await mkdir('.tools/f01b-runs', { recursive: true, mode: 0o700 });
   for (const entry of await readdir('.tools/f01b-runs')) {
+    const previous = resolve('.tools/f01b-runs', entry);
+    if ((await readdir(join(previous, 's'))).some(name => name.startsWith('.s.PGSQL.'))) {
+      throw new Error('Previous owned fixture has socket residue; suite expansion blocked');
+    }
+    try {
+      await lstat(join(previous, rootName, 'staging/postmaster.pid'));
+      throw new Error('Previous owned fixture has PID residue; suite expansion blocked');
+    } catch (error) { if (!(error instanceof Error && 'code' in error && error.code === 'ENOENT')) throw error; }
     const previousLock = resolve('.tools/f01b-runs', entry, 'lock');
     try { await lstat(previousLock); }
     catch (error) { if (error instanceof Error && 'code' in error && error.code === 'ENOENT') continue; throw error; }
     assertNoLockHolders(previousLock);
   }
   const parent = await mkdtemp(resolve('.tools/f01b-runs/r-'));
-  const root = join(parent, '資料 baseline');
+  const root = join(parent, rootName);
   const socket = join(parent, 's');
   const secrets = join(parent, 'secrets');
   for (const path of [root, socket, secrets]) await mkdir(path, { mode: 0o700 });

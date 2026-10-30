@@ -105,13 +105,94 @@ await test('cleanup refuses a mismatched PID without killing the unrelated task-
       assert.equal(unrelated.signalCode, null);
       assert.equal(unrelated.exitCode, null);
     } finally {
-      await writeFile(pidPath, original);
-      stop(env);
-      unrelated.kill('SIGTERM');
-      await closed;
+      try {
+        await writeFile(pidPath, original);
+        stop(env);
+      } finally {
+        unrelated.kill('SIGTERM');
+        await closed;
+      }
     }
     passed = true;
   } finally { await f.cleanup(passed); }
+});
+
+await test('a reader revoked during a proven SQL lock wait cannot replay its receipt', async () => {
+  const f = await fixture();
+  const env = admit('https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_environment', f.environment);
+  const request = admit('https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_initialize_request', f.request);
+  let passed = false;
+  try {
+    const receipt = await initialize(request, env);
+    start(env);
+    const connection = (role: string) => {
+      const child = spawn(join(env.tool_prefix, 'bin/psql'), ['--no-psqlrc', '--no-password', '-qAt', '-v', 'ON_ERROR_STOP=1',
+        '-v', 'VERBOSITY=sqlstate', '-h', env.socket_path, '-p', '55461', '-U', role, '-d', 'postgres'],
+      { env: { PATH: '/usr/bin:/bin', LC_ALL: 'C', PGPASSFILE: join(env.secrets_path, `${role}.pgpass`) }, timeout: 15000 });
+      const done = once(child, 'close');
+      let output = '';
+      let error = '';
+      child.stdout.on('data', (chunk: Buffer) => { output += chunk.toString('utf8'); });
+      child.stderr.on('data', (chunk: Buffer) => { error += chunk.toString('utf8'); });
+      return { child, done, output: () => output, error: () => error };
+    };
+    const maintenance = connection('euclas_bootstrap');
+    const mutation = connection('euclas_migration');
+    try {
+      maintenance.child.stdin.write("BEGIN; DO $$ BEGIN PERFORM 1 FROM baseline.record FOR UPDATE; PERFORM 1 FROM baseline.reader WHERE login='euclas_migration' FOR UPDATE; END $$; SELECT 'held';\n");
+      while (!maintenance.output().includes('held\n')) await once(maintenance.child.stdout, 'data');
+      const digest = hash(canonical(request));
+      mutation.child.stdin.end(`SELECT pg_backend_pid(); SELECT baseline.apply(${literal(digest)},${literal(JSON.stringify(request))}::jsonb,${literal(JSON.stringify(receipt))}::jsonb,0);`);
+      while (!mutation.output().includes('\n')) await once(mutation.child.stdout, 'data');
+      const backend = admit('https://schemas.euclas.invalid/contracts/common.schema.json#/$defs/revision', Number(mutation.output().split('\n')[0]));
+      let waiting = false;
+      for (let attempt = 0; attempt < 100; attempt++) {
+        if (sql(env, 'euclas_bootstrap', `SELECT EXISTS(SELECT 1 FROM pg_locks WHERE pid=${String(backend)} AND NOT granted)`) === 't') { waiting = true; break; }
+        await new Promise(resolve => setTimeout(resolve, 10));
+      }
+      assert.equal(waiting, true, 'Mutation must actually wait on the maintenance-held SQL locks');
+      maintenance.child.stdin.end("DELETE FROM baseline.reader WHERE login='euclas_migration'; COMMIT;");
+      const maintenanceExit: unknown = (await maintenance.done)[0];
+      const mutationExit: unknown = (await mutation.done)[0];
+      assert.equal(maintenanceExit, 0);
+      assert.notEqual(mutationExit, 0, 'Revoked reader must not receive a response-loss replay');
+      assert.match(mutation.error(), /42501/);
+      assert.equal(sql(env, 'euclas_migration', 'SELECT count(*) FROM baseline.record'), '0');
+      assert.equal(sql(env, 'euclas_application', 'SELECT count(*) FROM baseline.record'), '1');
+      passed = true;
+    } finally {
+      try {
+        for (const session of [maintenance, mutation]) {
+          if (session.child.exitCode === null && session.child.signalCode === null) session.child.kill('SIGTERM');
+          await session.done;
+        }
+      } finally { stop(env); }
+    }
+  } finally { await f.cleanup(passed); }
+});
+
+await test('a live helper server without a gate blocks expansion until it is stopped', async () => {
+  const f = await fixture();
+  const env = admit('https://schemas.euclas.invalid/contracts/runtime.schema.json#/$defs/baseline_environment', f.environment);
+  let passed = false;
+  let unexpected: Awaited<ReturnType<typeof fixture>> | undefined;
+  try {
+    await initialize(f.request, env);
+    start(env);
+    try {
+      await assert.rejects(async () => { unexpected = await fixture(); }, /Previous owned fixture.*residue/);
+    } finally {
+      stop(env);
+    }
+    const next = await fixture();
+    await next.cleanup(true);
+    await writeFile(join(f.root, 'staging/postmaster.pid'), 'known synthetic PID residue\n', { mode: 0o600, flag: 'wx' });
+    await assert.rejects(async () => { unexpected = await fixture(); }, /Previous owned fixture.*PID residue/);
+    passed = true;
+  } finally {
+    try { if (unexpected) await unexpected.cleanup(true); }
+    finally { await f.cleanup(passed); }
+  }
 });
 
 const cuts: NonNullable<Cut>[] = ['before_journal', 'after_journal', 'before_initdb', 'after_initdb',

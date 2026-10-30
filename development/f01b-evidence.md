@@ -97,7 +97,7 @@ The native start call now lies inside try/finally. Cleanup verifies cluster syst
 
 Focused correction tests passed after the red cases; all failed private fixtures remain stopped and retained. Final corrected full command results, built smoke and fresh resource audit follow after execution.
 
-## Corrected final author verification
+## Second author verification (aab97ce; superseded by reader-mapping correction below)
 
 All commands below ran after P1/P2 source changes using the same isolated P prefix above:
 
@@ -117,3 +117,25 @@ Corrected built-public smoke (same `rtk proxy node --input-type=module -` entry)
 Fresh `.tools/qualification/corrected-owned-resource-audit.json` returned0: **11 retained private failed fixtures, zero lock holders, zero sockets, zero postmaster PID files**. All exact test children, including the deliberately unrelated-to-DB Node child, were stopped/reaped through their recorded handles; no task runtime remains active. C source/binary SHA-256 values remain the exact values recorded in the initial audit. Task `.tools`969MiB, node_modules71MiB, baseline package180KiB; resource ceilings remain intact. No additional public download, dependency, global configuration/service, existing DB/credential, F02, provider, remote Git or spend in this correction.
 
 `rtk git diff --check` returns0. Source is to be committed and frozen for fresh exact-head Standards and Spec/security/recovery re-review through a new coordinator blocking ask; initial80195ab review is not represented as corrected-source acceptance. All118 product scenarios remain `not_run`. Continue this same author session only for that review/correction gate; coordinator owns integration, reproduction and final milestone synthesis.
+
+## Reader-mapping revocation and fixture cleanup correction
+
+Frozen second head `aab97ce9d4a1db99ef5b408ec889697166720d4e` passed Standards. Independent Spec/security/recovery accepted the original P1/P2 source corrections but identified a further P2 mapping-revocation race (Task `task_c1794a70c8f8`, Dispatch `ctx_83ff726d5723`, receipt `msg_5e8fe6f8ffa3`). Coordinator returned NEEDS CHANGES through question `msg_31950cc5adc9`, then expressly included the author's two self-found fixture cleanup gaps (`msg_dd527743d291`). No integration/worker_done occurred.
+
+The new real-DB test first reproduced the race on unchanged source: a maintenance connection held record+reader row locks; an actual migration replay connection reported its backend PID; an observer query against that exact backend's pg_locks proved an ungranted lock wait. Maintenance deleted the protected migration reader mapping and committed. The old replay still exited0 and returned the receipt, failing the denied assertion; fixture `r-fSknWq` was stopped and retained. This is actual PostgreSQL18.6 counterexample evidence, not only an inferred executor snapshot issue.
+
+Minimum correction: `baseline.apply` now locks both authority and reader mapping (`FOR UPDATE OF auth,r`) for the transaction, matching the protected mapping requirement and inspection's existing locking. The exact same wait/revoke test now exits with SQLSTATE42501 after deletion; the revoked migration reader sees0 rows while the unchanged application reader still sees1. Existing allowed/concurrent identical replay/stale/conflicting cases remain in the full suite.
+
+The live-helper regression also went red: a harness-started real PostgreSQL held no initializer gate, and the old fixture guard created another fixture instead of refusing (`r-waTA6M`, stopped/retained; the unexpected empty registration was cleaned in test finally). The guard now checks prior registered socket and postmaster PID residue before gate holders; it only retains/blocks, never kills or deletes residue. The green test proves a live helper blocks registration, verified stop permits a fresh registration, and a deliberately written known synthetic PID residue independently blocks it again. Known synthetic fixture bytes are removed only by successful test cleanup after the real server/children stopped, not by product repair.
+
+Dummy-child kill/reap is now nested in an independent finally around fallible server/PID-file cleanup. The existing actual unrelated-child survival test remains green. Focused command `rtk proxy node --test --test-name-pattern='reader revoked|live helper server|cleanup refuses' packages/baseline/test/baseline.test.ts` passed3/3; the added PID-residue branch then passed the live-helper case again. Source/packet changes stay within the same F01b acceptance and add no dependency/public feature. Final full verification/audit follows.
+
+## Final author verification after reader-mapping correction
+
+After the latest source changes all required P-prefixed commands returned0: frozen offline scripts/pnpmfile-disabled install; contracts:check (628 roots, no writes); strict typecheck; zero-warning typed lint; contracts/native/baseline build; and full test **42/42 (31 F01b +11 F01a), zero fail/skip/todo,118,861ms**. The complete run includes all eight actual SIGKILL cuts, all prior P1/P2 regressions, the proven reader-revoke lock wait and independent live-helper/PID residue rejection. No assertion was weakened to obtain green.
+
+The actual built `@euclas/baseline` ESM/compiled cli.js smoke was rerun with a fresh fixture after this build: initialize original operation, deny SQL-unavailable inspection, allow inspection after only the trusted harness starts its owned server, then stop/cleanup. Exit0. `rtk git diff --check` returned0. The packet's current status now distinguishes accepted initial prerequisite, implemented author evidence and pending corrected-head review/integration instead of retaining an obsolete implementation-not_run heading.
+
+Fresh `.tools/qualification/mapping-corrected-owned-resource-audit.json` returned0: **13 retained failed fixtures, zero lock holders, zero sockets, zero postmaster PID files**; all recorded test children have exited/reaped. Source/binary C hashes remain exactly as recorded above. Actual disk usage: `.tools`1,071,604KiB, node_modules72,300KiB, baseline package188KiB, within5GiB; no additional network download/dependency/spend. Previous audits and failed fixtures are preserved rather than overwritten/reset.
+
+This final author source will be committed clean and frozen for independent exact-head Standards and Spec/security/recovery review before worker_done. The previous two reviewed heads are historical, not acceptance of this correction. No F02/product/provider/global-service/existing-data/remote action occurred; all118 product scenarios remain `not_run`. Coordinator alone owns main integration, independent reproduction and final milestone closure; this writer session remains available for that bounded review gate.
